@@ -1,0 +1,161 @@
+name: "Release Modpack"
+run-name: "Release ${{ github.ref_name }}"
+
+on:
+  push:
+    tags:
+      - "v*-shelf*"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: "[📦] Build & Release"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0 # need full tag history for the changelog diff
+
+      - name: Set up JDK
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5.7.0
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Resolve version and project metadata
+        id: meta
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="${GITHUB_REF_NAME#v}"        # strip an optional leading "v"
+          NAME=$(jq -r '.name' pakku.json)
+          echo "version=$VERSION"      >> "$GITHUB_OUTPUT"
+          echo "name=$NAME"            >> "$GITHUB_OUTPUT"
+          echo "full_name=$NAME-$VERSION" >> "$GITHUB_OUTPUT"
+          echo "✔️ Releasing $NAME-$VERSION"
+
+      - name: Reconstruct pinned parent modpack
+        shell: bash
+        run: |
+          set -euo pipefail
+          PARENT_URL=$(jq -r '.parent.id' pakku.json)
+          PARENT_COMMIT=$(jq -r '.parent.version' pakku.json)
+          if [ -z "$PARENT_URL" ] || [ "$PARENT_URL" = "null" ]; then
+            echo "❌ No parent configured in pakku.json" && exit 1
+          fi
+          echo "ℹ️ Cloning parent $PARENT_URL @ $PARENT_COMMIT"
+          rm -rf .pakku/parent
+          git clone --no-checkout "$PARENT_URL" .pakku/parent
+          git -C .pakku/parent checkout "$PARENT_COMMIT"
+          test -f .pakku/parent/pakku-lock.json || { echo "❌ parent pakku-lock.json missing" && exit 1; }
+          echo "✔️ Parent reconstructed at $PARENT_COMMIT"
+
+      - name: Inject release version
+        shell: bash
+        run: |
+          set -euo pipefail
+          jq --arg v '${{ steps.meta.outputs.version }}' '.version = $v' pakku.json > pakku.json.tmp
+          mv pakku.json.tmp pakku.json
+          echo "✔️ pakku.json version set to ${{ steps.meta.outputs.version }}"
+
+      - name: Cache Pakku downloads
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: build/.cache
+          key: pakku-cache-${{ hashFiles('pakku-lock.json') }}
+          restore-keys: pakku-cache-
+
+      - name: Export modpack
+        shell: bash
+        run: |
+          set -euo pipefail
+          # The fork ships its own build of Pakku (fork feature, PR juraj-hrivnak/Pakku#136).
+          java -jar pakku.jar export
+          echo "Exported artifacts:"
+          find build -maxdepth 2 -type f \( -name '*.zip' -o -name '*.mrpack' \) -not -path '*/.cache/*'
+
+      - name: Collect and rename artifacts
+        id: artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          FULL='${{ steps.meta.outputs.full_name }}'
+          mkdir -p dist
+          cp "build/curseforge/${FULL}.zip"     "dist/${FULL}-curseforge.zip"
+          cp "build/modrinth/${FULL}.mrpack"    "dist/${FULL}-modrinth.mrpack"
+          cp "build/serverpack/${FULL}.zip"     "dist/${FULL}-serverpack.zip"
+          echo "✔️ Collected:"
+          ls -lh dist
+
+      # The release notes keep two things strictly separate:
+      #   1. Upstream changelog, from the parent modpack's own
+      #      CHANGELOG.md (reconstructed at the pinned commit). This is the
+      #      upstream project's release notes, unchanged.
+      #   2. Fork mod changes, the diff of *our* pakku-lock.json
+      - name: Build release notes
+        id: changelog
+        shell: bash
+        run: |
+          set -euo pipefail
+          BODY_FILE="$(mktemp)"
+          PARENT_CHANGELOG=.pakku/parent/CHANGELOG.md # it's already there :D
+          if [ -f "$PARENT_CHANGELOG" ]; then
+            UPSTREAM_VER=$(grep -m1 -oE '^## \[[^]]+\]' "$PARENT_CHANGELOG" | sed -E 's/^## \[([^]]+)\]/\1/' || true)
+            {
+              echo "## Upstream Changes | TerraFirmaGreg-Modern ${UPSTREAM_VER}"
+              echo ""
+              echo "_Release notes from the parent modpack this fork tracks._"
+              echo ""
+              # First released version block (skips the "## Unreleased" heading,
+              # which the upstream changelog writes without [brackets]).
+              awk '/^## \[/ { b++; if (b==2) exit } b==1 { print }' "$PARENT_CHANGELOG"
+              echo ""
+            } >> "$BODY_FILE"
+          else
+            echo "_Upstream changelog unavailable (parent CHANGELOG.md not found)._" >> "$BODY_FILE"
+            echo "" >> "$BODY_FILE"
+          fi
+
+          {
+            echo "## Fork Changes"
+            echo ""
+          } >> "$BODY_FILE"
+          PREV_TAG=$(git describe --tags --abbrev=0 "${GITHUB_REF_NAME}^" 2>/dev/null || true)
+          if [ -n "$PREV_TAG" ] && git cat-file -e "${PREV_TAG}:pakku-lock.json" 2>/dev/null; then
+            git show "${PREV_TAG}:pakku-lock.json" > pakku-lock-prev.json
+            if java -jar pakku.jar diff -v --markdown PROJECTS_DIFF.md pakku-lock-prev.json pakku-lock.json && [ -s PROJECTS_DIFF.md ]; then
+              {
+                echo "Changes to the fork's mod layer since \`${PREV_TAG}\`:"
+                echo ""
+                cat PROJECTS_DIFF.md
+              } >> "$BODY_FILE"
+            else
+              echo "_No changes to the fork's mod layer since \`${PREV_TAG}\`._" >> "$BODY_FILE"
+            fi
+          else
+            echo "_Initial release of this fork's mod layer._" >> "$BODY_FILE"
+          fi
+
+          echo "path=$BODY_FILE" >> "$GITHUB_OUTPUT"
+          echo "----- release body -----"
+          cat "$BODY_FILE"
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228 # v3.0.2
+        with:
+          name: ${{ steps.meta.outputs.version }}
+          tag_name: ${{ github.ref_name }}
+          body_path: ${{ steps.changelog.outputs.path }}
+          files: |
+            dist/${{ steps.meta.outputs.full_name }}-curseforge.zip
+            dist/${{ steps.meta.outputs.full_name }}-modrinth.mrpack
+            dist/${{ steps.meta.outputs.full_name }}-serverpack.zip
+          fail_on_unmatched_files: true
+          token: ${{ secrets.GITHUB_TOKEN }}

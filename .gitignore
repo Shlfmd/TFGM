@@ -1,0 +1,8 @@
+.pakku/parent
+
+# From `pakku export`
+build/
+mods/
+exports/
+resourcepacks/
+shaderpacks/
