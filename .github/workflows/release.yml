@@ -162,9 +162,8 @@ jobs:
           ' pakku-lock.json >> "$BODY_FILE"
 
           # Neutralize @mentions so embedding the upstream changelog (or any mod
-          # metadata) can't tag maintainers/teams. `&#64;` renders as "@" but is
-          # not parsed as a mention by GitHub.
-          sed -E -i 's/@([A-Za-z0-9_-])/\&#64;\1/g' "$BODY_FILE"
+          # metadata) can't tag maintainers/teams.
+          sed -E -i 's/(^|[^A-Za-z0-9_`])@([A-Za-z0-9][A-Za-z0-9/_-]*)/\1`@\2`/g' "$BODY_FILE"
 
           echo "path=$BODY_FILE" >> "$GITHUB_OUTPUT"
           echo "----- release body -----"
