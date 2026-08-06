@@ -98,7 +98,9 @@ jobs:
       #   1. Upstream changelog, from the parent modpack's own
       #      CHANGELOG.md (reconstructed at the pinned commit). This is the
       #      upstream project's release notes, unchanged.
-      #   2. Fork mod changes, the diff of *our* pakku-lock.json
+      #   2. Fork mod changes, computed fresh each release as the delta of
+      #      *this fork's mod layer against the pinned parent*. The mods this
+      #      pack adds/removes/overrides relative to upstream.
       - name: Build release notes
         id: changelog
         shell: bash
@@ -126,22 +128,43 @@ jobs:
           {
             echo "## Fork Changes"
             echo ""
+            echo "_Mods this pack adds, overrides, or removes relative to TerraFirmaGreg-Modern._"
+            echo ""
           } >> "$BODY_FILE"
-          PREV_TAG=$(git describe --tags --abbrev=0 "${GITHUB_REF_NAME}^" 2>/dev/null || true)
-          if [ -n "$PREV_TAG" ] && git cat-file -e "${PREV_TAG}:pakku-lock.json" 2>/dev/null; then
-            git show "${PREV_TAG}:pakku-lock.json" > pakku-lock-prev.json
-            if java -jar pakku.jar diff -v --markdown PROJECTS_DIFF.md pakku-lock-prev.json pakku-lock.json && [ -s PROJECTS_DIFF.md ]; then
-              {
-                echo "Changes to the fork's mod layer since \`${PREV_TAG}\`:"
-                echo ""
-                cat PROJECTS_DIFF.md
-              } >> "$BODY_FILE"
-            else
-              echo "_No changes to the fork's mod layer since \`${PREV_TAG}\`._" >> "$BODY_FILE"
-            fi
-          else
-            echo "_Initial release of this fork's mod layer._" >> "$BODY_FILE"
-          fi
+
+          PARENT_LOCK=.pakku/parent/pakku-lock.json
+          # Slugs of parent projects dropped by the fork. `pakku fork exclude`
+          # records these in pakku.json; grab them wherever the key lives.
+          EXCLUDES=$(jq -c '[.. | objects | (.excludes? // empty)] | add // [] | unique' pakku.json)
+          # Delta of the fork layer vs. the pinned parent: additions are fork
+          # projects whose slug is absent from the parent, overrides share a
+          # slug with a parent project, removals come from the excludes above.
+          # XXX: jesus fucking christ lmao
+          jq -r \
+            --slurpfile parent "$PARENT_LOCK" \
+            --argjson excludes "$EXCLUDES" '
+            def slugs: [.slug | to_entries[].value];
+            def dn: (.name.modrinth // .name.curseforge // (.slug | to_entries[0].value) // "unknown");
+            ($parent[0].projects) as $pp
+            | ([$pp[] | slugs[]] | INDEX(.)) as $pset
+            | (reduce $pp[] as $p ({}; reduce ($p | slugs[]) as $s (.; .[$s] = ($p | dn)))) as $pname
+            | ([.projects[] | . as $f | {name: ($f | dn), dup: (any($f | slugs[]; in($pset)))}]) as $fork
+            | ([$fork[] | select(.dup | not)]) as $added
+            | ([$fork[] | select(.dup)]) as $overridden
+            | ([$excludes[] | {name: ($pname[.] // .)}]) as $removed
+            | (["### Added", ""]
+               + (if ($added | length) > 0 then ($added | sort_by(.name | ascii_downcase) | map("- \(.name)")) else ["_None._"] end)
+               + [""]
+               + (if ($overridden | length) > 0 then ["### Overridden", ""] + ($overridden | sort_by(.name | ascii_downcase) | map("- \(.name)")) + [""] else [] end)
+               + ["### Removed", ""]
+               + (if ($removed | length) > 0 then ($removed | sort_by(.name | ascii_downcase) | map("- \(.name)")) else ["_None._"] end))
+            | .[]
+          ' pakku-lock.json >> "$BODY_FILE"
+
+          # Neutralize @mentions so embedding the upstream changelog (or any mod
+          # metadata) can't tag maintainers/teams. `&#64;` renders as "@" but is
+          # not parsed as a mention by GitHub.
+          sed -E -i 's/@([A-Za-z0-9_-])/\&#64;\1/g' "$BODY_FILE"
 
           echo "path=$BODY_FILE" >> "$GITHUB_OUTPUT"
           echo "----- release body -----"
