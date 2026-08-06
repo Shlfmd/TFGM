@@ -1,0 +1,70 @@
+name: "Verify Fork Layer"
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  no-duplicate-mods:
+    name: "[🔎] No mods duplicated with parent"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up JDK
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5.7.0
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      # Same reconstruction the release uses: clone the parent fresh at the
+      # pinned commit rather than trusting a local .pakku/parent checkout.
+      - name: Reconstruct pinned parent modpack
+        shell: bash
+        run: |
+          set -euo pipefail
+          PARENT_URL=$(jq -r '.parent.id' pakku.json)
+          PARENT_COMMIT=$(jq -r '.parent.version' pakku.json)
+          if [ -z "$PARENT_URL" ] || [ "$PARENT_URL" = "null" ]; then
+            echo "❌ No parent configured in pakku.json" && exit 1
+          fi
+          echo "ℹ️ Cloning parent $PARENT_URL @ $PARENT_COMMIT"
+          rm -rf .pakku/parent
+          git clone --no-checkout "$PARENT_URL" .pakku/parent
+          git -C .pakku/parent checkout "$PARENT_COMMIT"
+          test -f .pakku/parent/pakku-lock.json || { echo "❌ parent pakku-lock.json missing" && exit 1; }
+          echo "✔️ Parent reconstructed at $PARENT_COMMIT"
+
+      # The fork layer must hold only genuine additions. Any slug (on either
+      # platform) that already exists in the parent lock is a duplicate.
+      - name: Check for mods shared with the parent
+        shell: bash
+        run: |
+          set -euo pipefail
+          DUPS=$(jq --slurpfile parent .pakku/parent/pakku-lock.json '
+            def slugs: [.slug | to_entries[].value];
+            def dn: (.name.modrinth // .name.curseforge // (.slug | to_entries[0].value) // "unknown");
+            ([$parent[0].projects[] | slugs[]] | INDEX(.)) as $pset
+            | [ .projects[]
+                | . as $f
+                | ($f | slugs | map(select(in($pset))) | unique) as $hits
+                | select(($hits | length) > 0)
+                | {name: ($f | dn), slugs: $hits} ]
+          ' pakku-lock.json)
+          COUNT=$(echo "$DUPS" | jq 'length')
+          if [ "$COUNT" -gt 0 ]; then
+            echo "❌ $COUNT mod(s) in the fork layer are already provided by the parent:"
+            echo "$DUPS" | jq -r '.[] | "  - \(.name) (\(.slugs | join(", ")))"'
+            echo ""
+            echo "Prune each with 'pakku rm <slug>'. If you mean to replace the"
+            echo "parent's copy, exclude it via 'pakku fork exclude <slug>' instead."
+            exit 1
+          fi
+          echo "✔️ No mods duplicated between parent and fork layer."
