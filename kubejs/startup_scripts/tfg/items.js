@@ -1,0 +1,103 @@
+// priority: 0
+"use strict";
+
+/**
+ * 
+ * @param {Registry.Item} event 
+ */
+const registerTFGItems = (event) => {
+
+	registerTFGFoodItems(event)
+	registerTFGPrimitiveItems(event);
+	registerTFGNuclearItems(event);
+	registerTFGWoodItems(event);
+	registerTFGAircraftItems(event);
+	registerTFGSpaceItems(event);
+	registerTFGDimensionMarkerItems(event);
+	registerTFGBiotechItems(event);
+	registerTFGWeaponItems(event);
+	registerTFGRockItems(event);
+	registerTFGAquaponicsItems(event);
+	registerTFGAsphaltRoadItems(event);
+
+	event.create('tfg:terra_firma_greg')
+		.tag('c:hidden_from_recipe_viewers')
+
+	// Electronics
+	event.create('tfg:unfinished_electron_tube', 'create:sequenced_assembly')
+	event.create('tfg:unfinished_vacuum_tube', 'create:sequenced_assembly')
+	event.create('tfg:unfinished_basic_electronic_circuit', 'create:sequenced_assembly')
+	event.create('tfg:unfinished_good_electronic_circuit', 'create:sequenced_assembly')
+	event.create('tfg:unfinished_inscriber_accumulation_press')
+	event.create('tfg:vitrified_pearl')
+	event.create('tfg:cryo_fluix_pearl')
+	event.create('tfg:uv_led')
+	event.create('tfg:smd_uv_led')
+	event.create('tfg:blue_alloy_desh_foil')
+	event.create('tfg:chorus_ceramic_insulation')
+	event.create('tfg:fired_chorus_ceramic_insulation')
+	event.create('tfg:steel_drill_head')
+
+	// Molds
+	global.TFG_EXTRUDER_MOLDS.forEach(id => event.create(id))
+	global.TFG_CASTING_MOLDS.forEach(id => event.create(id))
+
+	// Universal Circuits
+    event.create('tfg:ulv_universal_circuit')
+    event.create('tfg:lv_universal_circuit')
+    event.create('tfg:mv_universal_circuit')
+    event.create('tfg:hv_universal_circuit')
+    event.create('tfg:ev_universal_circuit')
+    event.create('tfg:iv_universal_circuit')
+    event.create('tfg:luv_universal_circuit')
+    event.create('tfg:zpm_universal_circuit')
+    event.create('tfg:uv_universal_circuit')
+    event.create('tfg:uhv_universal_circuit')
+	
+	// Add item for BTX Fuel
+	event.create('tfg:catalyser_pt_re_zsm')
+		.texture('tfg:item/btx/catalyser_zsm')
+
+	event.create('tfg:used_catalyser')
+		.texture('tfg:item/btx/used_catalyser')
+
+	event.create('tfg:loaded_resin')
+		.texture('tfg:item/btx/loaded_resin')
+
+	// Add New Ceramic Circuit Board
+
+	event.create('tfg:mo_activated_sic_substrate')
+		.texture('tfg:item/mo_activated_sic_substrate')
+	
+	event.create('tfg:copper_bonded_al2o3_pcb')
+		.texture('tfg:item/copper_bonded_al2o3_pcb')
+
+	event.create('tfg:chromium_bonded_beo_pcb')
+		.texture('tfg:item/chromium_bonded_beo_pcb')
+
+	// Add New Lenses Support
+
+	event.create('tfg:optical_borosilicate_blank')
+		.texture('tfg:item/optical_borosilicate_blank')
+
+	event.create('tfg:worked_optical_borosilicate_blank')
+		.texture('tfg:item/worked_optical_borosilicate_blank')
+		.tag('tfg:precision_fabricator_dipped_items')
+
+	// Prismatic Related Stuff (Spray Can)
+
+	event.create('tfg:chemical_prismatic_dye')
+		.texture('tfg:item/chemical_prismatic_dye')
+		.tag('forge:dyes/prismatic')
+
+	// Item for Garnet Line
+
+	event.create('tfg:garnet_fusion_clinker')
+		.texture('tfg:item/fusion_clinker')
+		.tag('forge:fusion_clinker/garnet')
+
+	event.create('tfg:al_cr_y_hydroxide_cake')
+		.texture('tfg:item/al_cr_y_hydroxide_cake')
+		.tag('forge:cake/al_cr_y_hydroxide')
+
+}

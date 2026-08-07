@@ -1,0 +1,33 @@
+{
+	"feature": "tfg:nether/surface/moss_patch_big",
+	"placement": [
+		{
+			"type": "minecraft:count",
+			"count": {
+				"type": "minecraft:uniform",
+				"value": {
+					"max_inclusive": 15,
+					"min_inclusive": 8
+				}
+			}
+		},
+		{
+			"type": "minecraft:height_range",
+			"height": {
+				"type": "minecraft:uniform",
+				"max_inclusive": {
+					"below_top": 6
+				},
+				"min_inclusive": {
+					"above_bottom": 70
+				}
+			}
+		},
+		{
+			"type": "minecraft:in_square"
+		},
+		{
+			"type": "minecraft:biome"
+		}
+	]
+}

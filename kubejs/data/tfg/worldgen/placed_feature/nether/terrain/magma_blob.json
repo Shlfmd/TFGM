@@ -1,0 +1,21 @@
+{
+	"feature": "tfg:nether/terrain/magma_blob",
+	"placement": [
+		{
+			"type": "minecraft:rarity_filter",
+			"chance": 5
+		},
+		{
+			"type": "minecraft:height_range",
+			"height": {
+				"type": "uniform",
+				"min_inclusive": {
+					"absolute": 27
+				},
+				"max_inclusive": {
+					"absolute": 36
+				}
+			}
+		}
+	]
+}

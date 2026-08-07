@@ -1138,43 +1138,6 @@
             ]
         },
         {
-            "pakku_id": "ZjJrLFfEDonWE3kL",
-            "type": "MOD",
-            "side": "BOTH",
-            "slug": {
-                "modrinth": "create_factory_logistics"
-            },
-            "name": {
-                "modrinth": "Create Factory Logistics"
-            },
-            "id": {
-                "modrinth": "QMGO17gm"
-            },
-            "files": [
-                {
-                    "type": "modrinth",
-                    "file_name": "create_factory_logistics-1.20.1-1.4.7.jar",
-                    "mc_versions": [
-                        "1.20.1"
-                    ],
-                    "loaders": [
-                        "forge"
-                    ],
-                    "release_type": "beta",
-                    "url": "https://cdn.modrinth.com/data/QMGO17gm/versions/cFuYsO3r/create_factory_logistics-1.20.1-1.4.7.jar",
-                    "id": "cFuYsO3r",
-                    "parent_id": "QMGO17gm",
-                    "hashes": {
-                        "sha512": "e00e615ee75f5b65e3aea3d513008ac6e09728df48a77c83acd1a776c1d8f3a0a09c3d20db87fe1b340a1a1ff6ef1a49b5d048a71eb73c602cfc263c2bfeb95c",
-                        "sha1": "bf67707d1645197f27cd9a4abea13159fa0fef1e"
-                    },
-                    "required_dependencies": [],
-                    "size": 1112673,
-                    "date_published": "2025-10-28T13:44:02.906156Z"
-                }
-            ]
-        },
-        {
             "pakku_id": "Ji0ArehHPzNOkCnM",
             "type": "MOD",
             "slug": {
@@ -1209,6 +1172,74 @@
                     ],
                     "size": 1029438,
                     "date_published": "2025-10-02T16:45:50.227Z"
+                }
+            ]
+        },
+        {
+            "pakku_id": "h91JpkOd7PzSuphT",
+            "pakku_links": [
+                "Nw8xTCQngHA15ilh"
+            ],
+            "type": "MOD",
+            "side": "BOTH",
+            "slug": {
+                "curseforge": "create-liquid-fuel",
+                "modrinth": "create-liquid-fuel"
+            },
+            "name": {
+                "curseforge": "Create: Liquid Fuel",
+                "modrinth": "Create: Liquid Fuel"
+            },
+            "id": {
+                "curseforge": "840734",
+                "modrinth": "sH9tXU9f"
+            },
+            "files": [
+                {
+                    "type": "curseforge",
+                    "file_name": "createliquidfuel-2.1.1-1.20.1.jar",
+                    "mc_versions": [
+                        "1.20.1"
+                    ],
+                    "loaders": [
+                        "neoforge",
+                        "forge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://edge.forgecdn.net/files/5217/310/createliquidfuel-2.1.1-1.20.1.jar",
+                    "id": "5217310",
+                    "parent_id": "840734",
+                    "hashes": {
+                        "sha1": "d216cf52735f8e4d3594943139599f6b0b20b8cf",
+                        "md5": "41d2472841c5dc5d43adc52b27b3123b"
+                    },
+                    "required_dependencies": [],
+                    "size": 20245,
+                    "date_published": "2024-03-28T06:32:19.517Z"
+                },
+                {
+                    "type": "modrinth",
+                    "file_name": "createliquidfuel-2.1.1-1.20.1.jar",
+                    "mc_versions": [
+                        "1.20",
+                        "1.20.1"
+                    ],
+                    "loaders": [
+                        "forge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://cdn.modrinth.com/data/sH9tXU9f/versions/SZfHDdfk/createliquidfuel-2.1.1-1.20.1.jar",
+                    "id": "SZfHDdfk",
+                    "parent_id": "sH9tXU9f",
+                    "hashes": {
+                        "sha512": "5dec0dbd9a5c1e6b06de5c60f5d5477a595ad6ddb762f67ea3379cc195fbee68d3be87f2bccfdeb60f6edbb4b029d54e2c8b7c0d3f3967d8f42587c77683d8d7",
+                        "sha1": "d216cf52735f8e4d3594943139599f6b0b20b8cf"
+                    },
+                    "required_dependencies": [
+                        "LNytGWDc"
+                    ],
+                    "size": 20245,
+                    "date_published": "2024-03-28T06:27:19.888846Z"
                 }
             ]
         },
@@ -3912,7 +3943,7 @@
                 "RicxdaxytJvUQEWF"
             ],
             "type": "MOD",
-            "side": "BOTH",
+            "side": "CLIENT",
             "slug": {
                 "curseforge": "tfc-caelum",
                 "modrinth": "tfc-caelum"
@@ -4541,6 +4572,7 @@
                 "3x2LlkyaVSkOlLrP"
             ],
             "type": "MOD",
+            "side": "CLIENT",
             "slug": {
                 "curseforge": "third-person-shooting"
             },
@@ -4725,7 +4757,7 @@
         {
             "pakku_id": "OhODWScUDHiLdmUz",
             "type": "MOD",
-            "side": "SERVER",
+            "side": "BOTH",
             "slug": {
                 "curseforge": "when-dungeons-arise",
                 "modrinth": "when-dungeons-arise"

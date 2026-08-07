@@ -1,0 +1,45 @@
+// priority: 0
+"use strict";
+
+/**
+ * 
+ * @param {Internal.RecipesEventJS} event 
+ */
+function registerMacawsForTFCRecipes(event) {
+	event.replaceInput({ mod: 'mcw_tfc_aio' }, 'minecraft:stick', '#forge:rods/wooden')
+	event.replaceInput({ mod: 'mcw_tfc_aio' }, 'minecraft:string', '#forge:string')
+	event.replaceInput({ mod: 'mcw_tfc_aio' }, 'minecraft:glass', '#forge:glass')
+	event.replaceInput({ mod: 'mcw_tfc_aio' }, 'minecraft:glass_pane', '#forge:glass_panes')
+	event.replaceInput({ mod: 'mcw_tfc_aio' }, 'tfc:metal/rod/wrought_iron', '#forge:rods/wrought_iron')
+	event.replaceInput({ mod: 'mcw_tfc_aio' }, 'tfc:metal/ingot/wrought_iron', '#forge:ingots/wrought_iron')
+	event.remove({ input: '@mcw_tfc_aio', type: 'gtceu:steam_boiler' })
+	event.remove({ input: '@mcw_tfc_aio', type: 'gtceu:large_boiler' })
+
+	global.TFC_WOOD_TYPES.forEach(wood => {
+		event.shaped(`8x mcw_tfc_aio:fences/${wood}_fences/${wood}_wired_fence`, [
+			'ABA',
+			'C C'
+		], {
+			A: '#forge:rods/wooden',
+			B: 'createaddition:barbed_wire',
+			C: `tfc:wood/log/${wood}`
+		}).id(`tfg:shaped/${wood}_wired_fence`)
+	})
+
+	event.shaped(`4x mcw_tfc_aio:fences/other_fences/hedge`, [
+		'BAB',
+		'BAB'
+	], {
+		A: '#forge:rods/wooden',
+		B: '#minecraft:leaves'
+	}).id(`tfg:shaped/mcw_tfc/hedge_fence_from_leaves`);
+
+	event.shaped('mcw_tfc_aio:pliers', [
+		' A ',
+		'B A',
+		' B '
+	], {
+		A: '#mcw_tfc_aio:metal_rods',
+		B: '#forge:rods/wooden'
+	}).id('mcw_tfc_aio:bridges/pliers')
+};

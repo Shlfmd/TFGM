@@ -1,0 +1,120 @@
+"use strict";
+
+function registerTFGEquipmentItemTags(event) {
+	
+	event.add('minecraft:trimmable_armor', 'create:copper_diving_helmet')
+	event.add('minecraft:trimmable_armor', 'create:copper_diving_boots')
+	event.add('minecraft:trimmable_armor', 'create:netherite_diving_helmet')
+	event.add('minecraft:trimmable_armor', 'create:netherite_diving_boots')
+    event.add('minecraft:trimmable_armor', 'tfcambiental:wool_hat')
+    event.add('minecraft:trimmable_armor', 'tfcambiental:wool_sweater')
+    event.add('minecraft:trimmable_armor', 'tfcambiental:wool_pants')
+    event.add('minecraft:trimmable_armor', 'tfcambiental:wool_boots')
+    event.add('minecraft:trimmable_armor', 'tfcambiental:silk_cowl')
+    event.add('minecraft:trimmable_armor', 'tfcambiental:silk_shirt')
+    event.add('minecraft:trimmable_armor', 'tfcambiental:silk_pants')
+    event.add('minecraft:trimmable_armor', 'tfcambiental:silk_shoes')
+    event.add('minecraft:trimmable_armor', 'tfcambiental:burlap_cowl')
+    event.add('minecraft:trimmable_armor', 'tfcambiental:burlap_shirt')
+    event.add('minecraft:trimmable_armor', 'tfcambiental:burlap_pants')
+    event.add('minecraft:trimmable_armor', 'tfcambiental:burlap_shoes')
+    event.add('minecraft:trimmable_armor', 'tfcambiental:insulated_leather_hat')
+    event.add('minecraft:trimmable_armor', 'tfcambiental:insulated_leather_tunic')
+    event.add('minecraft:trimmable_armor', 'tfcambiental:insulated_leather_pants')
+    event.add('minecraft:trimmable_armor', 'tfcambiental:insulated_leather_boots')
+    event.add('minecraft:trimmable_armor', '#firmalife:beekeeper_armor')
+
+	const textiles = [
+		"crocodile",
+		"caribou",
+		"polar_bear",
+		"cougar",
+		"tiger",
+		"panther",
+		"sabertooth",
+		"black_bear",
+		"grizzly_bear",
+		"direwolf",
+		"lion"
+	];
+	const parts = [
+		"hat", "shirt", "pants", "boots"
+	];
+	textiles.forEach(textile => {
+		parts.forEach(part => {
+			event.add('minecraft:trimmable_armor', `tfc_textile:${textile}_${part}`)
+		})
+	})
+
+	// tfc textile, why do these have to use 'socks' instead of 'boots'? you were so close
+	event.add('minecraft:trimmable_armor', 'tfc_textile:raw_hat')
+	event.add('minecraft:trimmable_armor', 'tfc_textile:raw_shirt')
+	event.add('minecraft:trimmable_armor', 'tfc_textile:raw_pants')
+	event.add('minecraft:trimmable_armor', 'tfc_textile:raw_socks')
+	event.add('minecraft:trimmable_armor', 'tfc_textile:linen_hat')
+	event.add('minecraft:trimmable_armor', 'tfc_textile:linen_shirt')
+	event.add('minecraft:trimmable_armor', 'tfc_textile:linen_pants')
+	event.add('minecraft:trimmable_armor', 'tfc_textile:linen_socks')
+
+	event.add('minecraft:freeze_immune_wearables', 'tfc:metal/helmet/red_steel')
+	event.add('minecraft:freeze_immune_wearables', 'tfc:metal/chestplate/red_steel')
+	event.add('minecraft:freeze_immune_wearables', 'tfc:metal/greaves/red_steel')
+	event.add('minecraft:freeze_immune_wearables', 'tfc:metal/boots/red_steel')
+	event.add('minecraft:freeze_immune_wearables', 'tfc_textile:caribou_hat')
+	event.add('minecraft:freeze_immune_wearables', 'tfc_textile:caribou_shirt')
+	event.add('minecraft:freeze_immune_wearables', 'tfc_textile:caribou_pants')
+	event.add('minecraft:freeze_immune_wearables', 'tfc_textile:caribou_boots')
+	event.add('minecraft:freeze_immune_wearables', 'tfc_textile:polar_bear_hat')
+	event.add('minecraft:freeze_immune_wearables', 'tfc_textile:polar_bear_shirt')
+	event.add('minecraft:freeze_immune_wearables', 'tfc_textile:polar_bear_pants')
+	event.add('minecraft:freeze_immune_wearables', 'tfc_textile:polar_bear_boots')
+	event.add('minecraft:freeze_immune_wearables', 'tfc_textile:direwolf_hat')
+	event.add('minecraft:freeze_immune_wearables', 'tfc_textile:direwolf_shirt')
+	event.add('minecraft:freeze_immune_wearables', 'tfc_textile:direwolf_pants')
+	event.add('minecraft:freeze_immune_wearables', 'tfc_textile:direwolf_boots')
+	event.add('minecraft:freeze_immune_wearables', 'tfc_textile:insulated_leather_hat')
+	event.add('minecraft:freeze_immune_wearables', 'tfc_textile:insulated_leather_tunic')
+	event.add('minecraft:freeze_immune_wearables', 'tfc_textile:insulated_leather_pants')
+	event.add('minecraft:freeze_immune_wearables', 'tfc_textile:insulated_leather_boots')
+	event.add('minecraft:freeze_immune_wearables', 'ad_astra:space_helmet')
+	event.add('minecraft:freeze_immune_wearables', 'ad_astra:space_suit')
+	event.add('minecraft:freeze_immune_wearables', 'ad_astra:space_pants')
+	event.add('minecraft:freeze_immune_wearables', 'ad_astra:space_boots')
+	event.add('minecraft:freeze_immune_wearables', 'ad_astra:netherite_space_helmet')
+	event.add('minecraft:freeze_immune_wearables', 'ad_astra:netherite_space_suit')
+	event.add('minecraft:freeze_immune_wearables', 'ad_astra:netherite_space_pants')
+	event.add('minecraft:freeze_immune_wearables', 'ad_astra:netherite_space_boots')
+	event.add('minecraft:freeze_immune_wearables', 'sns:hiking_boots')
+	event.add('minecraft:freeze_immune_wearables', 'sns:steel_toe_hiking_boots')
+	event.add('minecraft:freeze_immune_wearables', 'sns:black_steel_toe_hiking_boots')
+	event.add('minecraft:freeze_immune_wearables', 'sns:blue_steel_toe_hiking_boots')
+	event.add('minecraft:freeze_immune_wearables', 'sns:red_steel_toe_hiking_boots')
+
+    global.GTCEU_ARMORS.forEach((item) => {
+        event.add("minecraft:trimmable_armor", item);
+    });
+	
+	event.add('gtceu:ppe_armor', '#ad_astra:space_suit_items')
+	event.add('minecraft:trimmable_armor', '#ad_astra:space_suit_items')
+
+	event.add('ad_astra:space_resistant_armor', 'gtceu:quarktech_helmet')
+	event.add('ad_astra:space_resistant_armor', 'gtceu:quarktech_chestplate')
+	event.add('ad_astra:space_resistant_armor', 'gtceu:advanced_quarktech_chestplate')
+	event.add('ad_astra:space_resistant_armor', 'gtceu:quarktech_leggings')
+	event.add('ad_astra:space_resistant_armor', 'gtceu:quarktech_boots')
+
+	event.add('tfc:deals_crushing_damage', '#forge:tools/mining_hammers')
+	event.add('tfc:deals_crushing_damage', '#minecraft:shovels')
+	event.add('tfc:deals_crushing_damage', '#forge:tools/spades')
+	event.add('tfc:deals_crushing_damage', '#forge:tools/wrenches')
+	event.add('tfc:deals_slashing_damage', '#forge:tools/chainsaws')
+	event.add('tfc:deals_slashing_damage', '#forge:tools/saws')
+	event.add('tfc:deals_slashing_damage', '#forge:tools/butchery_knives')
+	event.add('tfc:deals_slashing_damage', '#forge:tools/files')
+	event.add('tfc:deals_piercing_damage', '#minecraft:pickaxes')
+	event.add('tfc:deals_piercing_damage', '#forge:tools/drills')
+	event.add('tfc:deals_piercing_damage', '#forge:tools/screwdrivers')
+	event.add('tfc:deals_piercing_damage', '#minecraft:hoes')
+	event.add('tfc:deals_piercing_damage', '#forge:tools/crowbars')
+	event.add('tfc:deals_piercing_damage', '#forge:tools/wire_cutters')
+}

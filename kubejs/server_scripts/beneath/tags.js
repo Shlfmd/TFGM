@@ -1,0 +1,66 @@
+"use strict";
+
+const registerBeneathItemTags = (event) => {
+
+	event.add("forge:raw_materials/cursecoal", "beneath:cursecoal")
+
+	event.add('forge:mushrooms', '#beneath:mushrooms')
+	
+	event.removeAll('beneath:sparks_on_sulfur')
+
+	event.add('tfc:firepit_kindling', 'beneath:crimson_straw')
+	event.add('tfc:firepit_kindling', 'beneath:warped_straw')
+	event.add('tfc:pit_kiln_straw', 'beneath:crimson_straw')
+	event.add('tfc:pit_kiln_straw', 'beneath:warped_straw')
+	
+	event.remove('minecraft:leaves', 'beneath:wood/leaves/crimson')
+	event.remove('minecraft:leaves', 'beneath:wood/leaves/warped')
+	event.add('tfg:do_not_destroy_in_space', 'beneath:wood/leaves/crimson')
+	event.add('tfg:do_not_destroy_in_space', 'beneath:wood/leaves/warped')
+	event.add('tfc:sewing_tables', 'beneath:wood/sewing_table/crimson')
+	event.add('tfc:sewing_tables', 'beneath:wood/sewing_table/warped')
+
+	event.add('tfg:softwood', 'beneath:wood/log/crimson')
+	event.add('tfg:softwood', 'beneath:wood/wood/crimson')
+	event.add('tfg:softwood', 'beneath:wood/stripped_log/crimson')
+	event.add('tfg:softwood', 'beneath:wood/stripped_wood/crimson')
+	event.add('tfg:stripped_softwood', 'beneath:wood/stripped_log/crimson')
+	event.add('tfg:stripped_softwood', 'beneath:wood/stripped_wood/crimson')
+	event.add('tfg:hardwood', 'beneath:wood/log/warped')
+	event.add('tfg:hardwood', 'beneath:wood/wood/warped')
+	event.add('tfg:hardwood', 'beneath:wood/stripped_log/warped')
+	event.add('tfg:hardwood', 'beneath:wood/stripped_wood/warped')
+	event.add('tfg:stripped_hardwood', 'beneath:wood/stripped_log/warped')
+	event.add('tfg:stripped_hardwood', 'beneath:wood/stripped_wood/warped')
+
+	event.add("tfg:rubber_plants", "beneath:gleamflower")
+	event.add("tfg:rubber_plants", "beneath:food/fools_funnel")
+
+	global.TFC_EQUIPMENT_METALS.forEach(metal => {
+		event.add("minecraft:hanging_signs", `beneath:wood/hanging_sign/${metal}/crimson`)
+		event.add("minecraft:hanging_signs", `beneath:wood/hanging_sign/${metal}/warped`)
+	})
+
+	event.add("tfc:support_beams", "beneath:wood/support/crimson")
+	event.add("tfc:support_beams", "beneath:wood/support/warped")
+}
+
+const registerBeneathBlockTags = (event) => {
+
+    event.add('tfc:can_landslide', 'beneath:soul_clay')
+
+	event.add('beneath:blackstone_decor', 'minecraft:blackstone');
+	event.remove('beneath:blackstone')
+
+	event.add('minecraft:mineable/pickaxe', 'beneath:ancient_altar');
+
+	event.remove('minecraft:leaves', 'beneath:wood/leaves/crimson')
+	event.remove('minecraft:leaves', 'beneath:wood/leaves/warped')
+	event.add('tfg:do_not_destroy_in_space', 'beneath:wood/leaves/crimson')
+	event.add('tfg:do_not_destroy_in_space', 'beneath:wood/leaves/warped')
+
+	global.TFC_EQUIPMENT_METALS.forEach(metal => {
+		event.add("minecraft:mineable/axe", `beneath:wood/hanging_sign/${metal}/crimson`)
+		event.add("minecraft:mineable/axe", `beneath:wood/hanging_sign/${metal}/warped`)
+	})
+}

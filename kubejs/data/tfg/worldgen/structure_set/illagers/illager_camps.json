@@ -1,0 +1,19 @@
+{
+	"structures": [
+		{
+			"structure": "tfg:illagers/camps",
+			"weight": 100
+		}
+	],
+	"placement": {
+		"type": "tfc:climate",
+		"salt": 96263635,
+		"spacing": 35,
+		"separation": 25,
+		"climate": {
+			"min_temperature": -12,
+			"max_temperature": 25,
+			"max_forest": "normal"
+		}
+	}
+}

@@ -2,7 +2,20 @@
     "name": "TFG-Modern",
     "version": "0.0.1",
     "overrides": [
-        "config"
+        "config",
+        "defaultconfigs",
+        "kubejs",
+        "tacz",
+        "!kubejs/.prettierrc",
+        "!kubejs/eslint.config.js",
+        "!kubejs/package-lock.json",
+        "!kubejs/package.json",
+        "!kubejs/tsconfig.json",
+        "!kubejs/probe/**",
+        "!kubejs/assets/**",
+        "!defaultconfigs/tfc-server.toml",
+        "!defaultconfigs/ftbranks/ranks.snbt",
+        "!config/ftbbackups2.json"
     ],
     "projects": {
         "caelum": {
@@ -18,6 +31,9 @@
             "side": "CLIENT"
         },
         "when-dungeons-arise": {
+            "side": "BOTH"
+        },
+        "create-liquid-fuel": {
             "side": "BOTH"
         }
     },

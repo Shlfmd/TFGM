@@ -1,0 +1,206 @@
+"use strict";
+
+function registerTFGMarsRecipes(event) {
+
+	// Mars air
+
+	event.recipes.gtceu.vacuum_freezer('tfg:liquid_mars_air')
+		.inputFluids(Fluid.of('tfg:mars_air', 4000))
+		.outputFluids(Fluid.of('tfg:liquid_mars_air', 4000))
+		.duration(80)
+		.EUt(GTValues.VA[GTValues.EV])
+
+	event.recipes.gtceu.centrifuge('tfg:centrifuge_mars_air')
+		.inputFluids(Fluid.of('tfg:mars_air', 10000))
+		.outputFluids(Fluid.of('gtceu:carbon_dioxide', 3900), Fluid.of('gtceu:nitrogen', 1000), Fluid.of('gtceu:argon', 500))
+		.duration(1600)
+		.EUt(GTValues.VA[GTValues.LV])
+
+	// TODO: move neon and xenon somewhere else
+	event.recipes.gtceu.distillation_tower('tfg:distill_liquid_mars_air')
+		.inputFluids(Fluid.of('tfg:liquid_mars_air', 100000))
+		.outputFluids(Fluid.of('gtceu:carbon_dioxide', 80000))
+		.outputFluids(Fluid.of('gtceu:nitrogen', 7000))
+		.outputFluids(Fluid.of('gtceu:argon', 5000))
+		.outputFluids(Fluid.of('gtceu:oxygen', 3000))
+		.outputFluids(Fluid.of('gtceu:krypton', 1000))
+		.outputFluids(Fluid.of('gtceu:neon', 1000))
+		.outputFluids(Fluid.of('gtceu:xenon', 1000))
+		.chancedOutput('gtceu:ammonium_chloride_dust', 2250, 0)
+		.disableDistilleryRecipes(true)
+		.duration(2000)
+		.EUt(GTValues.VA[GTValues.EV])
+
+	//#region Mars Water
+
+	event.recipes.gtceu.centrifuge('mars_heavy_water')
+		.inputFluids(Fluid.of('tfg:heavy_ammoniacal_water', 1000))
+		.outputFluids(Fluid.of('tfg:heavy_water', 500))
+		.itemOutputs('#forge:dusts/ammonium_chloride', '2x #forge:small_dusts/ammonium_chloride')
+		.duration(20*9)
+		.EUt(GTValues.VHA[GTValues.ULV])
+
+	event.recipes.gtceu.centrifuge('mars_semiheavy_water')
+		.inputFluids(Fluid.of('tfg:semiheavy_ammoniacal_water', 1000))
+		.outputFluids(Fluid.of('tfg:semiheavy_water', 500))
+		.itemOutputs('2x #forge:tiny_dusts/ammonium_chloride')
+		.duration(20*9)
+		.EUt(GTValues.VHA[GTValues.ULV])
+
+	event.recipes.vintageimprovements.centrifugation([Fluid.of('tfg:semiheavy_water', 500), '2x #forge:tiny_dusts/ammonium_chloride'], Fluid.of('tfg:semiheavy_ammoniacal_water', 1000))
+		.processingTime(200 * global.VINTAGE_IMPROVEMENTS_DURATION_MULTIPLIER)
+		.minimalRPM(32)
+		.id('tfg:vi/centrifuge_mars_semiheavy_water')
+
+	event.recipes.gtceu.distillery('mars_semiheavy_water')
+		.inputFluids(Fluid.of('tfg:semiheavy_ammoniacal_water', 1000))
+		.outputFluids(Fluid.of('minecraft:water', 250))
+		.duration(20*5)
+		.EUt(GTValues.VA[GTValues.LV])
+
+	event.recipes.vintageimprovements.vacuumizing(
+		[Fluid.of('minecraft:water', 250), Fluid.of('gtceu:ammonia', 250)],
+		Fluid.of('tfg:semiheavy_ammoniacal_water', 1000))
+		.secondaryFluidOutput(1)
+		.processingTime(300)
+		.heated()
+		.id('tfg:vacummizing/mars_water')
+
+	event.recipes.gtceu.fluid_heater('heat_mars_water_to_steam')
+		.inputFluids('tfg:semiheavy_ammoniacal_water 6')
+		.outputFluids('gtceu:steam 960')
+		.duration(30)
+		.EUt(GTValues.VA[GTValues.LV])
+
+	event.recipes.gtceu.fluid_heater('heat_semiheavy_water_to_steam')
+		.inputFluids('tfg:semiheavy_water 6')
+		.outputFluids('gtceu:steam 960')
+		.duration(30)
+		.EUt(GTValues.VA[GTValues.LV])
+
+	// Mars plants
+
+	event.recipes.gtceu.mixer('tfg:bio_glowstone')
+		.itemInputs('betterend:cave_pumpkin_chunks', '4x species:alphacene_mushroom_block')
+		.outputFluids(Fluid.of('gtceu:biomass', 100))
+		.itemOutputs('2x minecraft:glowstone_dust')
+		.duration(5 * 20)
+		.EUt(GTValues.VA[GTValues.EV])
+		.dimension('ad_astra:mars')
+
+	//Large Nest
+	event.shaped('tfg:large_nest_box',
+		[
+			'B B',
+			'ABA',
+			'AAA'
+		], {
+		A: 'beneath:crimson_thatch',
+		B: 'beneath:crimson_straw'
+	}).id('tfg:shaped_large_nest_crimson')
+
+	event.shaped('tfg:large_nest_box_warped',
+		[
+			'B B',
+			'ABA',
+			'AAA'
+		], {
+		A: 'beneath:warped_thatch',
+		B: 'beneath:warped_straw'
+	}).id('tfg:shaped_large_nest_warped')
+
+	// Animal stuff
+
+	event.shapeless('species:cracked_wraptor_egg', ['tfg:wraptor_egg', '#forge:tools/hammers']).id('tfg:shapeless/crack_egg')
+	event.shapeless('2x tfg:wraptor_sugar', ['species:cracked_wraptor_egg']).id('tfg:shapeless/juice_egg')
+
+	event.recipes.gtceu.extractor('tfg:juice_wraptor_egg_mv')
+		.itemInputs('species:cracked_wraptor_egg')
+		.itemOutputs('4x tfg:wraptor_sugar')
+		.duration(100)
+		.EUt(GTValues.VA[GTValues.MV])
+	event.recipes.gtceu.extractor('tfg:juice_wraptor_egg_full')
+		.itemInputs('tfg:wraptor_egg')
+		.itemOutputs('4x tfg:wraptor_sugar')
+		.duration(200)
+		.EUt(GTValues.VA[GTValues.MV])
+
+	event.recipes.gtceu.extractor('tfg:juice_sniffer_egg')
+		.itemInputs('tfg:sniffer_egg')
+		.outputFluids(Fluid.of('firmalife:cream', 1000))
+		.duration(100)
+		.EUt(GTValues.VA[GTValues.MV])
+
+	event.recipes.tfc.loom(
+		'8x ad_astra:glacian_fur',
+		'8x tfg:glacian_wool',
+		8,
+		'ad_astra:block/glacian_fur'
+	)
+
+	event.recipes.gtceu.assembler('tfg:assembler/glacian_fur')
+		.itemInputs('tfg:glacian_wool')
+		.circuit(10)
+		.itemOutputs('ad_astra:glacian_fur')
+		.duration(100)
+		.EUt(4)
+
+	event.recipes.tfc.damage_inputs_shapeless_crafting(
+		event.shapeless('8x tfc:wool_yarn', [			
+			'tfg:glacian_wool',
+			'#tfg:tools/spindles'
+		]).id('tfg:shapeless/glacian_wool_to_yarn'))
+
+	event.recipes.gtceu.wiremill('tfg:glacian_wool_yarn')
+		.itemInputs('tfg:glacian_wool')
+		.itemOutputs('8x tfc:wool_yarn')
+		.duration(100)
+		.EUt(4)
+
+	event.shaped('minecraft:pink_bed', [
+		'AAA',
+		'BBB'
+	], {
+		A: 'ad_astra:glacian_fur',
+		B: '#tfc:lumber'
+	}).id('tfg:shaped/glacian_bed')
+
+	event.recipes.firmalife.oven('betterend:cave_pumpkin_pie_raw', 400, 60 * 20, 'betterend:cave_pumpkin_pie')	
+	
+	// Mars primitive stuff
+
+	event.recipes.vintageimprovements.vacuumizing(
+		[Fluid.of('tfg:latex', 100), Fluid.of('gtceu:ammonia', 100)],
+		[Fluid.of('tfg:warpane', 100), Fluid.of('tfg:crimsene', 100)])
+		.secondaryFluidInput(1)
+		.secondaryFluidOutput(1)
+		.processingTime(1000)
+		.heated()
+		.id('tfg:vacuumizing/mars_latex')
+
+	event.recipes.tfc.heating('#tfg:charnia', 200)
+		.resultItem('3x tfc:powder/soda_ash')
+		.id('tfg:heating/charnia_to_soda')
+
+	event.smelting('3x tfc:powder/soda_ash', '#tfg:charnia').id('tfg:smelting/charnia_to_soda')
+
+	event.recipes.tfc.barrel_instant()
+		.inputs('#forge:dusts/zeolite', Fluid.of('tfg:semiheavy_ammoniacal_water', 1000))
+		.outputFluid(Fluid.of('minecraft:water', 1000))
+		.id('tfg:barrel_instant/zeolite_water_purification')
+	
+	event.recipes.tfc.barrel_instant()
+		.inputs('#forge:dusts/clay', Fluid.of('tfg:semiheavy_ammoniacal_water', 1000))
+		.outputFluid(Fluid.of('minecraft:water', 1000))
+		.id('tfg:barrel_instant/clay_water_purification')
+	
+	event.recipes.tfc.barrel_instant()
+		.inputs('#forge:dusts/kaolinite', Fluid.of('tfg:semiheavy_ammoniacal_water', 1000))
+		.outputFluid(Fluid.of('minecraft:water', 1000))
+		.id('tfg:barrel_instant/kaolin_water_purification')
+		
+	event.recipes.tfc.barrel_instant()
+		.inputs('#forge:dusts/perlite', Fluid.of('tfg:semiheavy_ammoniacal_water', 1000))
+		.outputFluid(Fluid.of('minecraft:water', 1000))
+		.id('tfg:barrel_instant/perlite_water_purification')
+}

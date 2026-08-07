@@ -1,0 +1,103 @@
+// priority: 0
+"use strict";
+
+const registerFirmaLifeItemTags = (event) => {
+    
+   
+    // Make our own "dried fruit" tag so we can display something in EMI - used for yeast starter
+    global.FOOD_FRUIT
+        .map(fruit => fruit.id)
+        .filter(fruit => fruit !== 'betterend:shadow_berry_cooked' && fruit !== 'minecraft:popped_chorus_fruit')
+        .forEach(fruit => event.add('tfg:dried_fruit', fruit))
+
+    event.add('tfc:fruit_tree_leaves', 'firmalife:plant/cocoa_leaves')
+    event.add('tfc:fruit_tree_leaves', 'firmalife:plant/fig_leaves')
+    event.add('minecraft:leaves', 'firmalife:plant/cocoa_leaves')
+    event.add('minecraft:leaves', 'firmalife:plant/fig_leaves')
+    event.add('minecraft:saplings', 'firmalife:plant/cocoa_sapling')
+    event.add('minecraft:saplings', 'firmalife:plant/fig_sapling')
+
+    event.add('tfc:clay_recycle_5', '#firmalife:clay_recycle_5')
+    event.add('tfg:oven_tops', 'firmalife:cured_oven_top')
+    event.add('tfg:oven_tops', 'firmalife:cured_rustic_oven_top')
+    event.add('tfg:oven_tops', 'firmalife:cured_tile_oven_top')
+    event.add('tfg:oven_tops', 'firmalife:cured_stone_oven_top')
+
+}
+
+const registerFirmaLifeBlockTags = (event) => {
+	
+	//greenhouse wall fixes
+	event.remove('firmalife:always_valid_greenhouse_wall', '#minecraft:doors')
+	event.remove('firmalife:always_valid_greenhouse_wall', '#minecraft:trapdoors')
+	
+	const greenhouse_tiers = [
+		'treated_wood',
+		'weathered_treated_wood',
+		'copper',
+		'exposed_copper',
+		'weathered_copper',
+		'oxidized_copper',
+		'iron',
+		'rusted_iron',
+		'stainless_steel'
+	]
+
+	greenhouse_tiers.forEach(tier => {
+		event.add('firmalife:always_valid_greenhouse_wall', `firmalife:${  tier  }_greenhouse_door`)
+		event.add('firmalife:always_valid_greenhouse_wall', `firmalife:${  tier  }_greenhouse_trapdoor`)
+		event.add('firmalife:always_valid_greenhouse_wall', `firmalife:${  tier  }_greenhouse_roof`)
+	})
+
+    //Allows any block with the word "brick" in its id to be used as oven insulation.
+    //Add blacklisted words to the const with | between.
+    const brick_blacklist = ('drying|additionalplacements');
+    event.add('firmalife:oven_insulation', `/^(?=.*brick)(?!.*(${brick_blacklist})).*/`);
+
+    event.add('firmalife:oven_insulation', 'firmalife:stovetop_pot');
+    event.add('firmalife:oven_insulation', 'firmalife:vat');
+
+    // tfg and a few missed(?) tfc flowers for bee restoration
+    event.add('firmalife:bee_restoration_plants', 'tfg:plant/azalea')
+    event.add('firmalife:bee_restoration_plants', 'tfg:plant/buttercup')
+    event.add('firmalife:bee_restoration_plants', 'tfg:plant/cornflower')
+	event.add('firmalife:bee_restoration_plants', 'tfg:plant/edelweiss')
+    event.add('firmalife:bee_restoration_plants', 'tfg:plant/eyeblossom')
+    event.add('firmalife:bee_restoration_plants', 'tfc:plant/rose')
+    event.add('firmalife:bee_restoration_plants', 'tfc:plant/hibiscus')
+    event.add('firmalife:bee_restoration_plants', 'tfg:plant/mountain_hullwort')
+    event.add('firmalife:bee_restoration_plants', 'tfg:plant/palash')
+    event.add('firmalife:bee_restoration_plants', 'tfg:plant/penwortel')
+    event.add('firmalife:bee_restoration_plants', 'tfg:plant/qantu')
+    event.add('firmalife:bee_restoration_plants', 'tfg:plant/ramirezella')
+    event.add('firmalife:bee_restoration_plants', 'tfg:plant/ramunda')
+    event.add('firmalife:bee_restoration_plants', 'tfg:plant/yellow_saxifrage')
+}
+
+const registerFirmaLifeFluidTags = (event) => {
+    
+    // Добавляем тег для скрытия в EMI
+    event.add('c:hidden_from_recipe_viewers', 'firmalife:metal/chromium')
+    event.add('c:hidden_from_recipe_viewers', 'firmalife:metal/stainless_steel')
+    event.add('c:hidden_from_recipe_viewers', 'firmalife:chocolate')
+    event.add('c:hidden_from_recipe_viewers', 'firmalife:fruity_fluid')
+
+    // Im going to leave these, but I dont think this tag does anything(?).
+    event.add('firmalife:mixable', 'tfc:spring_water')
+    event.add('firmalife:mixable', 'tfcchannelcasting:white_chocolate')
+    event.add('firmalife:mixable', 'tfcchannelcasting:milk_chocolate')
+    event.add('firmalife:mixable', 'tfcchannelcasting:dark_chocolate')
+    event.add('firmalife:mixable', 'afc:maple_syrup')
+    event.add('firmalife:mixable', 'afc:birch_syrup')
+
+    event.add('firmalife:oils', 'tfc:tallow')
+    event.add('firmalife:oils', 'gtceu:seed_oil')
+    event.add('firmalife:oils', 'gtceu:fish_oil')
+    event.add('firmalife:oils', 'tfg:triglyceride_oil')
+    event.add('firmalife:oils', 'tfg:peanut_oil')
+    event.add('firmalife:oils', 'tfg:palm_oil');
+
+    event.remove('tfc:milks', 'firmalife:coconut_milk');
+    event.remove('tfc:drinkables', 'firmalife:coconut_milk');
+    event.remove('tfc:any_drinkables', 'firmalife:coconut_milk');
+}

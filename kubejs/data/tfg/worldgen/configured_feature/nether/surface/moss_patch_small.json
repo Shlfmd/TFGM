@@ -1,0 +1,9 @@
+{
+	"type": "tfc:creeping_plant",
+	"config": {
+		"block": "tfc:plant/moss",
+		"height": 6,
+		"radius": 4,
+		"integrity": 0.2
+	}
+}
