@@ -4,6 +4,14 @@
     "overrides": [
         "config"
     ],
+    "projects": {
+        "caelum": {
+            "side": "BOTH"
+        },
+        "shoulder-surfing-reloaded": {
+            "side": "BOTH"
+        }
+    },
     "parent": {
         "id": "https://github.com/TerraFirmaGreg-Team/Modpack-Modern.git",
         "version": "a42f2c0e"
