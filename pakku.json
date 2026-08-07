@@ -6,10 +6,16 @@
     ],
     "projects": {
         "caelum": {
-            "side": "BOTH"
+            "side": "CLIENT"
         },
         "shoulder-surfing-reloaded": {
-            "side": "BOTH"
+            "side": "CLIENT"
+        },
+        "tfc-caelum": {
+            "side": "CLIENT"
+        },
+        "third-person-shooting": {
+            "side": "CLIENT"
         }
     },
     "parent": {
