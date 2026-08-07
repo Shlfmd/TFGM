@@ -16,6 +16,9 @@
         },
         "third-person-shooting": {
             "side": "CLIENT"
+        },
+        "when-dungeons-arise": {
+            "side": "BOTH"
         }
     },
     "parent": {
