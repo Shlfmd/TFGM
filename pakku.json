@@ -19,9 +19,6 @@
         },
         "when-dungeons-arise": {
             "side": "BOTH"
-        },
-        "create-liquid-fuel": {
-            "side": "BOTH"
         }
     },
     "parent": {
