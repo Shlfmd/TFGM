@@ -2,7 +2,8 @@
     "name": "TFG-Modern",
     "version": "0.0.1",
     "overrides": [
-        "config"
+        "config",
+        "kubejs"
     ],
     "server_overrides": [
         "config/DistantHorizons.toml"
