@@ -4,6 +4,13 @@
     "overrides": [
         "config"
     ],
+    "server_overrides": [
+        "config/DistantHorizons.toml"
+    ],
+    "client_overrides": [
+        "config",
+        "mods"
+    ],
     "projects": {
         "caelum": {
             "side": "CLIENT"
@@ -19,9 +26,12 @@
         },
         "when-dungeons-arise": {
             "side": "BOTH"
+        },
         "smartbrainlib": {
             "side": "BOTH"
         },
+        "create-liquid-fuel": {
+            "side": "BOTH"
         }
     },
     "parent": {

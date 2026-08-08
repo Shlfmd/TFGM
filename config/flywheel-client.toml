@@ -1,0 +1,6 @@
+backend = "DEFAULT"
+limitUpdates = true
+workerThreads = -1
+
+[flw_backends]
+lightSmoothness = "FLAT"
