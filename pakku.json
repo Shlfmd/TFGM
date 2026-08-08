@@ -19,6 +19,9 @@
         },
         "when-dungeons-arise": {
             "side": "BOTH"
+        "smartbrainlib": {
+            "side": "BOTH"
+        },
         }
     },
     "parent": {
