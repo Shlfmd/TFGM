@@ -26,8 +26,8 @@
     },
     "parent": {
         "id": "https://github.com/TerraFirmaGreg-Team/Modpack-Modern.git",
-        "version": "a42f2c0e"
+        "version": "3822f9ba"
     },
-    "parent_lock_hash": "5150715f103246ef4091632fe16047bd0841966ba59442672c65e96f1660fb6a",
+    "parent_lock_hash": "dd17e391d175115a804c018b11151509226dc2aa4ccad11d8e1bc7b7d1a9fd42",
     "parent_config_hash": "8d08beeeb9e30faeff88876eb02b2a86d229d04e98004841f257fe2cfa817300"
 }
