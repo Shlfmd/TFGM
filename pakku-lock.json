@@ -1983,69 +1983,6 @@
             ]
         },
         {
-            "pakku_id": "gIZmCqOnGOTscj7X",
-            "type": "MOD",
-            "side": "BOTH",
-            "slug": {
-                "curseforge": "dusty-decorations",
-                "modrinth": "dusty-decorations"
-            },
-            "name": {
-                "curseforge": "Dusty Decorations",
-                "modrinth": "Dusty Decorations"
-            },
-            "id": {
-                "curseforge": "843344",
-                "modrinth": "KgFOuaiZ"
-            },
-            "files": [
-                {
-                    "type": "curseforge",
-                    "file_name": "DustyDecorations_1.20.1Forge_V1.13.jar",
-                    "mc_versions": [
-                        "1.20.1"
-                    ],
-                    "loaders": [
-                        "forge"
-                    ],
-                    "release_type": "release",
-                    "url": "https://edge.forgecdn.net/files/7917/126/DustyDecorations_1.20.1Forge_V1.13.jar",
-                    "id": "7917126",
-                    "parent_id": "843344",
-                    "hashes": {
-                        "sha1": "e0611ef10f809f093c2ae8b91f2bf12739e73afa",
-                        "md5": "072b574cb3a94a5ef29f8f3b058af552"
-                    },
-                    "required_dependencies": [
-                        "388172"
-                    ],
-                    "size": 5074483,
-                    "date_published": "2026-04-12T18:30:04.150Z"
-                },
-                {
-                    "type": "modrinth",
-                    "file_name": "DustyDecorations_1.20.1Forge_V1.13.jar",
-                    "mc_versions": [
-                        "1.20.1"
-                    ],
-                    "loaders": [
-                        "forge"
-                    ],
-                    "release_type": "release",
-                    "url": "https://cdn.modrinth.com/data/KgFOuaiZ/versions/s8JOGf4d/DustyDecorations_1.20.1Forge_V1.13.jar",
-                    "id": "s8JOGf4d",
-                    "parent_id": "KgFOuaiZ",
-                    "hashes": {
-                        "sha512": "8bff0b08075ef7b283456aaf692ae594f3a95f14d40112d02050676c2b5be94d1106ccca7e70a64f367e95460bfee6facf6dcda523b523e7c56f605aacb031f6",
-                        "sha1": "e0611ef10f809f093c2ae8b91f2bf12739e73afa"
-                    },
-                    "required_dependencies": [],
-                    "size": 5074483,
-                    "date_published": "2026-04-12T18:31:16.597061Z"
-                }
-            ]
-        },
-        {
             "pakku_id": "Zfi1mDUHQJqVXcpq",
             "type": "MOD",
             "side": "BOTH",
