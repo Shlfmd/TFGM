@@ -2,20 +2,7 @@
     "name": "TFG-Modern",
     "version": "0.0.1",
     "overrides": [
-        "config",
-        "defaultconfigs",
-        "kubejs",
-        "tacz",
-        "!kubejs/.prettierrc",
-        "!kubejs/eslint.config.js",
-        "!kubejs/package-lock.json",
-        "!kubejs/package.json",
-        "!kubejs/tsconfig.json",
-        "!kubejs/probe/**",
-        "!kubejs/assets/**",
-        "!defaultconfigs/tfc-server.toml",
-        "!defaultconfigs/ftbranks/ranks.snbt",
-        "!config/ftbbackups2.json"
+        "config"
     ],
     "projects": {
         "caelum": {
