@@ -1946,6 +1946,71 @@
             ]
         },
         {
+            "pakku_id": "u1EzzSdhvvpP3N3g",
+            "type": "MOD",
+            "side": "BOTH",
+            "slug": {
+                "curseforge": "diagonal-fences",
+                "modrinth": "diagonal-fences"
+            },
+            "name": {
+                "curseforge": "Diagonal Fences",
+                "modrinth": "Diagonal Fences"
+            },
+            "id": {
+                "curseforge": "458048",
+                "modrinth": "IKARgflD"
+            },
+            "files": [
+                {
+                    "type": "curseforge",
+                    "file_name": "DiagonalFences-v8.1.5-1.20.1-Forge.jar",
+                    "mc_versions": [
+                        "1.20.1"
+                    ],
+                    "loaders": [
+                        "forge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://edge.forgecdn.net/files/5918/173/DiagonalFences-v8.1.5-1.20.1-Forge.jar",
+                    "id": "5918173",
+                    "parent_id": "458048",
+                    "hashes": {
+                        "sha1": "3c3266729f531939a9aba47e28fe910875a78755",
+                        "md5": "29bc8833f5d9b1edcb32617e16a9ec5e"
+                    },
+                    "required_dependencies": [
+                        "495476"
+                    ],
+                    "size": 182476,
+                    "date_published": "2024-11-18T23:22:19.017Z"
+                },
+                {
+                    "type": "modrinth",
+                    "file_name": "DiagonalFences-v8.1.5-1.20.1-Forge.jar",
+                    "mc_versions": [
+                        "1.20.1"
+                    ],
+                    "loaders": [
+                        "forge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://cdn.modrinth.com/data/IKARgflD/versions/6eK8RyWM/DiagonalFences-v8.1.5-1.20.1-Forge.jar",
+                    "id": "6eK8RyWM",
+                    "parent_id": "IKARgflD",
+                    "hashes": {
+                        "sha512": "53c274fba4c750f953fd44b9edbd78306e1bf6c480ae9cf54d93146200c16602d3d3fd51f803cee734987fe7f0389f4250df1ce0785256e5dc8d202d22c4c2af",
+                        "sha1": "3c3266729f531939a9aba47e28fe910875a78755"
+                    },
+                    "required_dependencies": [
+                        "QAGBst4M"
+                    ],
+                    "size": 182476,
+                    "date_published": "2024-11-18T23:22:23.162874Z"
+                }
+            ]
+        },
+        {
             "pakku_id": "DC4zEPYhbyPwmw84",
             "type": "MOD",
             "slug": {
@@ -2218,6 +2283,182 @@
             ]
         },
         {
+            "pakku_id": "A4m0mY2t08KqhZSQ",
+            "type": "RESOURCE_PACK",
+            "side": "CLIENT",
+            "slug": {
+                "curseforge": "fresh-animations",
+                "modrinth": "fresh-animations"
+            },
+            "name": {
+                "curseforge": "Fresh Animations",
+                "modrinth": "Fresh Animations"
+            },
+            "id": {
+                "curseforge": "453763",
+                "modrinth": "50dA9Sha"
+            },
+            "redistributable": false,
+            "files": [
+                {
+                    "type": "curseforge",
+                    "file_name": "FreshAnimations_v1.10.4.zip",
+                    "mc_versions": [
+                        "1.20.2",
+                        "1.20.5",
+                        "1.20.1",
+                        "1.20",
+                        "1.20.6",
+                        "1.20.4",
+                        "1.20.3"
+                    ],
+                    "release_type": "beta",
+                    "url": "https://edge.forgecdn.net/files/7670/377/FreshAnimations_v1.10.4.zip",
+                    "id": "7670377",
+                    "parent_id": "453763",
+                    "hashes": {
+                        "sha1": "73db740a6868e043c5e615c036fca2c912615b6e",
+                        "md5": "ab0e8cc3444e98f0fd51ac0d84533d52"
+                    },
+                    "required_dependencies": [],
+                    "size": 850941,
+                    "date_published": "2026-02-24T00:55:14.383Z"
+                },
+                {
+                    "type": "modrinth",
+                    "file_name": "FreshAnimations_v1.10.4.zip",
+                    "mc_versions": [
+                        "1.20",
+                        "1.20.1",
+                        "1.20.2",
+                        "1.20.3",
+                        "1.20.4",
+                        "1.20.5",
+                        "1.20.6",
+                        "1.21",
+                        "1.21.1",
+                        "1.21.2",
+                        "1.21.3",
+                        "1.21.4",
+                        "1.21.5",
+                        "1.21.6",
+                        "1.21.7",
+                        "1.21.8",
+                        "1.21.9",
+                        "1.21.10",
+                        "1.21.11"
+                    ],
+                    "loaders": [
+                        "minecraft"
+                    ],
+                    "release_type": "beta",
+                    "url": "https://cdn.modrinth.com/data/50dA9Sha/versions/xN57JJts/FreshAnimations_v1.10.4.zip",
+                    "id": "xN57JJts",
+                    "parent_id": "50dA9Sha",
+                    "hashes": {
+                        "sha512": "41258f9bea1a773d823f9a014d0c08206e9e7b339bc538e1538211fff28fadd06878a836d292cbb636ed6829cd2801a509368ae3eb3ad4bedf42190a0d5f7a90",
+                        "sha1": "73db740a6868e043c5e615c036fca2c912615b6e"
+                    },
+                    "required_dependencies": [],
+                    "size": 850941,
+                    "date_published": "2026-02-24T01:17:22.685658Z"
+                }
+            ]
+        },
+        {
+            "pakku_id": "JBTgug7aMnX3R9qV",
+            "pakku_links": [
+                "Mp1631QNLgLW4zAZ",
+                "J7whnkoZMhqCMjEJ"
+            ],
+            "type": "RESOURCE_PACK",
+            "side": "CLIENT",
+            "slug": {
+                "curseforge": "fa-player-extension",
+                "modrinth": "fa-player-extension"
+            },
+            "name": {
+                "curseforge": "Fresh Animations: Player Extension",
+                "modrinth": "Fresh Animations: Player Extension"
+            },
+            "id": {
+                "curseforge": "1281029",
+                "modrinth": "TAIMVZCL"
+            },
+            "files": [
+                {
+                    "type": "curseforge",
+                    "file_name": "FA+Player-v1.1.zip",
+                    "mc_versions": [
+                        "1.20.2",
+                        "1.20.5",
+                        "1.20.1",
+                        "1.20",
+                        "1.20.6",
+                        "1.20.4",
+                        "1.20.3"
+                    ],
+                    "release_type": "release",
+                    "url": "https://edge.forgecdn.net/files/8245/230/FA+Player-v1.1.zip",
+                    "id": "8245230",
+                    "parent_id": "1281029",
+                    "hashes": {
+                        "sha1": "122e397af111e3dc5fb6b60004aad9464980f13a",
+                        "md5": "8b7d38c1f46a1152e240cb91a95abf1a"
+                    },
+                    "required_dependencies": [
+                        "568563",
+                        "844662"
+                    ],
+                    "size": 110203,
+                    "date_published": "2026-06-14T02:15:44.367Z"
+                },
+                {
+                    "type": "modrinth",
+                    "file_name": "FA+Player-v1.1.zip",
+                    "mc_versions": [
+                        "1.20",
+                        "1.20.1",
+                        "1.20.2",
+                        "1.20.3",
+                        "1.20.4",
+                        "1.20.5",
+                        "1.20.6",
+                        "1.21",
+                        "1.21.1",
+                        "1.21.2",
+                        "1.21.3",
+                        "1.21.4",
+                        "1.21.5",
+                        "1.21.6",
+                        "1.21.7",
+                        "1.21.8",
+                        "1.21.9",
+                        "1.21.10",
+                        "1.21.11",
+                        "26.1",
+                        "26.1.1",
+                        "26.1.2",
+                        "26.2"
+                    ],
+                    "loaders": [
+                        "minecraft"
+                    ],
+                    "release_type": "release",
+                    "url": "https://cdn.modrinth.com/data/TAIMVZCL/versions/Wj7NeGjP/FA+Player-v1.1.zip",
+                    "id": "Wj7NeGjP",
+                    "parent_id": "TAIMVZCL",
+                    "hashes": {
+                        "sha512": "d2a5c46ae53e4bb6355604a1ade253ab49f1deb205f5ee69085014965241d3c9623204951ab174a5dbdaf24d9b25ecae9a1638cc6a13d780b398a6d70d157a4e",
+                        "sha1": "122e397af111e3dc5fb6b60004aad9464980f13a"
+                    },
+                    "required_dependencies": [],
+                    "size": 110203,
+                    "date_published": "2026-06-14T02:18:05.079369Z"
+                }
+            ]
+        },
+        {
             "pakku_id": "OF2sr2obHDzESJ79",
             "type": "MOD",
             "side": "SERVER",
@@ -2277,6 +2518,67 @@
                     "required_dependencies": [],
                     "size": 7863,
                     "date_published": "2023-06-10T18:01:17.003071Z"
+                }
+            ]
+        },
+        {
+            "pakku_id": "3ZwSRLuEilbuNk0s",
+            "type": "MOD",
+            "side": "CLIENT",
+            "slug": {
+                "curseforge": "gnetum",
+                "modrinth": "gnetum"
+            },
+            "name": {
+                "curseforge": "Gnetum",
+                "modrinth": "Gnetum"
+            },
+            "id": {
+                "curseforge": "1220460",
+                "modrinth": "7MoE34WK"
+            },
+            "files": [
+                {
+                    "type": "curseforge",
+                    "file_name": "gnetum-2.5.0+1.20.1-forge.jar",
+                    "mc_versions": [
+                        "1.20.1"
+                    ],
+                    "loaders": [
+                        "forge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://edge.forgecdn.net/files/8519/281/gnetum-2.5.0+1.20.1-forge.jar",
+                    "id": "8519281",
+                    "parent_id": "1220460",
+                    "hashes": {
+                        "sha1": "bbee09bbcf6500497eead39c585046a737c1866e",
+                        "md5": "1b99b376458ccaee0ecc63c3c82ee634"
+                    },
+                    "required_dependencies": [],
+                    "size": 732296,
+                    "date_published": "2026-07-27T10:18:10.397Z"
+                },
+                {
+                    "type": "modrinth",
+                    "file_name": "gnetum-2.5.0+1.20.1-forge.jar",
+                    "mc_versions": [
+                        "1.20.1"
+                    ],
+                    "loaders": [
+                        "forge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://cdn.modrinth.com/data/7MoE34WK/versions/p5JeCmwz/gnetum-2.5.0+1.20.1-forge.jar",
+                    "id": "p5JeCmwz",
+                    "parent_id": "7MoE34WK",
+                    "hashes": {
+                        "sha512": "d1038dfdb33a393ec2fc6fc195974bbe8d324b2bc3f4c6f6f818c2d77604a34edd28a52b1bad2edb1176155995c518b3505e20f0ad2004690c383e286b31ab3b",
+                        "sha1": "bbee09bbcf6500497eead39c585046a737c1866e"
+                    },
+                    "required_dependencies": [],
+                    "size": 732296,
+                    "date_published": "2026-07-27T10:17:56.322857Z"
                 }
             ]
         },
@@ -2618,6 +2920,73 @@
                     "required_dependencies": [],
                     "size": 12615396,
                     "date_published": "2025-12-27T08:18:58.690542Z"
+                }
+            ]
+        },
+        {
+            "pakku_id": "aHrG3Iv0g4KAjHNk",
+            "type": "MOD",
+            "side": "CLIENT",
+            "slug": {
+                "curseforge": "invmove",
+                "modrinth": "invmove"
+            },
+            "name": {
+                "curseforge": "InvMove",
+                "modrinth": "InvMove"
+            },
+            "id": {
+                "curseforge": "581854",
+                "modrinth": "REfW2AEX"
+            },
+            "files": [
+                {
+                    "type": "curseforge",
+                    "file_name": "InvMove-0.9.3+1.20.1-Forge.jar",
+                    "mc_versions": [
+                        "1.20.1",
+                        "1.20"
+                    ],
+                    "loaders": [
+                        "forge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://edge.forgecdn.net/files/7418/952/InvMove-0.9.3+1.20.1-Forge.jar",
+                    "id": "7418952",
+                    "parent_id": "581854",
+                    "hashes": {
+                        "sha1": "5ce261a448fb8417a40429bae9dc634d0cd0b1d5",
+                        "md5": "55f6bdd0218d14ca0f1cdba6fd429f54"
+                    },
+                    "required_dependencies": [
+                        "348521"
+                    ],
+                    "size": 270522,
+                    "date_published": "2026-01-04T23:33:45.267Z"
+                },
+                {
+                    "type": "modrinth",
+                    "file_name": "InvMove-0.9.3+1.20.1-Forge.jar",
+                    "mc_versions": [
+                        "1.20",
+                        "1.20.1"
+                    ],
+                    "loaders": [
+                        "forge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://cdn.modrinth.com/data/REfW2AEX/versions/RLzFQg0l/InvMove-0.9.3+1.20.1-Forge.jar",
+                    "id": "RLzFQg0l",
+                    "parent_id": "REfW2AEX",
+                    "hashes": {
+                        "sha512": "ce0eb2fc9e1e51641f9fd763602d92e3014a452263ed41ad6a8ecda5670c036c80e834338dd9e0a1adf23ec6ccf23f29827ac4896b85257d4ccf7789f3cb4541",
+                        "sha1": "5ce261a448fb8417a40429bae9dc634d0cd0b1d5"
+                    },
+                    "required_dependencies": [
+                        "9s6osm5g"
+                    ],
+                    "size": 270522,
+                    "date_published": "2026-01-04T23:33:46.803253Z"
                 }
             ]
         },
@@ -4715,6 +5084,111 @@
                     "required_dependencies": [],
                     "size": 370524,
                     "date_published": "2024-09-30T06:13:58.953111Z"
+                }
+            ]
+        },
+        {
+            "pakku_id": "J7whnkoZMhqCMjEJ",
+            "type": "MOD",
+            "side": "CLIENT",
+            "slug": {
+                "curseforge": "entity-model-features",
+                "modrinth": "entity-model-features"
+            },
+            "name": {
+                "curseforge": "[EMF] Entity Model Features [Fabric & Forge]",
+                "modrinth": "[EMF] Entity Model Features"
+            },
+            "id": {
+                "curseforge": "844662",
+                "modrinth": "4I1XuqiY"
+            },
+            "files": [
+                {
+                    "type": "curseforge",
+                    "file_name": "entity_model_features-3.2.4-1.20.1-forge.jar",
+                    "mc_versions": [
+                        "1.20.1",
+                        "1.20"
+                    ],
+                    "loaders": [
+                        "forge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://edge.forgecdn.net/files/8063/556/entity_model_features-3.2.4-1.20.1-forge.jar",
+                    "id": "8063556",
+                    "parent_id": "844662",
+                    "hashes": {
+                        "sha1": "535a94543d295f9609808a7e3e205d17547570bc",
+                        "md5": "23e5601dd7e6e2ffab26179e4f5cabeb"
+                    },
+                    "required_dependencies": [
+                        "568563"
+                    ],
+                    "size": 752458,
+                    "date_published": "2026-05-09T15:21:38.747Z"
+                },
+                {
+                    "type": "modrinth",
+                    "file_name": "entity_model_features-3.2.4-1.20.1-forge.jar",
+                    "mc_versions": [
+                        "1.20",
+                        "1.20.1"
+                    ],
+                    "loaders": [
+                        "forge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://cdn.modrinth.com/data/4I1XuqiY/versions/VSBDdOOY/entity_model_features-3.2.4-1.20.1-forge.jar",
+                    "id": "VSBDdOOY",
+                    "parent_id": "4I1XuqiY",
+                    "hashes": {
+                        "sha512": "77ca53e926822faa5069d3698618c5ee5cd01c6154e383820a989e15a0ad135ebf63c741137a39559f80b62a8a860487058ed168c25a4d840e84b248d4afa7a7",
+                        "sha1": "535a94543d295f9609808a7e3e205d17547570bc"
+                    },
+                    "required_dependencies": [
+                        "BVzZfTc1"
+                    ],
+                    "size": 752458,
+                    "date_published": "2026-05-09T15:21:40.209291Z"
+                }
+            ]
+        },
+        {
+            "pakku_id": "Mp1631QNLgLW4zAZ",
+            "type": "MOD",
+            "slug": {
+                "curseforge": "entity-texture-features-fabric"
+            },
+            "name": {
+                "curseforge": "[ETF] Entity Texture Features - [Fabric & Forge]"
+            },
+            "id": {
+                "curseforge": "568563"
+            },
+            "files": [
+                {
+                    "type": "curseforge",
+                    "file_name": "entity_texture_features_1.20.1-forge-7.1.jar",
+                    "mc_versions": [
+                        "1.20.1",
+                        "1.20"
+                    ],
+                    "loaders": [
+                        "forge",
+                        "neoforge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://edge.forgecdn.net/files/7930/617/entity_texture_features_1.20.1-forge-7.1.jar",
+                    "id": "7930617",
+                    "parent_id": "568563",
+                    "hashes": {
+                        "sha1": "e13ba95a0388d7d5b1f479e5bd7e2df78e4c4a23",
+                        "md5": "bb8a57f4e9965654c344854fb45dd540"
+                    },
+                    "required_dependencies": [],
+                    "size": 944851,
+                    "date_published": "2026-04-15T13:06:13.907Z"
                 }
             ]
         },
