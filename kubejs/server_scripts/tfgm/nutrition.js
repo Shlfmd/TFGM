@@ -31,24 +31,31 @@ function foods(namespace, paths, nutrients, decay) {
     });
 }
 
-const G = [1, 0, 0, 0, 0];
-const F = [0, 1, 0, 0, 0];
+// Parent-scale base portions. These are not category flags: they are the
+// quantities used by TFC food data for a normal cooked grain, berry/fruit,
+// vegetable, raw red-meat portion, and minor dairy ingredient respectively.
+const G = [1.5, 0, 0, 0, 0];
+const F = [0, 0.75, 0, 0, 0];
 const V = [0, 0, 1, 0, 0];
-const P = [0, 0, 0, 1, 0];
-const D = [0, 0, 0, 0, 1];
-const GV = [1, 0, 1, 0, 0];
-const GP = [1, 0, 0, 1, 0];
-const GD = [1, 0, 0, 0, 1];
-const GF = [1, 1, 0, 0, 0];
-const FD = [0, 1, 0, 0, 1];
-const VP = [0, 0, 1, 1, 0];
-const VD = [0, 0, 1, 0, 1];
-const GVP = [1, 0, 1, 1, 0];
-const GPD = [1, 0, 0, 1, 1];
-const GVD = [1, 0, 1, 0, 1];
-const GFD = [1, 1, 0, 0, 1];
-const GVPD = [1, 0, 1, 1, 1];
+const P = [0, 0, 0, 2, 0];
+const D = [0, 0, 0, 0, 0.5];
+const GV = [1.5, 0, 1, 0, 0];
+const GP = [1.5, 0, 0, 2, 0];
+const GD = [1.5, 0, 0, 0, 0.5];
+const GF = [1.5, 0.75, 0, 0, 0];
+const FD = [0, 0.75, 0, 0, 0.5];
+const VP = [0, 0, 1, 2, 0];
+const VD = [0, 0, 1, 0, 0.5];
+const GVP = [1.5, 0, 1, 2, 0];
+const GPD = [1.5, 0, 0, 2, 0.5];
+const GVD = [1.5, 0, 1, 0, 0.5];
+const GFD = [1.5, 0.75, 0, 0, 0.5];
+const GVPD = [1.5, 0, 1, 2, 0.5];
 const NONE = [0, 0, 0, 0, 0];
+// Farmer's Delight's honey-glazed ham is a fourteen-hunger feast, crafted
+// from two cooked-rice portions, four sweet berries, and a smoked ham. It is
+// intentionally not represented by the generic single-protein profile.
+const HONEY_GLAZED_HAM = [2, 3, 0, 5, 0];
 
 // Farmer's Delight and its direct addons.
 foods(
@@ -123,6 +130,29 @@ foods("farmersdelight", "pumpkin_pie_slice", GVD, 1.5);
 foods("farmersdelight", "glow_berry_custard", FD, 1.5);
 foods("farmersdelight", "sweet_berry_cookie", GF, 1.5);
 foods("farmersdelight", "honey_cookie", G, 1.5);
+foods("farmersdelight", "honey_glazed_ham", HONEY_GLAZED_HAM, 2.25);
+
+// Parent-scale equivalents for Farmer's Delight ingredients. Raw and cooked
+// cuts deliberately use the corresponding TFC meat values instead of the
+// generic category marker used by the preliminary bridge above.
+foods("farmersdelight", "minced_beef beef_patty", [0, 0, 0, 2, 0], 2);
+foods("farmersdelight", "chicken_cuts bacon mutton_chops", [0, 0, 0, 1.5, 0], 3);
+foods("farmersdelight", "cod_slice salmon_slice", [0, 0, 0, 1, 0], 3);
+foods("farmersdelight", "cooked_chicken_cuts cooked_bacon cooked_mutton_chops", [0, 0, 0, 2.5, 0], 2.25);
+foods("farmersdelight", "cooked_cod_slice cooked_salmon_slice", [0, 0, 0, 2, 0], 2.25);
+foods("farmersdelight", "ham", [0, 0, 0, 3, 0], 2);
+foods("farmersdelight", "smoked_ham", [0, 0, 0, 5, 0], 1.5);
+foods("farmersdelight", "fried_egg", [0, 0, 0, 1.5, 0.25], 4);
+foods("farmersdelight", "cooked_rice", [1, 0, 0, 0, 0], 1);
+foods("farmersdelight", "cabbage", [0, 0, 1, 0, 0], 1.2);
+foods("farmersdelight", "cabbage_leaf", [0, 0, 0.5, 0, 0], 1.2);
+foods("farmersdelight", "onion", [0, 0, 1, 0, 0], 0.5);
+foods("farmersdelight", "tomato", [0, 0, 1.5, 0, 0], 3.5);
+foods("farmersdelight", "tomato_sauce", [0, 0, 3, 0, 0], 3.5);
+foods("farmersdelight", "pumpkin_slice", [0, 0.75, 0, 0, 0], 1.5);
+foods("farmersdelight", "milk_bottle", [0, 0, 0, 0, 0.375], 1.5);
+foods("farmersdelight", "rice raw_pasta wheat_dough pie_crust", NONE, 2);
+foods("farmersdelight", "fruit_salad", [0, 4.75, 0, 0, 0], 1.5);
 
 foods("moredelight", "bread_slice toast", G, 2);
 foods("moredelight", "toast_with_honey", G, 1.5);
@@ -209,6 +239,8 @@ foods(
 );
 foods("aquaculture", "sushi", GP, 1.75);
 foods("aquaculture", "turtle_soup", VP, 2);
+foods("aquaculture", "atlantic_cod blackfish pacific_halibut atlantic_halibut atlantic_herring pink_salmon pollock rainbow_trout bayad boulti capitaine synodontis smallmouth_bass bluegill brown_trout carp catfish gar minnow muskellunge perch arapaima piranha tambaqui brown_shrooma red_shrooma jellyfish red_grouper tuna fish_fillet_raw", [0, 0, 0, 1, 0], 3);
+foods("aquaculture", "fish_fillet_cooked", [0, 0, 0, 2, 0], 2.25);
 
 // Rustic Delight.
 foods(
