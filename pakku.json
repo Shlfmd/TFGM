@@ -1,16 +1,11 @@
 {
-    "name": "TFG-Modern",
-    "version": "0.0.1",
+    "name": "TFGM",
+    "version": "0.13.7",
     "overrides": [
-        "config",
-        "kubejs"
+        "mods"
     ],
     "server_overrides": [
-        "config/DistantHorizons.toml"
-    ],
-    "client_overrides": [
-        "config",
-        "mods"
+        "kubejs"
     ],
     "projects": {
         "caelum": {
