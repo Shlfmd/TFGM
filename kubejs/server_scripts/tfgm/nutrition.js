@@ -18,6 +18,58 @@ const FOOD_MODS = new Set([
   "survivorsaquaculture",
 ]);
 const PROFILES = new Map();
+// Survivor's Delight registers these items as empty dynamic foods. Reusing its
+// exact data IDs replaces those definitions instead of leaving TFC to choose
+// nondeterministically between the dynamic and fixed definitions.
+const PROFILE_RESOURCE_IDS = new Map([
+  ["farmersdelight:apple_cider", "survivorsdelight:drink/apple_cider"],
+  ["farmersdelight:bacon_and_eggs", "survivorsdelight:meal/bacon_and_eggs"],
+  ["farmersdelight:baked_cod_stew", "survivorsdelight:soup/baked_cod_stew"],
+  ["farmersdelight:barbecue_stick", "survivorsdelight:food/barbecue_stick"],
+  ["farmersdelight:beef_stew", "survivorsdelight:soup/beef_stew"],
+  ["farmersdelight:bone_broth", "survivorsdelight:soup/bone_broth"],
+  ["farmersdelight:cabbage_rolls", "survivorsdelight:food/cabbage_rolls"],
+  ["farmersdelight:chicken_soup", "survivorsdelight:soup/chicken_soup"],
+  ["farmersdelight:cod_roll", "survivorsdelight:food/cod_roll"],
+  ["farmersdelight:dumplings", "survivorsdelight:food/dumplings"],
+  ["farmersdelight:fish_stew", "survivorsdelight:soup/fish_stew"],
+  ["farmersdelight:fried_rice", "survivorsdelight:meal/fried_rice"],
+  ["farmersdelight:grilled_salmon", "survivorsdelight:meal/grilled_salmon"],
+  ["farmersdelight:hot_cocoa", "survivorsdelight:drink/hot_cocoa"],
+  ["farmersdelight:kelp_roll", "survivorsdelight:food/kelp_roll"],
+  ["farmersdelight:kelp_roll_slice", "survivorsdelight:pie/kelp_roll_slice"],
+  ["farmersdelight:mushroom_rice", "survivorsdelight:meal/mushroom_rice"],
+  ["farmersdelight:noodle_soup", "survivorsdelight:soup/noodle_soup"],
+  ["farmersdelight:onion_soup", "survivorsdelight:soup/onion_soup"],
+  [
+    "farmersdelight:pasta_with_meatballs",
+    "survivorsdelight:meal/pasta_with_meatballs",
+  ],
+  [
+    "farmersdelight:pasta_with_mutton_chop",
+    "survivorsdelight:meal/pasta_with_mutton_chop",
+  ],
+  ["farmersdelight:pie_crust", "survivorsdelight:pie/pie_crust"],
+  ["farmersdelight:pumpkin_soup", "survivorsdelight:soup/pumpkin_soup"],
+  ["farmersdelight:ratatouille", "survivorsdelight:meal/ratatouille"],
+  [
+    "farmersdelight:roasted_mutton_chops",
+    "survivorsdelight:meal/roasted_mutton_chops",
+  ],
+  ["farmersdelight:salmon_roll", "survivorsdelight:food/salmon_roll"],
+  ["farmersdelight:squid_ink_pasta", "survivorsdelight:meal/squid_ink_pasta"],
+  [
+    "farmersdelight:steak_and_potatoes",
+    "survivorsdelight:meal/steak_and_potatoes",
+  ],
+  ["farmersdelight:stuffed_potato", "survivorsdelight:food/stuffed_potato"],
+  ["farmersdelight:tomato_sauce", "survivorsdelight:soup/tomato_sauce"],
+  [
+    "farmersdelight:vegetable_noodles",
+    "survivorsdelight:meal/vegetable_noodles",
+  ],
+  ["farmersdelight:vegetable_soup", "survivorsdelight:soup/vegetable_soup"],
+]);
 
 function foods(namespace, paths, nutrients, decay) {
   paths
@@ -136,10 +188,25 @@ foods("farmersdelight", "honey_glazed_ham", HONEY_GLAZED_HAM, 2.25);
 // cuts deliberately use the corresponding TFC meat values instead of the
 // generic category marker used by the preliminary bridge above.
 foods("farmersdelight", "minced_beef beef_patty", [0, 0, 0, 2, 0], 2);
-foods("farmersdelight", "chicken_cuts bacon mutton_chops", [0, 0, 0, 1.5, 0], 3);
+foods(
+  "farmersdelight",
+  "chicken_cuts bacon mutton_chops",
+  [0, 0, 0, 1.5, 0],
+  3,
+);
 foods("farmersdelight", "cod_slice salmon_slice", [0, 0, 0, 1, 0], 3);
-foods("farmersdelight", "cooked_chicken_cuts cooked_bacon cooked_mutton_chops", [0, 0, 0, 2.5, 0], 2.25);
-foods("farmersdelight", "cooked_cod_slice cooked_salmon_slice", [0, 0, 0, 2, 0], 2.25);
+foods(
+  "farmersdelight",
+  "cooked_chicken_cuts cooked_bacon cooked_mutton_chops",
+  [0, 0, 0, 2.5, 0],
+  2.25,
+);
+foods(
+  "farmersdelight",
+  "cooked_cod_slice cooked_salmon_slice",
+  [0, 0, 0, 2, 0],
+  2.25,
+);
 foods("farmersdelight", "ham", [0, 0, 0, 3, 0], 2);
 foods("farmersdelight", "smoked_ham", [0, 0, 0, 5, 0], 1.5);
 foods("farmersdelight", "fried_egg", [0, 0, 0, 1.5, 0.25], 4);
@@ -153,6 +220,9 @@ foods("farmersdelight", "pumpkin_slice", [0, 0.75, 0, 0, 0], 1.5);
 foods("farmersdelight", "milk_bottle", [0, 0, 0, 0, 0.375], 1.5);
 foods("farmersdelight", "rice raw_pasta wheat_dough pie_crust", NONE, 2);
 foods("farmersdelight", "fruit_salad", [0, 4.75, 0, 0, 0], 1.5);
+// One bowl combines a rice portion with one raw-meat portion. Rotten flesh and
+// bone meal are non-nutritive recipe inputs.
+foods("farmersdelight", "dog_food", [1, 0, 0, 2, 0], 3);
 
 foods("moredelight", "bread_slice toast", G, 2);
 foods("moredelight", "toast_with_honey", G, 1.5);
@@ -239,7 +309,12 @@ foods(
 );
 foods("aquaculture", "sushi", GP, 1.75);
 foods("aquaculture", "turtle_soup", VP, 2);
-foods("aquaculture", "atlantic_cod blackfish pacific_halibut atlantic_halibut atlantic_herring pink_salmon pollock rainbow_trout bayad boulti capitaine synodontis smallmouth_bass bluegill brown_trout carp catfish gar minnow muskellunge perch arapaima piranha tambaqui brown_shrooma red_shrooma jellyfish red_grouper tuna fish_fillet_raw", [0, 0, 0, 1, 0], 3);
+foods(
+  "aquaculture",
+  "atlantic_cod blackfish pacific_halibut atlantic_halibut atlantic_herring pink_salmon pollock rainbow_trout bayad boulti capitaine synodontis smallmouth_bass bluegill brown_trout carp catfish gar minnow muskellunge perch arapaima piranha tambaqui brown_shrooma red_shrooma jellyfish red_grouper tuna fish_fillet_raw",
+  [0, 0, 0, 1, 0],
+  3,
+);
 foods("aquaculture", "fish_fillet_cooked", [0, 0, 0, 2, 0], 2.25);
 
 // Rustic Delight.
@@ -347,6 +422,8 @@ foods(
 );
 foods("delightful", "cooked_marshmallow_stick marshmallow_stick", G, 1.5);
 foods("delightful", "wrapped_cantaloupe", F, 1.5);
+// Cutting one clover produces two chopped portions.
+foods("delightful", "chopped_clover", [0, 0, 0.5, 0, 0], 1.5);
 foods(
   "delightful",
   "azalea_tea lavender_tea green_tea_leaf matcha ender_nectar long_prickly_pear_juice prickly_pear_juice animal_oil_bottle nut_butter_bottle jam_jar glow_jam_jar",
@@ -457,7 +534,7 @@ TFCEvents.data((event) => {
       missing.push(key);
       return;
     }
-    event.foodItem(key, (food) => {
+    const configureFood = (food) => {
       const hunger = nativeFood === null ? 4 : nativeFood.getNutrition();
       if (hunger > 0) food.hunger(hunger);
       if (nativeFood !== null)
@@ -469,7 +546,13 @@ TFCEvents.data((event) => {
       if (vegetables) food.vegetables(vegetables);
       if (protein) food.protein(protein);
       if (dairy) food.dairy(dairy);
-    });
+    };
+    const resourceId = PROFILE_RESOURCE_IDS.get(key);
+    if (resourceId === undefined) {
+      event.foodItem(key, configureFood);
+    } else {
+      event.foodItem(key, configureFood, resourceId);
+    }
     registered++;
   });
   console.info(
