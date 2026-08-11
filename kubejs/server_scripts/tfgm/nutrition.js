@@ -11,12 +11,14 @@ const FOOD_MODS = new Set([
   "cuisinedelight",
   "tfc_cuisine",
   "tfc_gourmet",
-  "butchersdelightfoods",
   "rusticdelight",
   "survivorsdelight",
   "aquaculture",
   "survivorsaquaculture",
 ]);
+// Flip to true to log one [TFGM-DUMP] line per food: id, hunger, saturation,
+// decay, nutrients. Off by default; it is ~390 lines per datapack load.
+const DUMP_FOOD_PROPERTIES = false;
 const PROFILES = new Map();
 // Survivor's Delight registers these items as empty dynamic foods. Reusing its
 // exact data IDs replaces those definitions instead of leaving TFC to choose
@@ -70,6 +72,30 @@ const PROFILE_RESOURCE_IDS = new Map([
   ],
   ["farmersdelight:vegetable_soup", "survivorsdelight:soup/vegetable_soup"],
 ]);
+
+// Teas hydrate instead of feeding. TFC fresh water is thirst 10, so these sit
+// above it, and the low decay keeps them travel-worthy. Brewed drinks only;
+// leaves and powders are ingredients.
+const TEA_WATER = new Map();
+function teas(namespace, paths, water, decay) {
+  paths
+    .trim()
+    .split(/\s+/)
+    .forEach((path) => {
+      TEA_WATER.set(`${namespace}:${path}`, { water: water, decay: decay });
+    });
+}
+// Bucket-sized brews carry more water than a cup.
+teas(
+  "tfc_gourmet",
+  "tea_chamomile_bucket tea_mint_bucket tea_nettle_bucket tea_rosehip_bucket",
+  20,
+  0.5,
+);
+teas("delightful", "azalea_tea lavender_tea", 15, 0.5);
+// Lattes are milk-based, so they already carry dairy from their profile; the
+// hydration is smaller to match.
+teas("delightful", "matcha_latte berry_matcha_latte", 10, 0.75);
 
 function foods(namespace, paths, nutrients, decay) {
   paths
@@ -185,8 +211,8 @@ foods("farmersdelight", "honey_cookie", G, 1.5);
 foods("farmersdelight", "honey_glazed_ham", HONEY_GLAZED_HAM, 2.25);
 
 // Parent-scale equivalents for Farmer's Delight ingredients. Raw and cooked
-// cuts deliberately use the corresponding TFC meat values instead of the
-// generic category marker used by the preliminary bridge above.
+// cuts use the corresponding TFC meat values instead of the generic category
+// marker used by the preliminary bridge above.
 foods("farmersdelight", "minced_beef beef_patty", [0, 0, 0, 2, 0], 2);
 foods(
   "farmersdelight",
@@ -285,30 +311,7 @@ foods(
 // is tags and recipes for the namespaces covered above.
 foods("survivorsdelight", "golden_carrot", V, 1.5);
 
-// Butcher's Delight Foods: every listed item is a cut of meat.
-foods(
-  "butchersdelightfoods",
-  "sheeploin beeftenderloin goat_loin porkloin sheepshank ham llamma_ribs beefribs goat_shank llama_loin legcow sheeprack goatrack porkribs llama_leg",
-  P,
-  3,
-);
-foods(
-  "butchersdelightfoods",
-  "cookedsheepshank coockedbeeftenderloin cooked_llama_loin cooked_goat_loin cooked_llama_leg cookedbeefribs cooked_goat_rack cookedporkloin cooked_goat_shank cooked_leg_cow cookedporkribs cooked_ham cooked_llama_ribs cooked_sheeploin cookedsheeprack",
-  P,
-  2.25,
-);
-
-// Aquaculture fish are explicitly tagged as raw TFC meat by Survivor's
-// Aquaculture, but do not expose vanilla FoodProperties.
-foods(
-  "aquaculture",
-  "atlantic_cod blackfish pacific_halibut atlantic_halibut atlantic_herring pink_salmon pollock rainbow_trout bayad boulti capitaine synodontis smallmouth_bass bluegill brown_trout carp catfish gar minnow muskellunge perch arapaima piranha tambaqui brown_shrooma red_shrooma jellyfish red_grouper tuna fish_fillet_raw fish_fillet_cooked",
-  P,
-  3,
-);
-foods("aquaculture", "sushi", GP, 1.75);
-foods("aquaculture", "turtle_soup", VP, 2);
+// Raw fish, at TFC's own raw-fish weight.
 foods(
   "aquaculture",
   "atlantic_cod blackfish pacific_halibut atlantic_halibut atlantic_herring pink_salmon pollock rainbow_trout bayad boulti capitaine synodontis smallmouth_bass bluegill brown_trout carp catfish gar minnow muskellunge perch arapaima piranha tambaqui brown_shrooma red_shrooma jellyfish red_grouper tuna fish_fillet_raw",
@@ -316,6 +319,10 @@ foods(
   3,
 );
 foods("aquaculture", "fish_fillet_cooked", [0, 0, 0, 2, 0], 2.25);
+// Gathered pond growth, not a cultivated crop: half a vegetable portion.
+foods("aquaculture", "algae", [0, 0, 0.5, 0, 0], 2);
+foods("aquaculture", "sushi", GP, 1.75);
+foods("aquaculture", "turtle_soup", VP, 2);
 
 // Rustic Delight.
 foods(
@@ -523,23 +530,41 @@ TFCEvents.data((event) => {
   let registered = 0;
   $BuiltInRegistries.ITEM.entrySet().forEach((entry) => {
     const id = entry.getKey().location();
-    const key = id.toString();
-    if (!FOOD_MODS.has(id.getNamespace())) return;
+    // getNamespace()/getPath() hand back java.lang.String. Rhino compares those
+    // to JS string literals by identity, so Set/Map lookups and === silently
+    // never match unless the values are coerced to JS strings first.
+    const namespace = String(id.getNamespace());
+    const path = String(id.getPath());
+    const key = `${namespace}:${path}`;
+    if (!FOOD_MODS.has(namespace)) return;
     const nativeFood = entry.getValue().getFoodProperties();
-    const fish =
-      id.getNamespace() === "aquaculture" && AQUACULTURE_FISH.has(id.getPath());
+    const fish = namespace === "aquaculture" && AQUACULTURE_FISH.has(path);
     if (nativeFood === null && !fish) return;
     const profile = PROFILES.get(key);
     if (profile === undefined) {
       missing.push(key);
       return;
     }
+    const hungerValue = nativeFood === null ? 4 : nativeFood.getNutrition();
+    const saturationValue =
+      nativeFood === null ? 0 : nativeFood.getSaturationModifier();
+    // One-shot migration aid: hunger/saturation come from each item's vanilla
+    // FoodProperties, which live in mod Java and cannot be read from the jars.
+    // Logging them lets the static data/<ns>/tfc/food_items/*.json files be
+    // generated offline. Delete DUMP_FOOD_PROPERTIES once those exist.
+    if (DUMP_FOOD_PROPERTIES) {
+      console.info(
+        `[TFGM-DUMP] ${key} ${hungerValue} ${saturationValue} ${profile.decay} ${profile.nutrients.join(",")}`,
+      );
+    }
     const configureFood = (food) => {
-      const hunger = nativeFood === null ? 4 : nativeFood.getNutrition();
+      const hunger = hungerValue;
       if (hunger > 0) food.hunger(hunger);
       if (nativeFood !== null)
         food.saturation(nativeFood.getSaturationModifier());
-      food.decayModifier(profile.decay);
+      const tea = TEA_WATER.get(key);
+      food.decayModifier(tea === undefined ? profile.decay : tea.decay);
+      if (tea !== undefined) food.water(tea.water);
       const [grain, fruit, vegetables, protein, dairy] = profile.nutrients;
       if (grain) food.grain(grain);
       if (fruit) food.fruit(fruit);
@@ -558,9 +583,11 @@ TFCEvents.data((event) => {
   console.info(
     `[TFGM] Registered explicit TFC nutrition for ${registered} fork foods.`,
   );
+  // An exception here aborts the whole TFCEvents.data callback, so one uncovered
+  // item would drop nutrition for EVERY OTHER food instead of just its own. Wild.
   if (missing.length) {
-    throw new Error(
-      `[TFGM] Missing explicit nutrition profiles: ${missing.join(", ")}`,
+    console.warn(
+      `[TFGM] Missing explicit nutrition profiles (${missing.length}): ${missing.join(", ")}`,
     );
   }
 });
