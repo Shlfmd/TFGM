@@ -502,6 +502,51 @@
             ]
         },
         {
+            "pakku_id": "C82Zss6ZI3pV1gWV",
+            "pakku_links": [
+                "1jVJnjEbhbFK9TgK"
+            ],
+            "type": "MOD",
+            "side": "BOTH",
+            "slug": {
+                "modrinth": "better-combat"
+            },
+            "name": {
+                "modrinth": "Better Combat"
+            },
+            "id": {
+                "modrinth": "5sy6g3kz"
+            },
+            "files": [
+                {
+                    "type": "modrinth",
+                    "file_name": "bettercombat-forge-1.9.0+1.20.1.jar",
+                    "mc_versions": [
+                        "1.20",
+                        "1.20.1"
+                    ],
+                    "loaders": [
+                        "forge",
+                        "neoforge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://cdn.modrinth.com/data/5sy6g3kz/versions/rnhiaw3t/bettercombat-forge-1.9.0+1.20.1.jar",
+                    "id": "rnhiaw3t",
+                    "parent_id": "5sy6g3kz",
+                    "hashes": {
+                        "sha512": "0778902ce693ae56afd9a928e0629470095dff0324c6856fc45ee51a8efcfa622cc22edaa07ed40814d3b13851d62b27d144e9858e5209a6cf70fd3651f081e8",
+                        "sha1": "ea7e7247132cb3acacadd96b2b6b635c4cc63a74"
+                    },
+                    "required_dependencies": [
+                        "gedNE4y2",
+                        "9s6osm5g"
+                    ],
+                    "size": 1054339,
+                    "date_published": "2025-12-02T21:48:41.489880Z"
+                }
+            ]
+        },
+        {
             "pakku_id": "JBXm3GyLr2VxVLwl",
             "type": "MOD",
             "slug": {
@@ -600,130 +645,6 @@
                     ],
                     "size": 1890413,
                     "date_published": "2026-02-15T07:17:14.974553Z"
-                }
-            ]
-        },
-        {
-            "pakku_id": "sEXOgD0zMn7SrzM1",
-            "type": "MOD",
-            "side": "BOTH",
-            "slug": {
-                "curseforge": "butchers-delight",
-                "modrinth": "butchers-delight"
-            },
-            "name": {
-                "curseforge": "Butcher's Delight",
-                "modrinth": "Butcher's Delight"
-            },
-            "id": {
-                "curseforge": "551909",
-                "modrinth": "B0xSlae0"
-            },
-            "redistributable": false,
-            "files": [
-                {
-                    "type": "curseforge",
-                    "file_name": "Butchersdelight beta 1.20.1 2.1.0.jar",
-                    "mc_versions": [
-                        "1.20.1"
-                    ],
-                    "loaders": [
-                        "forge"
-                    ],
-                    "release_type": "beta",
-                    "url": "https://edge.forgecdn.net/files/5228/909/Butchersdelight beta 1.20.1 2.1.0.jar",
-                    "id": "5228909",
-                    "parent_id": "551909",
-                    "hashes": {
-                        "sha1": "eefde2b0a35ae4380c131ac083116b8f797afe56",
-                        "md5": "c9f6b30b944392384a4df545d20adb61"
-                    },
-                    "required_dependencies": [],
-                    "size": 3942918,
-                    "date_published": "2024-04-02T02:37:27.683Z"
-                },
-                {
-                    "type": "modrinth",
-                    "file_name": "Butchersdelight beta 1.20.1 2.1.0.jar",
-                    "mc_versions": [
-                        "1.20.1"
-                    ],
-                    "loaders": [
-                        "forge"
-                    ],
-                    "release_type": "beta",
-                    "url": "https://cdn.modrinth.com/data/B0xSlae0/versions/MPtQu3dj/Butchersdelight beta 1.20.1 2.1.0.jar",
-                    "id": "MPtQu3dj",
-                    "parent_id": "B0xSlae0",
-                    "hashes": {
-                        "sha512": "c1ad4ca4c369a40b2ae28ee8962a41fac23f88ec417f57a11110ed620405155af2bab3f2279a64327475f25e42f63e992f4667e69bbfbee44742f682df95f393",
-                        "sha1": "eefde2b0a35ae4380c131ac083116b8f797afe56"
-                    },
-                    "required_dependencies": [],
-                    "size": 3942918,
-                    "date_published": "2024-04-02T02:43:04.661099Z"
-                }
-            ]
-        },
-        {
-            "pakku_id": "mZEOJZ736jAUxtum",
-            "type": "MOD",
-            "side": "BOTH",
-            "slug": {
-                "curseforge": "butchers-delight-foods",
-                "modrinth": "butchers-delight-foods"
-            },
-            "name": {
-                "curseforge": "Butcher's Delight Foods",
-                "modrinth": "Butcher's Delight Foods"
-            },
-            "id": {
-                "curseforge": "919301",
-                "modrinth": "u9J9M7PQ"
-            },
-            "redistributable": false,
-            "files": [
-                {
-                    "type": "curseforge",
-                    "file_name": "Butchersdelight Foods beta 1.20.1 1.0.3.jar",
-                    "mc_versions": [
-                        "1.20.1"
-                    ],
-                    "loaders": [
-                        "forge"
-                    ],
-                    "release_type": "beta",
-                    "url": "https://edge.forgecdn.net/files/5230/731/Butchersdelight Foods beta 1.20.1 1.0.3.jar",
-                    "id": "5230731",
-                    "parent_id": "919301",
-                    "hashes": {
-                        "sha1": "26d05418d4f6e683946a9096f9250d9fbd4ff453",
-                        "md5": "c7b4460f0b1f54692263b95c009cbf5e"
-                    },
-                    "required_dependencies": [],
-                    "size": 167877,
-                    "date_published": "2024-04-02T19:58:07.283Z"
-                },
-                {
-                    "type": "modrinth",
-                    "file_name": "Butchersdelight Foods beta 1.20.1 1.0.3.jar",
-                    "mc_versions": [
-                        "1.20.1"
-                    ],
-                    "loaders": [
-                        "forge"
-                    ],
-                    "release_type": "beta",
-                    "url": "https://cdn.modrinth.com/data/u9J9M7PQ/versions/dyDh7Fxr/Butchersdelight Foods beta 1.20.1 1.0.3.jar",
-                    "id": "dyDh7Fxr",
-                    "parent_id": "u9J9M7PQ",
-                    "hashes": {
-                        "sha512": "20b48f5450e1ce3d02a677c1b3f25cf3275b80c929708cf0abf6a1ca547766c7d3da2cc1fa766698df57f050f8651ae0395d814193ef5db4fce4e500ca8bf626",
-                        "sha1": "26d05418d4f6e683946a9096f9250d9fbd4ff453"
-                    },
-                    "required_dependencies": [],
-                    "size": 167877,
-                    "date_published": "2024-04-02T20:02:24.822119Z"
                 }
             ]
         },
@@ -1278,7 +1199,7 @@
         {
             "pakku_id": "MfQOWfirzTb7nMy0",
             "pakku_links": [
-                "Zfi1mDUHQJqVXcpq"
+                "QnrLNiKSMPDtftLO"
             ],
             "type": "MOD",
             "side": "BOTH",
@@ -1808,7 +1729,7 @@
         {
             "pakku_id": "BikS7xDcmg7vBsWJ",
             "pakku_links": [
-                "Zfi1mDUHQJqVXcpq"
+                "QnrLNiKSMPDtftLO"
             ],
             "type": "MOD",
             "side": "BOTH",
@@ -1880,7 +1801,7 @@
         {
             "pakku_id": "hzGhjxHlirPZmD6J",
             "pakku_links": [
-                "Zfi1mDUHQJqVXcpq"
+                "QnrLNiKSMPDtftLO"
             ],
             "type": "MOD",
             "side": "BOTH",
@@ -1983,7 +1904,383 @@
             ]
         },
         {
-            "pakku_id": "Zfi1mDUHQJqVXcpq",
+            "pakku_id": "07zp5U9ezpBEHv9u",
+            "pakku_links": [
+                "Mp1631QNLgLW4zAZ",
+                "J7whnkoZMhqCMjEJ"
+            ],
+            "type": "MOD",
+            "side": "CLIENT",
+            "slug": {
+                "curseforge": "emf-compat-core",
+                "modrinth": "emf-compat-core"
+            },
+            "name": {
+                "curseforge": "EMF Compat: Core",
+                "modrinth": "EMF Compat: Core"
+            },
+            "id": {
+                "curseforge": "1605113",
+                "modrinth": "hbGct5uU"
+            },
+            "files": [
+                {
+                    "type": "curseforge",
+                    "file_name": "emf-compat-core-1.20.1-1.1.2.jar",
+                    "mc_versions": [
+                        "1.20.1"
+                    ],
+                    "loaders": [
+                        "forge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://edge.forgecdn.net/files/8610/29/emf-compat-core-1.20.1-1.1.2.jar",
+                    "id": "8610029",
+                    "parent_id": "1605113",
+                    "hashes": {
+                        "sha1": "f74d860c939343352dd7c4cd871b3169e02c26f3",
+                        "md5": "39e9ce96ad9afeb85bca44818db3a7ed"
+                    },
+                    "required_dependencies": [
+                        "568563",
+                        "844662"
+                    ],
+                    "size": 134358,
+                    "date_published": "2026-08-09T15:40:33.097Z"
+                },
+                {
+                    "type": "modrinth",
+                    "file_name": "emf-compat-core-1.20.1-1.1.2.jar",
+                    "mc_versions": [
+                        "1.20.1"
+                    ],
+                    "loaders": [
+                        "forge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://cdn.modrinth.com/data/hbGct5uU/versions/NtMFNtym/emf-compat-core-1.20.1-1.1.2.jar",
+                    "id": "NtMFNtym",
+                    "parent_id": "hbGct5uU",
+                    "hashes": {
+                        "sha512": "ae19dc5e71a6669c7026bf5641fe3a0664e3dcfdf001b62eee71bd4ae0dd6857b23dddc02526da2aa005743f14977fd55f685a9c13f1f44cd6f4a15eb49a5c9b",
+                        "sha1": "f74d860c939343352dd7c4cd871b3169e02c26f3"
+                    },
+                    "required_dependencies": [
+                        "4I1XuqiY",
+                        "BVzZfTc1"
+                    ],
+                    "size": 134358,
+                    "date_published": "2026-08-09T15:33:06.039421Z"
+                }
+            ]
+        },
+        {
+            "pakku_id": "6AE1RWCVy1nUOnyX",
+            "pakku_links": [
+                "J7whnkoZMhqCMjEJ",
+                "07zp5U9ezpBEHv9u",
+                "Mp1631QNLgLW4zAZ"
+            ],
+            "type": "MOD",
+            "side": "CLIENT",
+            "slug": {
+                "curseforge": "emf-compat-tacz",
+                "modrinth": "emf-compat-tacz"
+            },
+            "name": {
+                "curseforge": "EMF Compat: TACZ",
+                "modrinth": "EMF Compat: TACZ"
+            },
+            "id": {
+                "curseforge": "1629329",
+                "modrinth": "vPnbqVkb"
+            },
+            "files": [
+                {
+                    "type": "curseforge",
+                    "file_name": "tacz-emf-compat-1.0.1.jar",
+                    "mc_versions": [
+                        "1.20.1"
+                    ],
+                    "loaders": [
+                        "forge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://edge.forgecdn.net/files/8610/124/tacz-emf-compat-1.0.1.jar",
+                    "id": "8610124",
+                    "parent_id": "1629329",
+                    "hashes": {
+                        "sha1": "850951c5765e42d48a88fa27379ea34c2705986c",
+                        "md5": "e3539c02894092f716df3115afdd5d31"
+                    },
+                    "required_dependencies": [
+                        "844662",
+                        "1605113",
+                        "568563"
+                    ],
+                    "size": 158878,
+                    "date_published": "2026-08-09T15:46:46.510Z"
+                },
+                {
+                    "type": "modrinth",
+                    "file_name": "tacz-emf-compat-1.20.1-1.0.1.jar",
+                    "mc_versions": [
+                        "1.20.1"
+                    ],
+                    "loaders": [
+                        "forge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://cdn.modrinth.com/data/vPnbqVkb/versions/bG7U0hqM/tacz-emf-compat-1.20.1-1.0.1.jar",
+                    "id": "bG7U0hqM",
+                    "parent_id": "vPnbqVkb",
+                    "hashes": {
+                        "sha512": "dce364cee5fcea6a6338be363ca4f67c360bb0c38581b8c6443753ed61cef59ea28c6b1a27454a15b8dbf5683d45b68ea3f8d288728b667db077777930bb145b",
+                        "sha1": "850951c5765e42d48a88fa27379ea34c2705986c"
+                    },
+                    "required_dependencies": [
+                        "4I1XuqiY",
+                        "hbGct5uU",
+                        "SzzJttH8",
+                        "BVzZfTc1"
+                    ],
+                    "size": 158878,
+                    "date_published": "2026-08-09T15:37:54.533014Z"
+                }
+            ]
+        },
+        {
+            "pakku_id": "K59aqskz79kSzyVJ",
+            "pakku_links": [
+                "KU6VfJLU2Tjl1L4H",
+                "FS2VzhH6V2cqetAF"
+            ],
+            "type": "MOD",
+            "side": "BOTH",
+            "slug": {
+                "curseforge": "extra-delight-tfc"
+            },
+            "name": {
+                "curseforge": "Extra Delight TFC"
+            },
+            "id": {
+                "curseforge": "1616550"
+            },
+            "files": [
+                {
+                    "type": "curseforge",
+                    "file_name": "extradelighttfc-0.4.0-beta.jar",
+                    "mc_versions": [
+                        "1.20.1"
+                    ],
+                    "loaders": [
+                        "forge",
+                        "neoforge"
+                    ],
+                    "release_type": "beta",
+                    "url": "https://edge.forgecdn.net/files/8593/923/extradelighttfc-0.4.0-beta.jar",
+                    "id": "8593923",
+                    "parent_id": "1616550",
+                    "hashes": {
+                        "sha1": "08d7e2a08cf692305d5bddc91d2344a55b71a964",
+                        "md5": "8d456b2ffe893ad2d7276b8a6aca02fa"
+                    },
+                    "required_dependencies": [
+                        "842106",
+                        "1596264",
+                        "1332913"
+                    ],
+                    "size": 107636,
+                    "date_published": "2026-08-07T09:54:02.753Z"
+                }
+            ]
+        },
+        {
+            "pakku_id": "FS2VzhH6V2cqetAF",
+            "pakku_links": [
+                "QnrLNiKSMPDtftLO"
+            ],
+            "type": "MOD",
+            "slug": {
+                "curseforge": "extra-delight-unofficial-port"
+            },
+            "name": {
+                "curseforge": "Extra Delight Unofficial Port"
+            },
+            "id": {
+                "curseforge": "1596264"
+            },
+            "files": [
+                {
+                    "type": "curseforge",
+                    "file_name": "extradelight-1.1.3-all.jar",
+                    "mc_versions": [
+                        "1.20.1"
+                    ],
+                    "loaders": [
+                        "forge",
+                        "neoforge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://edge.forgecdn.net/files/8635/499/extradelight-1.1.3-all.jar",
+                    "id": "8635499",
+                    "parent_id": "1596264",
+                    "hashes": {
+                        "sha1": "ce8decf73fc01eb66cb959724b08b43c8a8db452",
+                        "md5": "6fbc6c3c14b65e03e4b22043f2f08dca"
+                    },
+                    "required_dependencies": [
+                        "398521"
+                    ],
+                    "size": 10413756,
+                    "date_published": "2026-08-12T21:19:25.100Z"
+                }
+            ]
+        },
+        {
+            "pakku_id": "vCEKvAgZZJyvaMYe",
+            "pakku_links": [
+                "1jVJnjEbhbFK9TgK",
+                "J7whnkoZMhqCMjEJ",
+                "Mp1631QNLgLW4zAZ",
+                "JBTgug7aMnX3R9qV",
+                "C82Zss6ZI3pV1gWV"
+            ],
+            "type": "MOD",
+            "side": "CLIENT",
+            "slug": {
+                "modrinth": "fa-player-extension-compat"
+            },
+            "name": {
+                "modrinth": "FA: Player Extension Compat"
+            },
+            "id": {
+                "modrinth": "I44nKnul"
+            },
+            "files": [
+                {
+                    "type": "modrinth",
+                    "file_name": "fape_compat-0.5.jar",
+                    "mc_versions": [
+                        "1.20.1",
+                        "1.20.2",
+                        "1.20.3",
+                        "1.20.4",
+                        "1.20.5",
+                        "1.20.6"
+                    ],
+                    "loaders": [
+                        "forge"
+                    ],
+                    "release_type": "release",
+                    "url": "https://cdn.modrinth.com/data/I44nKnul/versions/ajirqc1P/fape_compat-0.5.jar",
+                    "id": "ajirqc1P",
+                    "parent_id": "I44nKnul",
+                    "hashes": {
+                        "sha512": "4d43d40ad8e3da64c277227c87c4a355e6a5e451a8e5cc641091bcc4a7433c847f9eb3905cee80d97ee197dbf1f475fe2db5fb9e3168ce8294af56c64468bae9",
+                        "sha1": "cc548410829cf509d50a154be4072182d612e2dc"
+                    },
+                    "required_dependencies": [
+                        "gedNE4y2",
+                        "4I1XuqiY",
+                        "BVzZfTc1",
+                        "TAIMVZCL",
+                        "5sy6g3kz"
+                    ],
+                    "size": 121108,
+                    "date_published": "2026-03-29T19:18:23.706939Z"
+                }
+            ]
+        },
+        {
+            "pakku_id": "GvJ0PwId7xpr9XXV",
+            "pakku_links": [
+                "vCEKvAgZZJyvaMYe",
+                "J7whnkoZMhqCMjEJ",
+                "Mp1631QNLgLW4zAZ",
+                "JBTgug7aMnX3R9qV"
+            ],
+            "type": "RESOURCE_PACK",
+            "side": "CLIENT",
+            "slug": {
+                "modrinth": "fa-player-extension-x-better-combat"
+            },
+            "name": {
+                "modrinth": "FA: Player Extension X Better Combat"
+            },
+            "id": {
+                "modrinth": "c1Ea817q"
+            },
+            "files": [
+                {
+                    "type": "modrinth",
+                    "file_name": "PA-FA-Compat-v1.zip",
+                    "mc_versions": [
+                        "1.20.1",
+                        "23w31a",
+                        "23w32a",
+                        "23w33a",
+                        "23w35a",
+                        "1.20.2-pre1",
+                        "1.20.2",
+                        "23w42a",
+                        "23w43a",
+                        "23w43b",
+                        "23w44a",
+                        "23w45a",
+                        "23w46a",
+                        "1.20.3",
+                        "1.20.4",
+                        "24w03a",
+                        "24w03b",
+                        "24w04a",
+                        "24w05a",
+                        "24w05b",
+                        "24w06a",
+                        "24w07a",
+                        "24w09a",
+                        "24w10a",
+                        "24w11a",
+                        "24w12a",
+                        "24w13a",
+                        "24w14potato",
+                        "24w14a",
+                        "1.20.5-pre1",
+                        "1.20.5-pre2",
+                        "1.20.5-pre3",
+                        "1.20.5",
+                        "1.20.6",
+                        "24w18a",
+                        "24w19a",
+                        "24w19b",
+                        "24w20a",
+                        "1.21",
+                        "1.21.1"
+                    ],
+                    "loaders": [
+                        "minecraft"
+                    ],
+                    "release_type": "release",
+                    "url": "https://cdn.modrinth.com/data/c1Ea817q/versions/RrOKEgfZ/PA-FA-Compat-v1.zip",
+                    "id": "RrOKEgfZ",
+                    "parent_id": "c1Ea817q",
+                    "hashes": {
+                        "sha512": "a2a5988094b46408622b532c23c476964e07609096455caa04e85c16df9b676bc7265f1f64052c67fc8bff228865a057f561e4c106cf05f68d362d25380ed057",
+                        "sha1": "615c25c9940e0cb8014bdffc628a1beb3b03d449"
+                    },
+                    "required_dependencies": [
+                        "I44nKnul",
+                        "4I1XuqiY",
+                        "BVzZfTc1",
+                        "TAIMVZCL"
+                    ],
+                    "size": 191982,
+                    "date_published": "2026-03-29T18:59:03.957416Z"
+                }
+            ]
+        },
+        {
+            "pakku_id": "QnrLNiKSMPDtftLO",
             "type": "MOD",
             "side": "BOTH",
             "slug": {
@@ -2048,7 +2345,7 @@
         {
             "pakku_id": "3yBq3NBVl567WUSe",
             "pakku_links": [
-                "Zfi1mDUHQJqVXcpq"
+                "QnrLNiKSMPDtftLO"
             ],
             "type": "MOD",
             "side": "BOTH",
@@ -2992,7 +3289,7 @@
             "pakku_id": "pqaLRBfAh2Ilp28N",
             "pakku_links": [
                 "BikS7xDcmg7vBsWJ",
-                "Zfi1mDUHQJqVXcpq"
+                "QnrLNiKSMPDtftLO"
             ],
             "type": "MOD",
             "side": "BOTH",
@@ -3464,7 +3761,7 @@
         {
             "pakku_id": "aBOlOu9y05ziQSCb",
             "pakku_links": [
-                "Zfi1mDUHQJqVXcpq"
+                "QnrLNiKSMPDtftLO"
             ],
             "type": "MOD",
             "side": "BOTH",
@@ -4029,8 +4326,8 @@
         {
             "pakku_id": "KU6VfJLU2Tjl1L4H",
             "pakku_links": [
-                "Zfi1mDUHQJqVXcpq",
-                "GBFKNDiXNwng8Afy"
+                "GBFKNDiXNwng8Afy",
+                "QnrLNiKSMPDtftLO"
             ],
             "type": "MOD",
             "side": "BOTH",

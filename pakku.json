@@ -31,6 +31,12 @@
         },
         "tfc-ruins": {
             "side": "BOTH"
+        },
+        "extra-delight-tfc": {
+            "side": "BOTH"
+        },
+        "extra-delight-unofficial-port": {
+            "side": "BOTH"
         }
     },
     "parent": {
