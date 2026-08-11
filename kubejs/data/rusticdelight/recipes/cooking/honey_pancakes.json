@@ -1,0 +1,33 @@
+{
+  "__comment__": "honey_bottle -> firmalife:raw_honey, sweet_berries -> forge:fruits/berries. Neither vanilla item has a source in this pack.",
+  "type": "farmersdelight:cooking",
+  "container": {
+    "item": "minecraft:bowl"
+  },
+  "cookingtime": 400,
+  "experience": 2.0,
+  "ingredients": [
+    {
+      "item": "rusticdelight:batter"
+    },
+    {
+      "item": "firmalife:raw_honey"
+    },
+    {
+      "tag": "forge:fruits/berries"
+    },
+    {
+      "tag": "forge:fruits/berries"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:sugar"
+    }
+  ],
+  "recipe_book_tab": "misc",
+  "result": {
+    "item": "rusticdelight:honey_pancakes"
+  }
+}

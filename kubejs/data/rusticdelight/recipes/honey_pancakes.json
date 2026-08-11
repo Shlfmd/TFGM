@@ -1,0 +1,31 @@
+{
+  "__comment__": "Crafting-table variant. honey_bottle -> firmalife:raw_honey, sweet_berries -> forge:fruits/berries. Neither vanilla item has a source in this pack.",
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:bowl"
+    },
+    "M": {
+      "item": "rusticdelight:batter"
+    },
+    "T": {
+      "item": "firmalife:raw_honey"
+    },
+    "X": {
+      "tag": "forge:fruits/berries"
+    },
+    "Y": {
+      "item": "minecraft:sugar"
+    }
+  },
+  "pattern": [
+    " T ",
+    "XMX",
+    "YBY"
+  ],
+  "result": {
+    "item": "rusticdelight:honey_pancakes"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,63 @@
+{
+  "__comment__": "minecraft:honey_bottle has no source in this pack; use firmalife:raw_honey. Output swapped too: this is a 2-into-3 multiplier, not a honey source.",
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "delightful:enabled",
+          "value": "clover_honey"
+        },
+        {
+          "type": "delightful:enabled",
+          "value": "chopped_clover"
+        },
+        {
+          "type": "forge:or",
+          "values": [
+            {
+              "type": "forge:mod_loaded",
+              "modid": "buzzier_bees"
+            },
+            {
+              "type": "forge:not",
+              "value": {
+                "type": "forge:tag_empty",
+                "tag": "forge:clover"
+              }
+            }
+          ]
+        }
+      ],
+      "recipe": {
+        "type": "farmersdelight:cooking",
+        "cookingtime": 200,
+        "experience": 0.35,
+        "ingredients": [
+          {
+            "item": "firmalife:raw_honey"
+          },
+          {
+            "item": "firmalife:raw_honey"
+          },
+          {
+            "item": "delightful:chopped_clover"
+          },
+          {
+            "item": "delightful:chopped_clover"
+          },
+          {
+            "item": "delightful:chopped_clover"
+          },
+          {
+            "item": "delightful:chopped_clover"
+          }
+        ],
+        "result": {
+          "count": 3,
+          "item": "firmalife:raw_honey"
+        }
+      }
+    }
+  ]
+}

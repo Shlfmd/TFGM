@@ -1,0 +1,51 @@
+{
+  "__comment__": "kelp -> tfc:food/dried_kelp. honey_block -> 4x firmalife:raw_honey, keeping the 9-gummy output at roughly a block's cost.",
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "delightful:enabled",
+          "value": "salmonberry_gummy"
+        },
+        {
+          "type": "forge:mod_loaded",
+          "modid": "create"
+        }
+      ],
+      "recipe": {
+        "type": "create:mixing",
+        "heatRequirement": "heated",
+        "ingredients": [
+          {
+            "tag": "forge:fruits/salmonberries"
+          },
+          {
+            "item": "minecraft:sugar"
+          },
+          {
+            "item": "firmalife:raw_honey"
+          },
+          {
+            "item": "firmalife:raw_honey"
+          },
+          {
+            "item": "firmalife:raw_honey"
+          },
+          {
+            "item": "firmalife:raw_honey"
+          },
+          {
+            "item": "tfc:food/dried_kelp"
+          }
+        ],
+        "results": [
+          {
+            "count": 9,
+            "item": "delightful:salmonberry_gummy"
+          }
+        ]
+      }
+    }
+  ]
+}

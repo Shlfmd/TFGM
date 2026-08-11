@@ -1,0 +1,40 @@
+{
+  "__comment__": "kelp -> tfc:food/dried_kelp, honey_bottle -> firmalife:raw_honey. Neither vanilla item has a source in this pack.",
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "delightful:enabled",
+          "value": "cantaloupe"
+        },
+        {
+          "type": "delightful:enabled",
+          "value": "cantaloupe_gummy"
+        }
+      ],
+      "recipe": {
+        "type": "farmersdelight:cooking",
+        "cookingtime": 200,
+        "experience": 1.0,
+        "ingredients": [
+          {
+            "tag": "forge:fruits/cantaloupe"
+          },
+          {
+            "item": "minecraft:sugar"
+          },
+          {
+            "item": "firmalife:raw_honey"
+          },
+          {
+            "item": "tfc:food/dried_kelp"
+          }
+        ],
+        "result": {
+          "item": "delightful:cantaloupe_gummy"
+        }
+      }
+    }
+  ]
+}

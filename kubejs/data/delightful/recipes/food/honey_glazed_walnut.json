@@ -1,0 +1,40 @@
+{
+  "__comment__": "honey_bottle -> firmalife:raw_honey.",
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "delightful:enabled",
+          "value": "honey_glazed_walnut"
+        },
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:nuts/walnut"
+          }
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "category": "misc",
+        "ingredients": [
+          {
+            "tag": "forge:nuts/walnut"
+          },
+          {
+            "tag": "forge:nuts/walnut"
+          },
+          {
+            "item": "firmalife:raw_honey"
+          }
+        ],
+        "result": {
+          "count": 2,
+          "item": "delightful:honey_glazed_walnut"
+        }
+      }
+    }
+  ]
+}

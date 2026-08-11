@@ -1,0 +1,48 @@
+{
+  "__comment__": "No-citrus variant. honey_bottle -> firmalife:raw_honey.",
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "delightful:enabled",
+          "value": "baklava"
+        },
+        {
+          "type": "forge:tag_empty",
+          "tag": "forge:fruits/citrus"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "key": {
+          "d": {
+            "tag": "forge:dough"
+          },
+          "g": {
+            "tag": "delightful:hot_spices"
+          },
+          "h": {
+            "item": "firmalife:raw_honey"
+          },
+          "n": {
+            "tag": "forge:cooked_nuts"
+          },
+          "s": {
+            "item": "minecraft:sugar"
+          }
+        },
+        "pattern": [
+          " h ",
+          "nnn",
+          "sdg"
+        ],
+        "result": {
+          "item": "delightful:baklava"
+        },
+        "show_notification": true
+      }
+    }
+  ]
+}

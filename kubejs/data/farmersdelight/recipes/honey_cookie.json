@@ -1,0 +1,20 @@
+{
+  "__comment__": "honey_bottle -> firmalife:raw_honey. forge:crops/wheat -> tfc:food/wheat; that tag holds only minecraft:wheat, which has no source here.",
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "firmalife:raw_honey"
+    },
+    {
+      "item": "tfc:food/wheat"
+    },
+    {
+      "item": "tfc:food/wheat"
+    }
+  ],
+  "result": {
+    "count": 8,
+    "item": "farmersdelight:honey_cookie"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "__comment__": "honey_bottle -> firmalife:raw_honey.",
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "firmalife:raw_honey"
+    },
+    {
+      "item": "moredelight:toast"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "moredelight:toast_with_honey"
+  }
+}

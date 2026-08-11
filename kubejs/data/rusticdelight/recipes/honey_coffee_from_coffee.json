@@ -1,0 +1,19 @@
+{
+  "__comment__": "honey_bottle -> firmalife:raw_honey.",
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "rusticdelight:coffee"
+    },
+    {
+      "tag": "forge:milk"
+    },
+    {
+      "item": "firmalife:raw_honey"
+    }
+  ],
+  "result": {
+    "item": "rusticdelight:honey_coffee"
+  }
+}

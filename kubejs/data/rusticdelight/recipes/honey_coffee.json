@@ -1,0 +1,30 @@
+{
+  "__comment__": "honey_bottle -> firmalife:raw_honey.",
+  "type": "farmersdelight:cooking",
+  "container": {
+    "item": "minecraft:glass_bottle"
+  },
+  "cookingtime": 200,
+  "experience": 1.0,
+  "ingredients": [
+    {
+      "tag": "forge:milk"
+    },
+    {
+      "tag": "rusticdelight:coffee_ingredients"
+    },
+    {
+      "tag": "rusticdelight:coffee_ingredients"
+    },
+    {
+      "tag": "rusticdelight:coffee_ingredients"
+    },
+    {
+      "item": "firmalife:raw_honey"
+    }
+  ],
+  "recipe_book_tab": "drinks",
+  "result": {
+    "item": "rusticdelight:honey_coffee"
+  }
+}
