@@ -1,0 +1,6 @@
+{
+  "type": "tfc:heating",
+  "ingredient": { "type": "tfc:not_rotten", "ingredient": { "item": "aquaculture:brown_trout" } },
+  "result_item": { "stack": { "item": "kubejs:cooked_brown_trout" }, "modifiers": [ "tfc:copy_food" ] },
+  "temperature": 200
+}

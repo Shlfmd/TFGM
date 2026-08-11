@@ -1,0 +1,6 @@
+{
+  "type": "tfc:heating",
+  "ingredient": { "type": "tfc:not_rotten", "ingredient": { "item": "aquaculture:smallmouth_bass" } },
+  "result_item": { "stack": { "item": "tfc:food/cooked_smallmouth_bass" }, "modifiers": [ "tfc:copy_food" ] },
+  "temperature": 200
+}

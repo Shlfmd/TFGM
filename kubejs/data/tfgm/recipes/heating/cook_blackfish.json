@@ -1,0 +1,6 @@
+{
+  "type": "tfc:heating",
+  "ingredient": { "type": "tfc:not_rotten", "ingredient": { "item": "aquaculture:blackfish" } },
+  "result_item": { "stack": { "item": "kubejs:cooked_blackfish" }, "modifiers": [ "tfc:copy_food" ] },
+  "temperature": 200
+}

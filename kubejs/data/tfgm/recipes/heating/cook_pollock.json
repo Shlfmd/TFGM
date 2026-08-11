@@ -1,0 +1,6 @@
+{
+  "type": "tfc:heating",
+  "ingredient": { "type": "tfc:not_rotten", "ingredient": { "item": "aquaculture:pollock" } },
+  "result_item": { "stack": { "item": "kubejs:cooked_pollock" }, "modifiers": [ "tfc:copy_food" ] },
+  "temperature": 200
+}

@@ -1,0 +1,6 @@
+{
+  "type": "tfc:heating",
+  "ingredient": { "type": "tfc:not_rotten", "ingredient": { "item": "aquaculture:jellyfish" } },
+  "result_item": { "stack": { "item": "kubejs:cooked_jellyfish" }, "modifiers": [ "tfc:copy_food" ] },
+  "temperature": 200
+}

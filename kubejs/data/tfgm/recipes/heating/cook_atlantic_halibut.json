@@ -1,0 +1,6 @@
+{
+  "type": "tfc:heating",
+  "ingredient": { "type": "tfc:not_rotten", "ingredient": { "item": "aquaculture:atlantic_halibut" } },
+  "result_item": { "stack": { "item": "kubejs:cooked_atlantic_halibut" }, "modifiers": [ "tfc:copy_food" ] },
+  "temperature": 200
+}

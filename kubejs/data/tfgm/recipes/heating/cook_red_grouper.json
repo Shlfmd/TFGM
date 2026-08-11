@@ -1,0 +1,6 @@
+{
+  "type": "tfc:heating",
+  "ingredient": { "type": "tfc:not_rotten", "ingredient": { "item": "aquaculture:red_grouper" } },
+  "result_item": { "stack": { "item": "kubejs:cooked_red_grouper" }, "modifiers": [ "tfc:copy_food" ] },
+  "temperature": 200
+}

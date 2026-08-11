@@ -1,0 +1,6 @@
+{
+  "type": "tfc:heating",
+  "ingredient": { "type": "tfc:not_rotten", "ingredient": { "item": "aquaculture:bayad" } },
+  "result_item": { "stack": { "item": "kubejs:cooked_bayad" }, "modifiers": [ "tfc:copy_food" ] },
+  "temperature": 200
+}

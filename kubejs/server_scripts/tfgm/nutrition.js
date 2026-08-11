@@ -319,6 +319,11 @@ foods(
   3,
 );
 foods("aquaculture", "fish_fillet_cooked", [0, 0, 0, 2, 0], 2.25);
+// A fillet is a processed portion, lighter than a whole fish. Match Survivor's
+// Aquaculture's own fillet values (0.75 raw, 1.5 cooked) so the fork's entries
+// and the mod's static food_items never disagree regardless of load order.
+foods("aquaculture", "fish_fillet_raw", [0, 0, 0, 0.75, 0], 3);
+foods("aquaculture", "fish_fillet_cooked", [0, 0, 0, 1.5, 0], 2.25);
 // Gathered pond growth, not a cultivated crop: half a vegetable portion.
 foods("aquaculture", "algae", [0, 0, 0.5, 0, 0], 2);
 foods("aquaculture", "sushi", GP, 1.75);
@@ -558,10 +563,15 @@ TFCEvents.data((event) => {
       );
     }
     const configureFood = (food) => {
-      const hunger = hungerValue;
-      if (hunger > 0) food.hunger(hunger);
-      if (nativeFood !== null)
-        food.saturation(nativeFood.getSaturationModifier());
+      // TFC fish are hunger 4 / saturation 0 when raw; force Aquaculture whole
+      // fish to match so raw lines up with the cooked variants (tfgm/cooked_fish).
+      if (fish) {
+        food.hunger(4).saturation(0);
+      } else {
+        if (hungerValue > 0) food.hunger(hungerValue);
+        if (nativeFood !== null)
+          food.saturation(nativeFood.getSaturationModifier());
+      }
       const tea = TEA_WATER.get(key);
       food.decayModifier(tea === undefined ? profile.decay : tea.decay);
       if (tea !== undefined) food.water(tea.water);
