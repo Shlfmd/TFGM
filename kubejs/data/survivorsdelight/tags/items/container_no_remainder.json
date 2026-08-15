@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "waterflasks:leather_flask",
+    "waterflasks:iron_flask",
+    "waterflasks:red_steel_flask"
+  ]
+}
