@@ -1,0 +1,19 @@
+{
+  "type": "deco_storage:storage_crafter",
+  "pattern": [
+    { "item": "tfc:food/tropical_fish" },
+    { "item": "tfc:food/tropical_fish" },
+    { "item": "tfc:food/tropical_fish" },
+    { "item": "tfc:food/tropical_fish" },
+    { "item": "tfc:food/tropical_fish" },
+    { "item": "tfc:food/tropical_fish" },
+    { "item": "tfc:food/tropical_fish" },
+    { "item": "tfc:food/tropical_fish" },
+    { "item": "tfc:food/tropical_fish" }
+  ],
+  "input": { "item": "deco_storage:empty_barrel" },
+  "result": {
+    "item": "deco_storage:barrel_with_tropical_fish",
+    "count": 1
+  }
+}

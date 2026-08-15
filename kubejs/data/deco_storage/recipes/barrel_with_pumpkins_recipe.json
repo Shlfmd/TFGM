@@ -1,0 +1,19 @@
+{
+  "type": "deco_storage:storage_crafter",
+  "pattern": [
+    { "item": "tfc:pumpkin" },
+    { "item": "tfc:pumpkin" },
+    { "item": "tfc:pumpkin" },
+    { "item": "tfc:pumpkin" },
+    { "item": "tfc:pumpkin" },
+    { "item": "tfc:pumpkin" },
+    { "item": "tfc:pumpkin" },
+    { "item": "tfc:pumpkin" },
+    { "item": "tfc:pumpkin" }
+  ],
+  "input": { "item": "deco_storage:empty_barrel" },
+  "result": {
+    "item": "deco_storage:barrel_with_pumpkins",
+    "count": 1
+  }
+}

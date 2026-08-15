@@ -1,0 +1,19 @@
+{
+  "type": "deco_storage:storage_crafter",
+  "pattern": [
+    { "item": "tfc:food/carrot" },
+    { "item": "tfc:food/carrot" },
+    { "item": "tfc:food/carrot" },
+    { "item": "tfc:food/carrot" },
+    { "item": "tfc:food/carrot" },
+    { "item": "tfc:food/carrot" },
+    { "item": "tfc:food/carrot" },
+    { "item": "tfc:food/carrot" },
+    { "item": "tfc:food/carrot" }
+  ],
+  "input": { "item": "deco_storage:hanger" },
+  "result": {
+    "item": "deco_storage:hanging_carrots",
+    "count": 1
+  }
+}

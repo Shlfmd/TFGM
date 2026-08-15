@@ -1,0 +1,19 @@
+{
+  "type": "deco_storage:storage_crafter",
+  "pattern": [
+    { "item": "tfc:food/tomato" },
+    { "item": "tfc:food/tomato" },
+    { "item": "tfc:food/tomato" },
+    { "item": "tfc:food/tomato" },
+    { "item": "tfc:food/tomato" },
+    { "item": "tfc:food/tomato" },
+    { "item": "tfc:food/tomato" },
+    { "item": "tfc:food/tomato" },
+    { "item": "tfc:food/tomato" }
+  ],
+  "input": { "item": "deco_storage:empty_barrel" },
+  "result": {
+    "item": "deco_storage:barrel_with_tomatoes",
+    "count": 1
+  }
+}

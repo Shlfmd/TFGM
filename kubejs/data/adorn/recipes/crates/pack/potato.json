@@ -1,0 +1,1 @@
+{"type":"crafting_shaped","group":"adorn:pack_crate","pattern":["...",".#.","..."],"key":{".":{"item":"tfc:food/potato"},"#":{"item":"adorn:crate"}},"result":{"item":"adorn:potato_crate"}}

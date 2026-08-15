@@ -1,0 +1,19 @@
+{
+  "type": "deco_storage:storage_crafter",
+  "pattern": [
+    { "item": "tfc:food/potato" },
+    { "item": "tfc:food/potato" },
+    { "item": "tfc:food/potato" },
+    { "item": "tfc:food/potato" },
+    { "item": "tfc:food/potato" },
+    { "item": "tfc:food/potato" },
+    { "item": "tfc:food/potato" },
+    { "item": "tfc:food/potato" },
+    { "item": "tfc:food/potato" }
+  ],
+  "input": { "item": "deco_storage:empty_crate" },
+  "result": {
+    "item": "deco_storage:crate_with_potatoes",
+    "count": 1
+  }
+}

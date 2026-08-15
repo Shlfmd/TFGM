@@ -1,0 +1,19 @@
+{
+  "type": "deco_storage:storage_crafter",
+  "pattern": [
+    { "item": "tfc:food/beet" },
+    { "item": "tfc:food/beet" },
+    { "item": "tfc:food/beet" },
+    { "item": "tfc:food/beet" },
+    { "item": "tfc:food/beet" },
+    { "item": "tfc:food/beet" },
+    { "item": "tfc:food/beet" },
+    { "item": "tfc:food/beet" },
+    { "item": "tfc:food/beet" }
+  ],
+  "input": { "item": "deco_storage:empty_basket" },
+  "result": {
+    "item": "deco_storage:basket_with_beetroots",
+    "count": 1
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "deco_storage:storage_crafter",
+  "pattern": [
+    { "item": "tfc:food/tropical_fish" },
+    { "item": "tfc:food/tropical_fish" },
+    { "item": "tfc:food/tropical_fish" },
+    { "item": "tfc:food/tropical_fish" },
+    { "item": "tfc:food/tropical_fish" },
+    { "item": "tfc:food/tropical_fish" },
+    { "item": "tfc:food/tropical_fish" },
+    { "item": "tfc:food/tropical_fish" },
+    { "item": "tfc:food/tropical_fish" }
+  ],
+  "input": { "item": "deco_storage:hanger" },
+  "result": {
+    "item": "deco_storage:hanging_tropical_fish",
+    "count": 1
+  }
+}

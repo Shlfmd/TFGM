@@ -1,0 +1,1 @@
+{"type":"crafting_shaped","group":"adorn:pack_crate","pattern":["...",".#.","..."],"key":{".":{"item":"tfc:food/melon_slice"},"#":{"item":"adorn:crate"}},"result":{"item":"adorn:melon_crate"}}

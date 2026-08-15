@@ -1,0 +1,19 @@
+{
+  "type": "deco_storage:storage_crafter",
+  "pattern": [
+    { "item": "tfc:food/red_apple" },
+    { "item": "tfc:food/red_apple" },
+    { "item": "tfc:food/red_apple" },
+    { "item": "tfc:food/red_apple" },
+    { "item": "tfc:food/red_apple" },
+    { "item": "tfc:food/red_apple" },
+    { "item": "tfc:food/red_apple" },
+    { "item": "tfc:food/red_apple" },
+    { "item": "tfc:food/red_apple" }
+  ],
+  "input": { "item": "deco_storage:empty_basket" },
+  "result": {
+    "item": "deco_storage:basket_with_apples",
+    "count": 1
+  }
+}

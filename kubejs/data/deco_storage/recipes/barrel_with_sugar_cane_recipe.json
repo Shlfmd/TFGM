@@ -1,0 +1,19 @@
+{
+  "type": "deco_storage:storage_crafter",
+  "pattern": [
+    { "item": "tfc:food/sugarcane" },
+    { "item": "tfc:food/sugarcane" },
+    { "item": "tfc:food/sugarcane" },
+    { "item": "tfc:food/sugarcane" },
+    { "item": "tfc:food/sugarcane" },
+    { "item": "tfc:food/sugarcane" },
+    { "item": "tfc:food/sugarcane" },
+    { "item": "tfc:food/sugarcane" },
+    { "item": "tfc:food/sugarcane" }
+  ],
+  "input": { "item": "deco_storage:empty_barrel" },
+  "result": {
+    "item": "deco_storage:barrel_with_sugarcane",
+    "count": 1
+  }
+}

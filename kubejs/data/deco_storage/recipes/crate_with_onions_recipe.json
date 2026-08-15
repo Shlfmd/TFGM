@@ -1,0 +1,19 @@
+{
+  "type": "deco_storage:storage_crafter",
+  "pattern": [
+    { "item": "tfc:food/onion" },
+    { "item": "tfc:food/onion" },
+    { "item": "tfc:food/onion" },
+    { "item": "tfc:food/onion" },
+    { "item": "tfc:food/onion" },
+    { "item": "tfc:food/onion" },
+    { "item": "tfc:food/onion" },
+    { "item": "tfc:food/onion" },
+    { "item": "tfc:food/onion" }
+  ],
+  "input": { "item": "deco_storage:empty_crate" },
+  "result": {
+    "item": "deco_storage:crate_with_onions",
+    "count": 1
+  }
+}

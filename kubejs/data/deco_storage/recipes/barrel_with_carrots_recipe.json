@@ -1,0 +1,19 @@
+{
+  "type": "deco_storage:storage_crafter",
+  "pattern": [
+    { "item": "tfc:food/carrot" },
+    { "item": "tfc:food/carrot" },
+    { "item": "tfc:food/carrot" },
+    { "item": "tfc:food/carrot" },
+    { "item": "tfc:food/carrot" },
+    { "item": "tfc:food/carrot" },
+    { "item": "tfc:food/carrot" },
+    { "item": "tfc:food/carrot" },
+    { "item": "tfc:food/carrot" }
+  ],
+  "input": { "item": "deco_storage:empty_barrel" },
+  "result": {
+    "item": "deco_storage:barrel_with_carrots",
+    "count": 1
+  }
+}

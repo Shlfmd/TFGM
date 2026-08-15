@@ -1,0 +1,1 @@
+{"type":"crafting_shaped","group":"adorn:pack_crate","pattern":["...",".#.","..."],"key":{".":{"item":"tfc:food/red_apple"},"#":{"item":"adorn:crate"}},"result":{"item":"adorn:apple_crate"}}

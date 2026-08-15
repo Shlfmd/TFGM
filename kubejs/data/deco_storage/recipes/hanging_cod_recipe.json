@@ -1,0 +1,19 @@
+{
+  "type": "deco_storage:storage_crafter",
+  "pattern": [
+    { "item": "tfc:food/cod" },
+    { "item": "tfc:food/cod" },
+    { "item": "tfc:food/cod" },
+    { "item": "tfc:food/cod" },
+    { "item": "tfc:food/cod" },
+    { "item": "tfc:food/cod" },
+    { "item": "tfc:food/cod" },
+    { "item": "tfc:food/cod" },
+    { "item": "tfc:food/cod" }
+  ],
+  "input": { "item": "deco_storage:hanger" },
+  "result": {
+    "item": "deco_storage:hanging_cod",
+    "count": 1
+  }
+}

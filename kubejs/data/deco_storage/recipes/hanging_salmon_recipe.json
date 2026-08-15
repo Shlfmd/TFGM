@@ -1,0 +1,19 @@
+{
+  "type": "deco_storage:storage_crafter",
+  "pattern": [
+    { "item": "tfc:food/salmon" },
+    { "item": "tfc:food/salmon" },
+    { "item": "tfc:food/salmon" },
+    { "item": "tfc:food/salmon" },
+    { "item": "tfc:food/salmon" },
+    { "item": "tfc:food/salmon" },
+    { "item": "tfc:food/salmon" },
+    { "item": "tfc:food/salmon" },
+    { "item": "tfc:food/salmon" }
+  ],
+  "input": { "item": "deco_storage:hanger" },
+  "result": {
+    "item": "deco_storage:hanging_salmon",
+    "count": 1
+  }
+}

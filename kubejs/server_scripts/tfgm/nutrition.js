@@ -15,6 +15,7 @@ const FOOD_MODS = new Set([
   "survivorsdelight",
   "aquaculture",
   "survivorsaquaculture",
+  "extradelight",
 ]);
 // Flip to true to log one [TFGM-DUMP] line per food: id, hunger, saturation,
 // decay, nutrients. Off by default; it is ~390 lines per datapack load.
@@ -130,6 +131,9 @@ const GVD = [1.5, 0, 1, 0, 0.5];
 const GFD = [1.5, 0.75, 0, 0, 0.5];
 const GVPD = [1.5, 0, 1, 2, 0.5];
 const NONE = [0, 0, 0, 0, 0];
+// Food-mod foods with no explicit profile still get this decay so they spoil
+// like TFC food instead of keeping their non-decaying vanilla FoodProperties.
+const FALLBACK_DECAY = 2;
 // Farmer's Delight's honey-glazed ham is a fourteen-hunger feast, crafted
 // from two cooked-rice portions, four sweet berries, and a smoked ham. It is
 // intentionally not represented by the generic single-protein profile.
@@ -498,6 +502,43 @@ foods(
 );
 foods("tfc_gourmet", "okroshka kholodnik", VP, 1.75);
 
+// extradelighttfc already gives TFC food definitions to these ExtraDelight items
+// (explicit food_items plus its dynamic_food tag). Leave them to that mod so the
+// fallback below never double-defines them.
+const EXTRADELIGHT_TFC_COVERED = new Set([
+  "extradelight:bbq_jar_item",
+  "extradelight:breadcrumbs",
+  "extradelight:butter",
+  "extradelight:grated_carrot",
+  "extradelight:grated_garlic",
+  "extradelight:grated_potato",
+  "extradelight:potato_sticks",
+  "extradelight:sliced_apple",
+  "extradelight:sliced_onion",
+  "extradelight:sliced_potato",
+  "extradelight:sliced_tomato",
+  "extradelight:beef_wellington",
+  "extradelight:beef_wellington_block_item",
+  "extradelight:sausage_roll",
+  "extradelight:liver_onions",
+  "extradelight:stuffed_heart",
+  "extradelight:fried_brains",
+  "extradelight:oxtail_soup",
+  "extradelight:bbq_ribs",
+  "extradelight:bbq_ribs_block_item",
+  "extradelight:rack_lamb",
+  "extradelight:rack_lamb_block_item",
+  "extradelight:haggis",
+  "extradelight:haggis_block_item",
+  "extradelight:mint_lamb",
+  "extradelight:mint_lamb_feast",
+  "extradelight:currywurst",
+  "extradelight:pulled_pork_sandwich",
+  "extradelight:pulled_pork_block_item",
+  "extradelight:pork_and_apples",
+  "extradelight:pork_and_apples_feast",
+]);
+
 const AQUACULTURE_FISH = new Set([
   "atlantic_cod",
   "blackfish",
@@ -545,10 +586,14 @@ TFCEvents.data((event) => {
     const nativeFood = entry.getValue().getFoodProperties();
     const fish = namespace === "aquaculture" && AQUACULTURE_FISH.has(path);
     if (nativeFood === null && !fish) return;
-    const profile = PROFILES.get(key);
+    let profile = PROFILES.get(key);
     if (profile === undefined) {
+      // extradelighttfc defines these; skip so we do not double-define them.
+      if (EXTRADELIGHT_TFC_COVERED.has(key)) return;
+      // No curated profile: keep the item's own hunger/saturation but give it a
+      // default TFC decay so it spoils. Nutrients stay empty until curated.
       missing.push(key);
-      return;
+      profile = { nutrients: NONE, decay: FALLBACK_DECAY };
     }
     const hungerValue = nativeFood === null ? 4 : nativeFood.getNutrition();
     const saturationValue =
@@ -596,8 +641,8 @@ TFCEvents.data((event) => {
   // An exception here aborts the whole TFCEvents.data callback, so one uncovered
   // item would drop nutrition for EVERY OTHER food instead of just its own. Wild.
   if (missing.length) {
-    console.warn(
-      `[TFGM] Missing explicit nutrition profiles (${missing.length}): ${missing.join(", ")}`,
+    console.info(
+      `[TFGM] Gave default decay (empty nutrients) to ${missing.length} foods lacking a profile: ${missing.join(", ")}`,
     );
   }
 });
