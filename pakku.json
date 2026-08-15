@@ -2,7 +2,8 @@
     "name": "TFGM",
     "version": "0.13.7",
     "overrides": [
-        "mods"
+        "mods",
+        "config/bettercombat/fallback_compatibility.json"
     ],
     "server_overrides": [
         "kubejs"
