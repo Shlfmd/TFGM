@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aba"
+  ],
+  "key": {
+    "a": {
+      "item": "tfc:food/wheat"
+    },
+    "b": {
+      "item": "minecraft:hay_block"
+    }
+  },
+  "result": {
+    "item": "perrys_decorations:straw_bale",
+    "count": 1
+  }
+}

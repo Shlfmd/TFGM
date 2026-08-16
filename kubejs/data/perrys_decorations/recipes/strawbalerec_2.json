@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "a"
+  ],
+  "key": {
+    "a": {
+      "item": "perrys_decorations:straw_bale"
+    }
+  },
+  "result": {
+    "item": "tfc:food/wheat",
+    "count": 7
+  }
+}
