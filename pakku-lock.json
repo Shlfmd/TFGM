@@ -115,79 +115,6 @@
             ]
         },
         {
-            "pakku_id": "dO5koDdejxVVP8QU",
-            "pakku_links": [
-                "mDBX5T1kk4VrngRG",
-                "v2B6bASxvAMhc3DV"
-            ],
-            "type": "MOD",
-            "side": "BOTH",
-            "slug": {
-                "curseforge": "advanced-tfc-tech-unofficial",
-                "modrinth": "advanced-tfc-tech-unofficial"
-            },
-            "name": {
-                "curseforge": "Advanced TFC Tech Unofficial",
-                "modrinth": "Advanced TFC Tech Unofficial"
-            },
-            "id": {
-                "curseforge": "862559",
-                "modrinth": "wEKs9gH0"
-            },
-            "files": [
-                {
-                    "type": "curseforge",
-                    "file_name": "AdvancedTFCTech-1.20.1-2.4.jar",
-                    "mc_versions": [
-                        "1.20.1"
-                    ],
-                    "loaders": [
-                        "forge",
-                        "neoforge"
-                    ],
-                    "release_type": "release",
-                    "url": "https://edge.forgecdn.net/files/8479/8/AdvancedTFCTech-1.20.1-2.4.jar",
-                    "id": "8479008",
-                    "parent_id": "862559",
-                    "hashes": {
-                        "sha1": "f32cd8181e778c7dfd399ed81d64369c4e104cd6",
-                        "md5": "7d7c88b8eab7c13115050e05dd929aa5"
-                    },
-                    "required_dependencies": [
-                        "302973",
-                        "231951"
-                    ],
-                    "size": 532445,
-                    "date_published": "2026-07-21T09:59:20.253Z"
-                },
-                {
-                    "type": "modrinth",
-                    "file_name": "AdvancedTFCTech-1.20.1-2.4.jar",
-                    "mc_versions": [
-                        "1.20.1"
-                    ],
-                    "loaders": [
-                        "forge",
-                        "neoforge"
-                    ],
-                    "release_type": "release",
-                    "url": "https://cdn.modrinth.com/data/wEKs9gH0/versions/qfVdaKFL/AdvancedTFCTech-1.20.1-2.4.jar",
-                    "id": "qfVdaKFL",
-                    "parent_id": "wEKs9gH0",
-                    "hashes": {
-                        "sha512": "c551fe098a33eb6967b946794599bee701dbb830cce4d1a75fd81cea4c9fc1cbca71cf10e2ba8b59373b4284bdf234e97722e51de059386a1e32c92de973a8ba",
-                        "sha1": "f32cd8181e778c7dfd399ed81d64369c4e104cd6"
-                    },
-                    "required_dependencies": [
-                        "JaCEZUhg",
-                        "tIm2nV03"
-                    ],
-                    "size": 532445,
-                    "date_published": "2026-07-21T10:00:57.384438Z"
-                }
-            ]
-        },
-        {
             "pakku_id": "881IzDySpGttuv7N",
             "type": "MOD",
             "side": "BOTH",
@@ -2101,6 +2028,7 @@
                 "QnrLNiKSMPDtftLO"
             ],
             "type": "MOD",
+            "side": "BOTH",
             "slug": {
                 "curseforge": "extra-delight-unofficial-port"
             },
@@ -2997,43 +2925,6 @@
                     "required_dependencies": [],
                     "size": 40747534,
                     "date_published": "2026-04-19T17:02:00.678965Z"
-                }
-            ]
-        },
-        {
-            "pakku_id": "v2B6bASxvAMhc3DV",
-            "type": "MOD",
-            "side": "BOTH",
-            "slug": {
-                "modrinth": "immersiveengineering"
-            },
-            "name": {
-                "modrinth": "Immersive Engineering"
-            },
-            "id": {
-                "modrinth": "tIm2nV03"
-            },
-            "files": [
-                {
-                    "type": "modrinth",
-                    "file_name": "ImmersiveEngineering-1.20.1-10.2.0-183.jar",
-                    "mc_versions": [
-                        "1.20.1"
-                    ],
-                    "loaders": [
-                        "forge"
-                    ],
-                    "release_type": "release",
-                    "url": "https://cdn.modrinth.com/data/tIm2nV03/versions/WUzj4tgJ/ImmersiveEngineering-1.20.1-10.2.0-183.jar",
-                    "id": "WUzj4tgJ",
-                    "parent_id": "tIm2nV03",
-                    "hashes": {
-                        "sha512": "fdb52fb1faf5522c97820480e436216114c931672d3b0ff1c26c64a5bfd350d3599df31dcb14a5dba49236d8fac3d99b4bb96b0a84d55443e282754d687536f7",
-                        "sha1": "b6e403e0e5be1802268be366ad1a7791f07fb793"
-                    },
-                    "required_dependencies": [],
-                    "size": 12129396,
-                    "date_published": "2025-02-18T16:55:55.347411Z"
                 }
             ]
         },
