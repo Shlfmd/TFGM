@@ -1,0 +1,68 @@
+{
+  "entries": [
+    {
+      "type": "VEG",
+      "effects": [],
+      "ingredient": [
+        { "item": "extradelight:sliced_onion" },
+        { "item": "extradelight:sliced_tomato" },
+        { "item": "extradelight:shredded_cabbage_item" },
+        { "item": "tfc_gourmet:sliced_cabbage" }
+      ],
+      "max_time": 360,
+      "min_time": 0,
+      "nutrition": 5,
+      "overcook_penalty": 0.2,
+      "raw_penalty": 0.0,
+      "size": 1,
+      "stir_time": 60
+    },
+    {
+      "type": "VEG",
+      "effects": [],
+      "ingredient": [
+        { "item": "extradelight:sliced_potato" },
+        { "item": "rusticdelight:potato_slices" },
+        { "item": "moredelight:diced_potatoes" }
+      ],
+      "max_time": 360,
+      "min_time": 180,
+      "nutrition": 8,
+      "overcook_penalty": 0.3,
+      "raw_penalty": 0.5,
+      "size": 1,
+      "stir_time": 60
+    },
+    {
+      "type": "VEG",
+      "effects": [],
+      "ingredient": [
+        { "item": "extradelight:sliced_beetroot_item" },
+        { "item": "rusticdelight:bell_pepper_slice_green" },
+        { "item": "rusticdelight:bell_pepper_slice_red" },
+        { "item": "rusticdelight:bell_pepper_slice_yellow" }
+      ],
+      "max_time": 360,
+      "min_time": 240,
+      "nutrition": 5,
+      "overcook_penalty": 0.2,
+      "raw_penalty": 0.2,
+      "size": 1,
+      "stir_time": 60
+    },
+    {
+      "type": "SEAFOOD",
+      "effects": [],
+      "ingredient": [
+        { "item": "rusticdelight:calamari" }
+      ],
+      "max_time": 120,
+      "min_time": 60,
+      "nutrition": 12,
+      "overcook_penalty": 0.5,
+      "raw_penalty": 0.5,
+      "size": 1,
+      "stir_time": 40
+    }
+  ]
+}
