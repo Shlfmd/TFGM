@@ -2,7 +2,8 @@
 
 # From `pakku export`
 build/
-mods/
+mods/*
+!mods/tfgf-*.jar
 exports/
 resourcepacks/
 shaderpacks/
