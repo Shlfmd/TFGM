@@ -1,0 +1,9 @@
+{
+  "type": "extradelight:oven",
+  "consumeContainer": false,
+  "container": { "count": 1, "id": "extradelight:sheet" },
+  "cookingtime": 600,
+  "experience": 1.0,
+  "ingredients": [{ "tag": "c:seeds/corn" }],
+  "result": { "count": 1, "id": "extradelight:popcorn" }
+}

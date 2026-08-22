@@ -574,6 +574,9 @@ const AQUACULTURE_FISH = new Set([
 TFCEvents.data((event) => {
   const missing = [];
   let registered = 0;
+  // Set by tfgm/nutrition.extradelight.js, which loads first on its priority.
+  const GENERATED = global.TFGM_EXTRADELIGHT_NUTRITION || {};
+  let generatedUsed = 0;
   $BuiltInRegistries.ITEM.entrySet().forEach((entry) => {
     const id = entry.getKey().location();
     // getNamespace()/getPath() hand back java.lang.String. Rhino compares those
@@ -590,10 +593,18 @@ TFCEvents.data((event) => {
     if (profile === undefined) {
       // extradelighttfc defines these; skip so we do not double-define them.
       if (EXTRADELIGHT_TFC_COVERED.has(key)) return;
-      // No curated profile: keep the item's own hunger/saturation but give it a
-      // default TFC decay so it spoils. Nutrients stay empty until curated.
-      missing.push(key);
-      profile = { nutrients: NONE, decay: FALLBACK_DECAY };
+      // ExtraDelight is too large to curate by hand, so its profiles are
+      // derived from its own recipes by tools/gen-extradelight-nutrition.mjs.
+      const generated = GENERATED[key];
+      if (generated !== undefined) {
+        profile = { nutrients: generated.n, decay: generated.d };
+        generatedUsed++;
+      } else {
+        // No profile at all: keep the item's own hunger/saturation but give it
+        // a default TFC decay so it spoils. Nutrients stay empty.
+        missing.push(key);
+        profile = { nutrients: NONE, decay: FALLBACK_DECAY };
+      }
     }
     const hungerValue = nativeFood === null ? 4 : nativeFood.getNutrition();
     const saturationValue =
@@ -636,7 +647,7 @@ TFCEvents.data((event) => {
     registered++;
   });
   console.info(
-    `[TFGM] Registered explicit TFC nutrition for ${registered} fork foods.`,
+    `[TFGM] Registered explicit TFC nutrition for ${registered} fork foods (${generatedUsed} derived from ExtraDelight recipes).`,
   );
   // An exception here aborts the whole TFCEvents.data callback, so one uncovered
   // item would drop nutrition for EVERY OTHER food instead of just its own. Wild.

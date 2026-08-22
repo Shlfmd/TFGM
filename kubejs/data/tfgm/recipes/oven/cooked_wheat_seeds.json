@@ -1,0 +1,9 @@
+{
+  "type": "extradelight:oven",
+  "consumeContainer": false,
+  "container": { "count": 1, "id": "extradelight:sheet" },
+  "cookingtime": 600,
+  "experience": 1.0,
+  "ingredients": [{ "item": "minecraft:wheat_seeds" }],
+  "result": { "count": 1, "id": "extradelight:cooked_wheat_seeds" }
+}
