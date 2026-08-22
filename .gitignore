@@ -7,3 +7,7 @@ mods/*
 exports/
 resourcepacks/
 shaderpacks/
+
+# My global ignore carries a ctags `tags` pattern, which mangles datapack tag dirs.
+# We gotta add it back or the produced export will lack them :/
+!kubejs/data/**/tag
