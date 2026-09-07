@@ -195,9 +195,12 @@ stage:
       '  "rcon_addr": "127.0.0.1:{{rcon_port}}",' \
       '  "cors_origin": ["http://localhost:5173"]' \
       '}' > "$tmp/harness.json"
-    scp "$tmp/tfgm-run.sh" "$tmp/tfgm-firewall.sh" "$tmp/harness.json" bin/tfgm-harness "{{host}}:{{dir}}/"
+    scp "$tmp/tfgm-run.sh" "$tmp/tfgm-firewall.sh" "$tmp/harness.json" "{{host}}:{{dir}}/"
+    remote_bin="/tmp/tfgm-harness.$(date +%s).$$"
+    scp bin/tfgm-harness "{{host}}:$remote_bin"
+    ssh -t {{host}} "sudo install -m 755 '$remote_bin' '{{dir}}/tfgm-harness' && rm -f '$remote_bin'"
     rm -rf "$tmp"
-    ssh {{host}} "chmod +x {{dir}}/tfgm-run.sh {{dir}}/tfgm-firewall.sh {{dir}}/tfgm-harness"
+    ssh {{host}} "chmod +x {{dir}}/tfgm-run.sh {{dir}}/tfgm-firewall.sh"
     if [ -f .rcon-secret ]; then
         ssh {{host}} "umask 077; printf 'TFGM_RCON_PASSWORD=%s\n' \"$(tr -d '\n' < .rcon-secret)\" > {{dir}}/.harness-env"
     else

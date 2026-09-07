@@ -32,4 +32,18 @@ exec "@BWRAP@/bin/bwrap" \
 	--tmpfs /tmp \
 	--bind "@DIR@" /data \
 	--chdir /data \
-	"@JAVA@/bin/java" "${JVM_ARGS[@]}" -jar minecraft_server.jar nogui
+	"@BASH@/bin/bash" -c '
+	set -euo pipefail
+	forge_args_file=""
+	for candidate in libraries/net/minecraftforge/forge/*/unix_args.txt; do
+		[ -f "$candidate" ] || continue
+		forge_args_file="$candidate"
+		break
+	done
+	if [ -z "$forge_args_file" ]; then
+		echo "error: Forge unix_args.txt is missing" >&2
+		exit 1
+	fi
+
+	exec "@JAVA@/bin/java" "$@" "@$forge_args_file" nogui
+	' -- "${JVM_ARGS[@]}"
