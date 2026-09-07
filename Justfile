@@ -139,7 +139,11 @@ bootstrap:
         { command -v curl >/dev/null && curl -fSL -o forge-installer.jar '$url' || wget -O forge-installer.jar '$url'; } && \
         {{java}} -jar forge-installer.jar --installServer && rm -f forge-installer.jar run.bat && \
         printf 'eula=true\n' > eula.txt && echo installed"
-    echo "Forge {{forge_ver}} installed on {{host}}. Next: just setup-rcon && just stage && just deploy && just start"
+    echo "Forge {{forge_ver}} installed on {{host}}. Next: just setup-rcon && just setup-discord && just stage && just deploy && just start"
+
+# Push Discord Integration config to the host (prompts for secrets on first run).
+setup-discord:
+    bash scripts/setup-discord.sh {{host}} {{dir}}
 
 # Enable RCON in server.properties, generating ./.rcon-secret if absent.
 setup-rcon:
