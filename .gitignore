@@ -13,3 +13,4 @@ shaderpacks/
 !kubejs/data/**/tag
 
 .rcon-secret
+.discord.env

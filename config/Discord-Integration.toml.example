@@ -1,0 +1,38 @@
+# General options for the bot
+[general]
+  # Your Discord bot token. NEVER share this value.
+  botToken = "__BOT_TOKEN__"
+  # The channel ID where the bot operates.
+  botChannel = "__BOT_CHANNEL__"
+  # Status message shown in Discord. Placeholders: %online%, %max%
+  botStatusName = "%online% players online"
+  botStatusNameSingular = "%online% player online"
+  botStatusNameEmpty = "No-one is online"
+  # Relay Minecraft chat messages to Discord via webhook
+  allowWebhookMessages = false
+
+[compatibility]
+  disableParsingMentionsIngame = false
+
+[commands]
+  enabled = true
+  # Discord role IDs that can run admin commands (e.g. /dc stop)
+  adminRoleIDs = [ "__ADMIN_ROLE_IDS__" ]
+  # UUID of the bot operator for permission checks
+  senderUUID = ""
+  # Show /list in Discord
+  listCmdEnabled = true
+
+[linking]
+  # Allow players to link their Minecraft and Discord accounts
+  enableLinking = true
+  # Set the bot's Discord nickname to the Minecraft username
+  shouldNickname = false
+  # Allow linking from any server in the guild
+  globalLinking = true
+  # Storage backend for linked accounts
+  databaseClass = "de.erdbeerbaerlp.dcintegration.common.storage.linking.database.JSONInterface"
+  # Discord role given to linked players
+  linkedRoleID = "0"
+  # When true, only linked players can join the server
+  whitelistMode = false
