@@ -88,8 +88,22 @@ restart:
 stop:
     ssh -t {{host}} {{systemctl}} stop {{service}}
 
-status:
-    ssh -t {{host}} {{systemctl}} status {{service}} --no-pager
+status *args:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    case "{{args}}" in
+        "")
+            ssh {{host}} "TFGM_HARNESS_CONFIG={{dir}}/harness.json {{dir}}/tfgm-harness status"
+            ;;
+        --follow)
+            ssh {{host}} "TFGM_HARNESS_CONFIG={{dir}}/harness.json {{dir}}/tfgm-harness status"
+            ssh -t {{host}} {{journalctl}} -u {{service}} -f
+            ;;
+        *)
+            echo "usage: just status [--follow]" >&2
+            exit 2
+            ;;
+    esac
 
 # Tail the server journal (last N lines, then follow).
 logs lines="80":
