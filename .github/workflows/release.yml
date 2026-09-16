@@ -76,7 +76,6 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # The fork ships its own build of Pakku (fork feature, PR juraj-hrivnak/Pakku#136).
           java -jar pakku.jar export
           echo "Exported artifacts:"
           find build -maxdepth 2 -type f \( -name '*.zip' -o -name '*.mrpack' \) -not -path '*/.cache/*'
@@ -95,51 +94,151 @@ jobs:
           ls -lh dist
 
       # The release notes keep two things strictly separate:
-      #   1. Upstream changelog, from the parent modpack's own
-      #      CHANGELOG.md (reconstructed at the pinned commit). This is the
-      #      upstream project's release notes, unchanged.
-      #   2. Fork mod changes, computed fresh each release as the delta of
-      #      *this fork's mod layer against the pinned parent*. The mods this
-      #      pack adds/removes/overrides relative to upstream.
+      #   1. Upstream changes: new entries from the parent modpack's own
+      #      CHANGELOG.md since the previous release's pinned parent commit
+      #      (or a one-line "no upstream change" note when the pin didn't
+      #      move, instead of re-printing the same changelog every release).
+      #      Upstream headings are demoted one level so they stay visually
+      #      under the section header instead of competing with it.
+      #   2. Fork changes since the previous tag: mod additions/removals/
+      #      updates with file versions, vendored-jar swaps under mods/,
+      #      and the commit subjects behind them. It is followed by a
+      #      collapsible full inventory of this fork layer vs the pinned
+      #      parent.
       - name: Build release notes
         id: changelog
         shell: bash
         run: |
           set -euo pipefail
           BODY_FILE="$(mktemp)"
-          PARENT_CHANGELOG=.pakku/parent/CHANGELOG.md # it's already there :D
-          if [ -f "$PARENT_CHANGELOG" ]; then
-            UPSTREAM_VER=$(grep -m1 -oE '^## \[[^]]+\]' "$PARENT_CHANGELOG" | sed -E 's/^## \[([^]]+)\]/\1/' || true)
-            {
-              echo "## Upstream Changes | TerraFirmaGreg-Modern ${UPSTREAM_VER}"
-              echo ""
-              echo "_Release notes from the parent modpack this fork tracks._"
-              echo ""
-              # First released version block (skips the "## Unreleased" heading,
-              # which the upstream changelog writes without [brackets]).
-              awk '/^## \[/ { b++; if (b==2) exit } b==1 { print }' "$PARENT_CHANGELOG"
-              echo ""
-            } >> "$BODY_FILE"
+          WORK_DIR="$(mktemp -d)"
+
+          REPO_URL="${GITHUB_SERVER_URL:-https://github.com}/${GITHUB_REPOSITORY}"
+          PARENT_URL=$(jq -r '.parent.id' pakku.json)
+          CUR_PARENT=$(jq -r '.parent.version' pakku.json)
+          PARENT_BASE="${PARENT_URL%.git}"
+          CUR_SHORT="${CUR_PARENT:0:8}"
+          UPSTREAM_VER=$(grep -m1 -oE '^## \[[^]]+\]' .pakku/parent/CHANGELOG.md | sed -E 's/^## \[([^]]+)\]/\1/' || true)
+          # Previous fork release; empty on the very first release.
+          PREV_TAG="$(git tag --list 'v*-shelf*' --sort=-creatordate | grep -vx "${GITHUB_REF_NAME}" | head -n1 || true)"
+          PREV_PARENT=""
+          if [ -n "${PREV_TAG}" ]; then
+            PREV_PARENT="$(git show "${PREV_TAG}:pakku.json" | jq -r '.parent.version' || true)"
+            SINCE="since ${PREV_TAG}"
+            RANGE="${PREV_TAG}..HEAD"
           else
-            echo "_Upstream changelog unavailable (parent CHANGELOG.md not found)._" >> "$BODY_FILE"
-            echo "" >> "$BODY_FILE"
+            SINCE="in this initial release"
+            RANGE="HEAD"
           fi
 
-          {
-            echo "## Fork Changes"
-            echo ""
-            echo "_Mods this pack adds, overrides, or removes relative to TerraFirmaGreg-Modern._"
-            echo ""
-          } >> "$BODY_FILE"
+          # --- 1. Upstream: new version blocks since the previous pin. ---
+          # The "## Unreleased" heading is written without [brackets], so the
+          # first [bracketed] block is the newest released version.
+          : > "$WORK_DIR/upstream.md"
+          UP_STATUS=""
+          if [ -z "${PREV_TAG}" ]; then
+            awk '/^## \[/ { b++; if (b==2) exit } b==1 { print }' .pakku/parent/CHANGELOG.md \
+              | sed -E 's/^## \[/### [/' > "$WORK_DIR/upstream.md"
+            UP_STATUS="initial release"
+          elif [ "${PREV_PARENT}" = "${CUR_PARENT}" ]; then
+            UP_STATUS="no upstream change"
+          else
+            if git -C .pakku/parent show "${PREV_PARENT}:CHANGELOG.md" > "$WORK_DIR/old-changelog.md" 2>/dev/null; then
+              STOP="$(grep -E '^## \[' "$WORK_DIR/old-changelog.md" | head -n1 || true)"
+            else
+              STOP=""
+            fi
+            if [ -n "${STOP}" ] && grep -qxF "${STOP}" .pakku/parent/CHANGELOG.md; then
+              # Print the current changelog from its first released block down
+              # to (excluding) the block that headed the previous pin.
+              awk -v stop="${STOP}" 'BEGIN{b=0} /^## \[/ { if ($0==stop) exit; b=1 } b==1 { print }' \
+                .pakku/parent/CHANGELOG.md | sed -E 's/^## \[/### [/' > "$WORK_DIR/upstream.md"
+            else
+              awk '/^## \[/ { b++; if (b==2) exit } b==1 { print }' .pakku/parent/CHANGELOG.md \
+                | sed -E 's/^## \[/### [/' > "$WORK_DIR/upstream.md"
+            fi
+            UP_COUNT="$(grep -c '^### \[' "$WORK_DIR/upstream.md" || true)"
+            UP_STATUS="${UP_COUNT} new upstream version(s)"
+          fi
 
+          # --- 2a. Fork mod delta since the previous tag. ---
+          if [ -n "${PREV_TAG}" ] && git show "${PREV_TAG}:pakku-lock.json" > "$WORK_DIR/prev-lock.json" 2>/dev/null; then
+            :
+          else
+            echo '{"projects":[]}' > "$WORK_DIR/prev-lock.json"
+          fi
+          # Added/removed keyed by slug; updated when the same slug resolves
+          # to a different file. Slugs of parent projects dropped by the fork
+          # (`pakku fork exclude`) are recorded in pakku.json.
+          jq \
+            --slurpfile prev "$WORK_DIR/prev-lock.json" '
+            def key: (.slug.curseforge // .slug.modrinth);
+            def dn: (.name.modrinth // .name.curseforge // key // "unknown");
+            def fn: ((.files[0].file_name // "?"));
+            (($prev[0].projects) | map({key: key, name: dn, file: fn}) | map({(.key): .}) | add // {}) as $old
+            | ((.projects) | map({key: key, name: dn, file: fn}) | map({(.key): .}) | add // {}) as $new
+            | { added:   [$new | to_entries[] | select($old[.key] | not) | .value],
+                removed: [$old | to_entries[] | select($new[.key] | not) | .value],
+                updated: [$new | to_entries[] | . as $e | $old[$e.key] as $o
+                          | select($o and $o.file != $e.value.file)
+                          | {name: $e.value.name, old: $o.file, new: $e.value.file}] }
+          ' pakku-lock.json > "$WORK_DIR/delta.json"
+          N_ADD="$(jq '.added | length' "$WORK_DIR/delta.json")"
+          N_REM="$(jq '.removed | length' "$WORK_DIR/delta.json")"
+          N_UPD="$(jq '.updated | length' "$WORK_DIR/delta.json")"
+          {
+            if [ "$N_ADD" -gt 0 ]; then
+              echo "#### Added (${N_ADD})"
+              echo ""
+              jq -r '.added | sort_by(.name | ascii_downcase)[] | "- \(.name) (`\(.file)`)"' "$WORK_DIR/delta.json"
+              echo ""
+            fi
+            if [ "$N_REM" -gt 0 ]; then
+              echo "#### Removed (${N_REM})"
+              echo ""
+              jq -r '.removed | sort_by(.name | ascii_downcase)[] | "- \(.name) (`\(.file)`)"' "$WORK_DIR/delta.json"
+              echo ""
+            fi
+            if [ "$N_UPD" -gt 0 ]; then
+              echo "#### Updated (${N_UPD})"
+              echo ""
+              jq -r '.updated | sort_by(.name | ascii_downcase)[] | "- \(.name): `\(.old)` → `\(.new)`"' "$WORK_DIR/delta.json"
+              echo ""
+            fi
+            if [ "$N_ADD" -eq 0 ] && [ "$N_REM" -eq 0 ] && [ "$N_UPD" -eq 0 ]; then
+              echo "_No fork mod changes ${SINCE}._"
+              echo ""
+            fi
+          } > "$WORK_DIR/forkmods.md"
+
+          # --- 2b. Vendored jars and commit subjects behind the delta. ---
+          : > "$WORK_DIR/mods-diff.txt"
+          if [ -n "${PREV_TAG}" ]; then
+            git diff --name-status "${RANGE}" -- mods/ > "$WORK_DIR/mods-diff.txt" || true
+            git log --format='- %s (%h)' "${RANGE}" > "$WORK_DIR/commits.txt" || true
+          else
+            : > "$WORK_DIR/commits.txt"
+          fi
+          N_COMMITS="$(wc -l < "$WORK_DIR/commits.txt" | tr -d ' ')"
+          {
+            if [ -z "${PREV_TAG}" ]; then
+              echo "_(Initial release.)_"
+            elif [ "$N_COMMITS" -eq 0 ]; then
+              echo "_No commits ${SINCE}._"
+            else
+              head -n 50 "$WORK_DIR/commits.txt"
+              if [ "$N_COMMITS" -gt 50 ]; then
+                echo "- …and $((N_COMMITS - 50)) more (see the full compare link above)."
+              fi
+            fi
+          } > "$WORK_DIR/commits.md"
+
+          # --- 3. Full inventory of the fork layer vs the pinned parent. ---
+          # Additions are fork projects whose slug is absent from the parent,
+          # overrides share a slug with a parent project, removals come from
+          # the excludes in pakku.json.
           PARENT_LOCK=.pakku/parent/pakku-lock.json
-          # Slugs of parent projects dropped by the fork. `pakku fork exclude`
-          # records these in pakku.json; grab them wherever the key lives.
           EXCLUDES=$(jq -c '[.. | objects | (.excludes? // empty)] | add // [] | unique' pakku.json)
-          # Delta of the fork layer vs. the pinned parent: additions are fork
-          # projects whose slug is absent from the parent, overrides share a
-          # slug with a parent project, removals come from the excludes above.
-          # XXX: jesus fucking christ lmao
           jq -r \
             --slurpfile parent "$PARENT_LOCK" \
             --argjson excludes "$EXCLUDES" '
@@ -152,14 +251,68 @@ jobs:
             | ([$fork[] | select(.dup | not)]) as $added
             | ([$fork[] | select(.dup)]) as $overridden
             | ([$excludes[] | {name: ($pname[.] // .)}]) as $removed
-            | (["### Added", ""]
+            | (["### Full fork layer vs upstream", ""]
+               + ["- **\($added | length) added**, **\($overridden | length) overridden**, **\($removed | length) removed**", ""]
+               + ["#### Added", ""]
                + (if ($added | length) > 0 then ($added | sort_by(.name | ascii_downcase) | map("- \(.name)")) else ["_None._"] end)
                + [""]
-               + (if ($overridden | length) > 0 then ["### Overridden", ""] + ($overridden | sort_by(.name | ascii_downcase) | map("- \(.name)")) + [""] else [] end)
-               + ["### Removed", ""]
+               + (if ($overridden | length) > 0 then ["#### Overridden", ""] + ($overridden | sort_by(.name | ascii_downcase) | map("- \(.name)")) + [""] else [] end)
+               + ["#### Removed", ""]
                + (if ($removed | length) > 0 then ($removed | sort_by(.name | ascii_downcase) | map("- \(.name)")) else ["_None._"] end))
             | .[]
-          ' pakku-lock.json >> "$BODY_FILE"
+          ' pakku-lock.json > "$WORK_DIR/inventory.md"
+
+          # --- 4. Assemble. ---
+          {
+            echo "## What's in this release"
+            echo ""
+            if [ -n "${PREV_TAG}" ]; then
+              echo "- **Upstream:** TerraFirmaGreg-Modern ${UPSTREAM_VER} ([${CUR_SHORT}](${PARENT_BASE}/commit/${CUR_PARENT})) | ${UP_STATUS} ${SINCE}."
+              echo "- **Fork:** ${N_ADD} added, ${N_REM} removed, ${N_UPD} updated, ${N_COMMITS} commit(s) ${SINCE}."
+              echo "- Full compare: [${PREV_TAG}...${GITHUB_REF_NAME}](${REPO_URL}/compare/${PREV_TAG}...${GITHUB_REF_NAME})"
+            else
+              echo "- **Upstream:** TerraFirmaGreg-Modern ${UPSTREAM_VER} ([${CUR_SHORT}](${PARENT_BASE}/commit/${CUR_PARENT}))."
+              echo "- **Fork:** initial release."
+            fi
+            echo ""
+            echo "## Upstream changes"
+            echo ""
+            if [ -z "${PREV_TAG}" ] || [ "${PREV_PARENT}" != "${CUR_PARENT}" ]; then
+              if [ -n "${PREV_TAG}" ]; then
+                echo "_New in the parent modpack ${SINCE} (upstream text, unedited; headings demoted one level)._"
+              else
+                echo "_Currently tracked parent modpack release (upstream text, unedited; headings demoted one level)._"
+              fi
+              echo ""
+              cat "$WORK_DIR/upstream.md"
+              echo ""
+            else
+              echo "_No upstream change ${SINCE}. Latest tracked: TerraFirmaGreg-Modern ${UPSTREAM_VER} ([${CUR_SHORT}](${PARENT_BASE}/commit/${CUR_PARENT}))._"
+              echo ""
+            fi
+            echo "## Fork changes ${SINCE}"
+            echo ""
+            echo "### Mods"
+            echo ""
+            cat "$WORK_DIR/forkmods.md"
+            if [ -s "$WORK_DIR/mods-diff.txt" ]; then
+              echo "### Vendored jars (\`mods/\`)"
+              echo ""
+              sed 's/^/- /' "$WORK_DIR/mods-diff.txt"
+              echo ""
+            fi
+            echo "### Commits"
+            echo ""
+            cat "$WORK_DIR/commits.md"
+            echo ""
+            echo "<details>"
+            echo "<summary>Full fork layer vs upstream (click to expand)</summary>"
+            echo ""
+            cat "$WORK_DIR/inventory.md"
+            echo ""
+            echo "</details>"
+            echo ""
+          } > "$BODY_FILE"
 
           # Neutralize @mentions so embedding the upstream changelog (or any mod
           # metadata) can't tag maintainers/teams.
@@ -181,3 +334,27 @@ jobs:
             dist/${{ steps.meta.outputs.full_name }}-serverpack.zip
           fail_on_unmatched_files: true
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Announce release on Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        if: ${{ env.DISCORD_WEBHOOK_URL != '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          RELEASE_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/tag/${GITHUB_REF_NAME}"
+          jq -n \
+            --arg version '${{ steps.meta.outputs.version }}' \
+            --arg release_url "$RELEASE_URL" \
+            '{
+              embeds: [{
+                title: "TFGM \($version)",
+                url: $release_url,
+                description: "A new release is out.\n\n[Read the changelog](\($release_url))"
+              }],
+              allowed_mentions: {parse: []}
+            }' \
+            | curl --fail --silent --show-error \
+                --header 'Content-Type: application/json' \
+                --data @- \
+                "$DISCORD_WEBHOOK_URL"
