@@ -63,6 +63,10 @@ deploy tag="latest":
     # archive ships them. Never world*/ or host launcher files (server.properties,
     # start_server.*, minecraft_server.jar, forge-auto-install.txt).
     managed="mods config defaultconfigs kubejs tacz DiscordIntegration-Data"
+    discord_config="$tmp/Discord-Integration.toml"
+    if [ -f config/Discord-Integration.toml ]; then
+        cp -p config/Discord-Integration.toml "$discord_config"
+    fi
     swapped=""
     for d in $managed; do
         if nix-shell -p unzip --run "unzip -l '$tmp/$asset' '$d/*'" >/dev/null 2>&1; then
@@ -73,6 +77,10 @@ deploy tag="latest":
             echo "error: mods/ vanished from archive, aborting" >&2; exit 1
         fi
     done
+    if [ -f "$discord_config" ]; then
+        mkdir -p config
+        mv "$discord_config" config/Discord-Integration.toml
+    fi
     echo "swapped:$swapped from $asset"
     REMOTE
     echo "deployed $tag on {{host}}, start or restart to apply"
