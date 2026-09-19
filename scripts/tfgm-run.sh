@@ -1,4 +1,5 @@
-#!@BASH@/bin/bash
+#!/usr/bin/env bash
+# shellcheck disable=SC2016
 # Run the server under bwrap (uid 65534, host net) on openjdk17.
 set -euo pipefail
 cd "@DIR@"
