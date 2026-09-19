@@ -1,4 +1,5 @@
-#!@BASH@/bin/bash
+#!/usr/bin/env bash
+# shellcheck disable=SC2016
 # Add/remove the mc (25565 accept) and rcon (25575 drop) rules in the nftables
 # `inet nixos input` chain, above the default drop. systemd runs this as root
 # via the `+` prefix. `just stage` fills @NFT@/@GAWK@.
