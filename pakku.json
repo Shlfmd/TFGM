@@ -1,6 +1,6 @@
 {
     "name": "TFGM",
-    "version": "0.13.7",
+    "version": "0.13.10",
     "overrides": [
         "mods",
         "config/bettercombat/fallback_compatibility.json",
@@ -44,6 +44,9 @@
         },
         "extra-delight-unofficial-port": {
             "side": "BOTH"
+        },
+        "parcool": {
+            "update_strategy": "NONE"
         },
         "bluemap": {
             "update_strategy": "NONE"
