@@ -16,6 +16,11 @@ _spawn :="sudo systemd-run --unit=" + service + " --collect -p Description='TFGM
 default:
     @just --list
 
+# Sync the pinned parent and mirror its latest released version in pakku.json.
+sync-upstream:
+    java -jar pakku.jar fork sync
+    PAKKU_JAVA={{java}} bash scripts/sync-upstream-version.sh
+
 # Export the pack and check the serverpack for junk.
 export:
     #!/usr/bin/env bash
@@ -205,8 +210,8 @@ stage:
     test -n "$JAVA" && test -n "$BWRAP" && test -n "$NFT" && test -n "$GAWK" && test -n "$BASH" || { echo "error: failed to resolve store paths: '$paths'" >&2; exit 1; }
     echo "  jdk17=$JAVA"
     tmp=$(mktemp -d)
-    sed -e "s|@BASH@|$BASH|g" -e "s|@DIR@|{{dir}}|g" -e "s|@JAVA@|$JAVA|g" -e "s|@BWRAP@|$BWRAP|g" scripts/tfgm-run.sh > "$tmp/tfgm-run.sh"
-    sed -e "s|@BASH@|$BASH|g" -e "s|@NFT@|$NFT|g" -e "s|@GAWK@|$GAWK|g" scripts/tfgm-firewall.sh > "$tmp/tfgm-firewall.sh"
+    sed -e "1s|^#!/usr/bin/env bash$|#!$BASH/bin/bash|" -e "s|@DIR@|{{dir}}|g" -e "s|@JAVA@|$JAVA|g" -e "s|@BWRAP@|$BWRAP|g" scripts/tfgm-run.sh > "$tmp/tfgm-run.sh"
+    sed -e "1s|^#!/usr/bin/env bash$|#!$BASH/bin/bash|" -e "s|@NFT@|$NFT|g" -e "s|@GAWK@|$GAWK|g" scripts/tfgm-firewall.sh > "$tmp/tfgm-firewall.sh"
     printf '%s\n' \
       '{' \
       '  "server_root": "{{dir}}",' \
