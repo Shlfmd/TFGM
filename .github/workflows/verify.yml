@@ -42,6 +42,12 @@ jobs:
           test -f .pakku/parent/pakku-lock.json || { echo "❌ parent pakku-lock.json missing" && exit 1; }
           echo "✔️ Parent reconstructed at $PARENT_COMMIT"
 
+      - name: Check upstream version synchronization
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash scripts/sync-upstream-version.sh --check
+
       # The fork layer must hold only genuine additions. Any slug (on either
       # platform) that already exists in the parent lock is a duplicate.
       - name: Check for mods shared with the parent
