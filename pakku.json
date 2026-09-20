@@ -45,6 +45,9 @@
         "extra-delight-unofficial-port": {
             "side": "BOTH"
         },
+        "survivors-delight": {
+            "update_strategy": "NONE"
+        },
         "parcool": {
             "update_strategy": "NONE"
         },

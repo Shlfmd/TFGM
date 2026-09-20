@@ -4161,7 +4161,7 @@
                 },
                 {
                     "type": "curseforge",
-                    "file_name": "survivorsdelight-3.5.0-alpha.jar",
+                    "file_name": "survivorsdelight-3.3.2.jar",
                     "mc_versions": [
                         "1.20.1"
                     ],
@@ -4169,21 +4169,21 @@
                         "forge",
                         "neoforge"
                     ],
-                    "release_type": "alpha",
-                    "url": "https://edge.forgecdn.net/files/8820/772/survivorsdelight-3.5.0-alpha.jar",
-                    "id": "8820772",
+                    "release_type": "release",
+                    "url": "https://edge.forgecdn.net/files/8539/543/survivorsdelight-3.3.2.jar",
+                    "id": "8539543",
                     "parent_id": "1332913",
                     "hashes": {
-                        "sha1": "7c8dab5d58fca87f39717de7f757981711609d67",
-                        "md5": "28f5cb97e8d522f3ae8e816d61c3ca80"
+                        "sha1": "c7ba3840aa1c83aa377f3f5232502badb71dfe87",
+                        "md5": "50d36cea27aaa9c40206fdffa5b13f02"
                     },
                     "required_dependencies": [
                         "1354890",
                         "398521",
                         "302973"
                     ],
-                    "size": 1289449,
-                    "date_published": "2026-09-06T09:25:15.270Z"
+                    "size": 1326880,
+                    "date_published": "2026-07-30T10:28:15.127Z"
                 }
             ]
         },
