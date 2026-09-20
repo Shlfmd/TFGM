@@ -29,6 +29,7 @@ const FADE_OUT = 10;
 const MONTH_CHECK_INTERVAL = 20;
 let ticksUntilMonthCheck = 0;
 
+const LevelReader = Java.loadClass("net.minecraft.world.level.LevelReader");
 const TitlePacket = Java.loadClass(
   "net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket",
 );
@@ -45,7 +46,9 @@ function capitalize(name) {
 }
 
 function currentMonth(server) {
-  const calendar = TFC.calendar.getCalendar(server.overworld);
+  const calendar = TFC.calendar.getCalendar(
+    Java.cast(server.overworld, LevelReader),
+  );
   return TFC.calendar.getMonthOfYear(
     calendar.getCalendarTicks(),
     calendar.getCalendarDaysInMonth(),
