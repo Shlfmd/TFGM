@@ -47,20 +47,27 @@ The `parent` block in `pakku.json` tracks upstream's `main` branch (its release
 branch) and pins an exact commit for reproducibility.
 
 ```bash
-# Update the pinned parent to the latest upstream main:
-$ java -jar pakku.jar fork sync
+# Sync the pinned parent and update pakku.json from its latest released
+# CHANGELOG.md heading:
+$ just sync-upstream
 
 # Inspect the current fork configuration:
 $ java -jar pakku.jar fork show
 ```
 
-After a sync, review and commit the updated `pakku.json` (the new pinned commit
-and parent hashes).
+`pakku.json`'s version is synchronized from the first released `## [version]`
+heading in the pinned parent's `CHANGELOG.md`. The upstream `pakku.json` uses
+`DEV`, so the changelog is the stable release-version source. CI checks that the
+committed version does not drift from the pinned parent.
 
 > [!NOTE]
 > On an existing `.pakku/parent` checkout, `fork sync` may fetch without
-> fast-forwarding the local branch. If `fork show` still reports the old commit,
-> run `git -C .pakku/parent merge --ff-only origin/main` and sync again.
+> fast-forwarding. If `fork show` still reports the old commit, run
+> `git -C .pakku/parent merge --ff-only origin/main`, then run
+> `just sync-upstream` again.
+
+After a sync, review and commit the updated `pakku.json` (the parent pin, parent
+hashes, and synchronized upstream version).
 
 ### Managing mods
 
