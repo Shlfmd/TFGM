@@ -17,7 +17,7 @@
 [commands]
   enabled = true
   # Discord role IDs that can run admin commands (e.g. /dc stop)
-  adminRoleIDs = [ "__ADMIN_ROLE_IDS__" ]
+  adminRoleIDs = [ __ADMIN_ROLE_IDS__ ]
   # UUID of the bot operator for permission checks
   senderUUID = ""
   # Show /list in Discord
