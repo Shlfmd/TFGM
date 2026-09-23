@@ -17,21 +17,6 @@ if [ ! -f .discord.env ]; then
 	echo "wrote .discord.env"
 fi
 
-# shellcheck source=/dev/null
-source .discord.env
-test -n "${BOT_TOKEN:-}" || {
-	echo "error: BOT_TOKEN is empty" >&2
-	exit 1
-}
-test -n "${BOT_CHANNEL:-}" || {
-	echo "error: BOT_CHANNEL is empty" >&2
-	exit 1
-}
-test -n "${ADMIN_ROLE_IDS:-}" || {
-	echo "error: ADMIN_ROLE_IDS is empty" >&2
-	exit 1
-}
-
 template="config/Discord-Integration.toml.example"
 test -f "$template" || {
 	echo "error: template not found at $template" >&2
@@ -39,9 +24,7 @@ test -f "$template" || {
 }
 tmp=$(mktemp)
 trap 'rm -f "$tmp"' EXIT
-sed -e "s/__BOT_TOKEN__/$BOT_TOKEN/" \
-	-e "s/__BOT_CHANNEL__/$BOT_CHANNEL/" \
-	-e "s/__ADMIN_ROLE_IDS__/$ADMIN_ROLE_IDS/" \
-	"$template" >"$tmp"
-scp "$tmp" "$host:$dir/config/Discord-Integration.toml"
+bash scripts/render-discord-config.sh .discord.env "$template" >"$tmp"
+
+scripts/ssh.sh scp "$tmp" "$host:$dir/config/Discord-Integration.toml"
 echo "wrote $dir/config/Discord-Integration.toml on $host"
