@@ -56,7 +56,7 @@ deploy tag="latest":
     test -n "$asset" || { echo "error: no serverpack asset in release $tag" >&2; exit 1; }
     url="https://github.com/{{repo}}/releases/download/$tag/$asset"
     echo "deploying $tag ($asset), downloaded on {{host}}"
-    ssh {{host}} bash -s -- {{dir}} "$url" "$asset" <<'REMOTE'
+    scripts/ssh.sh ssh {{host}} bash -s -- {{dir}} "$url" "$asset" <<'REMOTE'
     set -euo pipefail
     dir="$1"; url="$2"; asset="$3"
     cd "$dir"
@@ -92,25 +92,25 @@ deploy tag="latest":
 
 # SSH to the host and start.
 start:
-    ssh -t {{host}} "{{_spawn}}"
+    scripts/ssh.sh ssh -t {{host}} "{{_spawn}}"
 
 # Stop the unit if running, then re-spawn it.
 restart:
-    ssh -t {{host}} "sudo systemctl stop {{service}} 2>/dev/null || true ; {{_spawn}}"
+    scripts/ssh.sh ssh -t {{host}} "sudo systemctl stop {{service}} 2>/dev/null || true ; {{_spawn}}"
 
 stop:
-    ssh -t {{host}} {{systemctl}} stop {{service}}
+    scripts/ssh.sh ssh -t {{host}} {{systemctl}} stop {{service}}
 
 status *args:
     #!/usr/bin/env bash
     set -euo pipefail
     case "{{args}}" in
         "")
-            ssh {{host}} "TFGM_HARNESS_CONFIG={{dir}}/harness.json {{dir}}/tfgm-harness status"
+            scripts/ssh.sh ssh {{host}} "TFGM_HARNESS_CONFIG={{dir}}/harness.json {{dir}}/tfgm-harness status"
             ;;
         --follow)
-            ssh {{host}} "TFGM_HARNESS_CONFIG={{dir}}/harness.json {{dir}}/tfgm-harness status"
-            ssh -t {{host}} {{journalctl}} -u {{service}} -f
+            scripts/ssh.sh ssh {{host}} "TFGM_HARNESS_CONFIG={{dir}}/harness.json {{dir}}/tfgm-harness status"
+            scripts/ssh.sh ssh -t {{host}} {{journalctl}} -u {{service}} -f
             ;;
         *)
             echo "usage: just status [--follow]" >&2
@@ -120,14 +120,14 @@ status *args:
 
 # Tail the server journal (last N lines, then follow).
 logs lines="80":
-    ssh -t {{host}} {{journalctl}} -u {{service}} -n {{lines}} -f
+    scripts/ssh.sh ssh -t {{host}} {{journalctl}} -u {{service}} -n {{lines}} -f
 
 # Archive world + server state into the backups dir on the host, keeping the 10
 # newest. Run `just stop` first for a cold, consistent snapshot.
 backup:
     #!/usr/bin/env bash
     set -euo pipefail
-    ssh {{host}} bash -s -- {{dir}} {{backups}} <<'REMOTE'
+    scripts/ssh.sh ssh {{host}} bash -s -- {{dir}} {{backups}} <<'REMOTE'
     set -euo pipefail
     dir="$1"; backups="$2"
     cd "$dir"
@@ -147,11 +147,11 @@ backup:
 
 # One RCON command via the harness, e.g. `just cmd list`.
 cmd +command:
-    ssh {{host}} "export TFGM_HARNESS_CONFIG={{dir}}/harness.json && set -a && . {{dir}}/.harness-env && set +a && {{dir}}/tfgm-harness cmd {{command}}"
+    scripts/ssh.sh ssh {{host}} "export TFGM_HARNESS_CONFIG={{dir}}/harness.json && set -a && . {{dir}}/.harness-env && set +a && {{dir}}/tfgm-harness cmd {{command}}"
 
 # Restart the JVM in place; the unit and firewall stay up.
 mc-restart:
-    ssh {{host}} "TFGM_HARNESS_CONFIG={{dir}}/harness.json {{dir}}/tfgm-harness restart"
+    scripts/ssh.sh ssh {{host}} "TFGM_HARNESS_CONFIG={{dir}}/harness.json {{dir}}/tfgm-harness restart"
 
 # RCON console (tfgmctl over the SSH relay).
 console:
@@ -162,7 +162,7 @@ bootstrap:
     #!/usr/bin/env bash
     set -euo pipefail
     url="https://maven.minecraftforge.net/net/minecraftforge/forge/{{forge_ver}}/forge-{{forge_ver}}-installer.jar"
-    ssh {{host}} "mkdir -p {{dir}} && cd {{dir}} && \
+    scripts/ssh.sh ssh {{host}} "mkdir -p {{dir}} && cd {{dir}} && \
         { command -v curl >/dev/null && curl -fSL -o forge-installer.jar '$url' || wget -O forge-installer.jar '$url'; } && \
         {{java}} -jar forge-installer.jar --installServer && rm -f forge-installer.jar run.bat && \
         printf 'eula=true\n' > eula.txt && echo installed"
@@ -182,7 +182,7 @@ setup-rcon:
     fi
     chmod 600 .rcon-secret
     pass=$(tr -d '\n' < .rcon-secret)
-    ssh {{host}} "cd {{dir}} && touch server.properties && \
+    scripts/ssh.sh ssh {{host}} "cd {{dir}} && touch server.properties && \
         sed -i '/^enable-rcon=/d;/^rcon\.port=/d;/^rcon\.password=/d;/^broadcast-rcon-to-ops=/d' server.properties && \
         printf 'enable-rcon=true\nrcon.port=%s\nrcon.password=%s\nbroadcast-rcon-to-ops=false\n' '{{rcon_port}}' '$pass' >> server.properties"
     echo "RCON enabled on {{host}} (port {{rcon_port}}, reach it over the SSH tunnel and keep the port firewalled). Restart to apply."
@@ -192,7 +192,7 @@ stage:
     #!/usr/bin/env bash
     set -euo pipefail
     echo "resolving store paths on {{host}} (openjdk17, bubblewrap, nftables, gawk)"
-    paths=$(ssh {{host}} bash -s <<'REMOTE'
+    paths=$(scripts/ssh.sh ssh {{host}} bash -s <<'REMOTE'
     set -euo pipefail
     ef="--extra-experimental-features"
     mkdir -p ~/.tfgm-gcroots
@@ -222,14 +222,14 @@ stage:
       '  "rcon_addr": "127.0.0.1:{{rcon_port}}",' \
       '  "cors_origin": ["http://localhost:5173"]' \
       '}' > "$tmp/harness.json"
-    scp "$tmp/tfgm-run.sh" "$tmp/tfgm-firewall.sh" "$tmp/harness.json" "{{host}}:{{dir}}/"
+    scripts/ssh.sh scp "$tmp/tfgm-run.sh" "$tmp/tfgm-firewall.sh" "$tmp/harness.json" "{{host}}:{{dir}}/"
     remote_bin="/tmp/tfgm-harness.$(date +%s).$$"
-    scp bin/tfgm-harness "{{host}}:$remote_bin"
-    ssh -t {{host}} "sudo install -m 755 '$remote_bin' '{{dir}}/tfgm-harness' && rm -f '$remote_bin'"
+    scripts/ssh.sh scp bin/tfgm-harness "{{host}}:$remote_bin"
+    scripts/ssh.sh ssh -t {{host}} "sudo install -m 755 '$remote_bin' '{{dir}}/tfgm-harness' && rm -f '$remote_bin'"
     rm -rf "$tmp"
-    ssh {{host}} "chmod +x {{dir}}/tfgm-run.sh {{dir}}/tfgm-firewall.sh"
+    scripts/ssh.sh ssh {{host}} "chmod +x {{dir}}/tfgm-run.sh {{dir}}/tfgm-firewall.sh"
     if [ -f .rcon-secret ]; then
-        ssh {{host}} "umask 077; printf 'TFGM_RCON_PASSWORD=%s\n' \"$(tr -d '\n' < .rcon-secret)\" > {{dir}}/.harness-env"
+        scripts/ssh.sh ssh {{host}} "umask 077; printf 'TFGM_RCON_PASSWORD=%s\n' \"$(tr -d '\n' < .rcon-secret)\" > {{dir}}/.harness-env"
     else
         echo "no .rcon-secret; run just setup-rcon, then just stage again"
     fi
