@@ -18,7 +18,8 @@ fi
 dir=$(cd -P -- "$dir" && pwd)
 managed=(mods config defaultconfigs kubejs tacz DiscordIntegration-Data)
 preserved=(config/Discord-Integration.toml config/bluemap/core.conf
-	config/bluemap/webapp.conf DiscordIntegration-Data/Messages.toml)
+	config/bluemap/webapp.conf DiscordIntegration-Data/Messages.toml
+	DiscordIntegration-Data/LinkedPlayers.json)
 
 tmp=$(mktemp -d -- "$dir/.deploy-serverpack.XXXXXXXX")
 trap 'rm -rf -- "$tmp"' EXIT
