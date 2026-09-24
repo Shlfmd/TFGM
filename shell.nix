@@ -5,5 +5,10 @@ pkgs.mkShell {
     just
     jdk21
     shellcheck
+    jq
+    gh
+    openssh
+    unzip
+    openssl
   ];
 }
