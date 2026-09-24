@@ -23,6 +23,10 @@
   # Show /list in Discord
   listCmdEnabled = true
 
+[messages]
+  # Fetch the English translation instead of using the inherited Russian file.
+  language = "en-US"
+
 [linking]
   # Allow players to link their Minecraft and Discord accounts
   enableLinking = true
