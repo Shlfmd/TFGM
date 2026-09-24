@@ -5,13 +5,8 @@ set -euo pipefail
 cd "@DIR@"
 
 JVM_ARGS=()
-if [ -f user_jvm_args.txt ]; then
-	while IFS= read -r line; do
-		line="${line%%#*}"
-		for token in $line; do
-			JVM_ARGS+=("$token")
-		done
-	done <user_jvm_args.txt
+if [[ -f user_jvm_args.txt ]]; then
+	JVM_ARGS+=("@user_jvm_args.txt")
 fi
 
 exec "@BWRAP@/bin/bwrap" \
@@ -35,16 +30,10 @@ exec "@BWRAP@/bin/bwrap" \
 	--chdir /data \
 	"@BASH@/bin/bash" -c '
 	set -euo pipefail
-	forge_args_file=""
-	for candidate in libraries/net/minecraftforge/forge/*/unix_args.txt; do
-		[ -f "$candidate" ] || continue
-		forge_args_file="$candidate"
-		break
-	done
-	if [ -z "$forge_args_file" ]; then
-		echo "error: Forge unix_args.txt is missing" >&2
+	forge_args_file="libraries/net/minecraftforge/forge/@FORGE_VERSION@/unix_args.txt"
+	if [ ! -f "$forge_args_file" ]; then
+		echo "error: Forge unix_args.txt is missing for @FORGE_VERSION@" >&2
 		exit 1
 	fi
-
 	exec "@JAVA@/bin/java" "$@" "@$forge_args_file" nogui
 	' -- "${JVM_ARGS[@]}"

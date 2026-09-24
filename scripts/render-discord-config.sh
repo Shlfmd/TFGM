@@ -108,10 +108,11 @@ for role in "${role_ids[@]}"; do
 done
 
 toml_token=$(printf '%s' "$token" | sed 's/[\\"]/\\&/g')
-sed_token=$(printf '%s' "$toml_token" | sed 's/[\\&|]/\\&/g')
-
-sed \
-	-e "s|__BOT_TOKEN__|$sed_token|g" \
-	-e "s|__BOT_CHANNEL__|$channel|g" \
-	-e "s|__ADMIN_ROLE_IDS__|$role_toml|g" \
-	"$template"
+while IFS= read -r line || [[ -n $line ]]; do
+	case $line in
+	*__BOT_TOKEN__*) printf '%s%s%s\n' "${line%%__BOT_TOKEN__*}" "$toml_token" "${line#*__BOT_TOKEN__}" ;;
+	*__BOT_CHANNEL__*) printf '%s%s%s\n' "${line%%__BOT_CHANNEL__*}" "$channel" "${line#*__BOT_CHANNEL__}" ;;
+	*__ADMIN_ROLE_IDS__*) printf '%s%s%s\n' "${line%%__ADMIN_ROLE_IDS__*}" "$role_toml" "${line#*__ADMIN_ROLE_IDS__}" ;;
+	*) printf '%s\n' "$line" ;;
+	esac
+done <"$template"
